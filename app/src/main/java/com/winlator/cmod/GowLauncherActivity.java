@@ -86,7 +86,7 @@ public class GowLauncherActivity extends AppCompatActivity {
     }
 
     private void createGowContainer() {
-        preloaderDialog.show(R.string.please_wait);
+        preloaderDialog.show(R.string.loading);
         
         Executors.newSingleThreadExecutor().execute(() -> {
             try {
@@ -107,7 +107,7 @@ public class GowLauncherActivity extends AppCompatActivity {
 
                 ContentsManager contentsManager = new ContentsManager(this);
                 
-                gowContainer = containerManager.createContainerAsync(containerData, contentsManager, (container) -> {
+                containerManager.createContainerAsync(containerData, contentsManager, (container) -> {
                     runOnUiThread(() -> {
                         if (container != null) {
                             gowContainer = container;
