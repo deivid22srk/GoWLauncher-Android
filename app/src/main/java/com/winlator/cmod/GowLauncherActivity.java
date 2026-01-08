@@ -14,6 +14,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import com.google.android.material.appbar.MaterialToolbar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.preference.PreferenceManager;
 import androidx.recyclerview.widget.DividerItemDecoration;
@@ -54,7 +55,8 @@ public class GowLauncherActivity extends AppCompatActivity {
     private FileAdapter adapter;
     private ContainerManager containerManager;
     private Container gowContainer;
-    private PreloaderDialog preloaderDialog;
+    private View loadingOverlay;
+    private TextView tvLoadingMessage;
     private SharedPreferences sharedPreferences;
 
     private static final String PREF_SELECTED_EXE = "gow_selected_exe";
@@ -70,13 +72,16 @@ public class GowLauncherActivity extends AppCompatActivity {
         setContentView(R.layout.gow_launcher_activity);
         
         // Configurar ActionBar com botão de voltar
+        MaterialToolbar toolbar = findViewById(R.id.Toolbar);
+        setSupportActionBar(toolbar);
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-            getSupportActionBar().setTitle("God of War 2018");
+            getSupportActionBar().setTitle("God of War");
         }
 
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-        preloaderDialog = new PreloaderDialog(this);
+        loadingOverlay = findViewById(R.id.LoadingOverlay);
+        tvLoadingMessage = findViewById(R.id.TVLoadingMessage);
 
         tvCurrentPath = findViewById(R.id.TVCurrentPath);
         tvSelectedFile = findViewById(R.id.TVSelectedFile);
@@ -105,7 +110,8 @@ public class GowLauncherActivity extends AppCompatActivity {
     }
 
     private void createGowContainer() {
-        preloaderDialog.show(R.string.loading);
+        loadingOverlay.setVisibility(View.VISIBLE);
+        tvLoadingMessage.setText("Installing System Files");
         GowLogger.i("GowLauncher", "Iniciando criação do container God of War com Proton 9.0");
         
         Executors.newSingleThreadExecutor().execute(() -> {
@@ -148,12 +154,12 @@ public class GowLauncherActivity extends AppCompatActivity {
                             gowContainer = container;
                             sharedPreferences.edit().putBoolean(PREF_CONTAINER_CREATED, true).apply();
                             GowLogger.i("GowLauncher", "Container criado com sucesso: " + container.getName() + " (ID: " + container.id + ")");
-                            preloaderDialog.close();
-                            Toast.makeText(this, "Container criado com sucesso!", Toast.LENGTH_SHORT).show();
+                            loadingOverlay.setVisibility(View.GONE);
+                            Toast.makeText(this, "Sistema configurado com sucesso!", Toast.LENGTH_SHORT).show();
                             initializeFileBrowser();
                         } else {
-                            preloaderDialog.close();
-                            Toast.makeText(this, "Erro ao criar container", Toast.LENGTH_LONG).show();
+                            loadingOverlay.setVisibility(View.GONE);
+                            Toast.makeText(this, "Erro ao configurar sistema", Toast.LENGTH_LONG).show();
                             finish();
                         }
                     });
@@ -162,7 +168,7 @@ public class GowLauncherActivity extends AppCompatActivity {
             } catch (Exception e) {
                 e.printStackTrace();
                 runOnUiThread(() -> {
-                    preloaderDialog.close();
+                    loadingOverlay.setVisibility(View.GONE);
                     Toast.makeText(this, "Erro: " + e.getMessage(), Toast.LENGTH_LONG).show();
                     finish();
                 });
@@ -304,7 +310,8 @@ public class GowLauncherActivity extends AppCompatActivity {
             holder.tvName.setText(file.getName());
 
             if (file.isDirectory()) {
-                holder.ivIcon.setImageResource(R.drawable.icon_open);
+                holder.ivIcon.setImageResource(R.drawable.icon_folder);
+                holder.ivIcon.clearColorFilter();
                 int count = file.list() != null ? file.list().length : 0;
                 holder.tvDetails.setText(count + " itens");
                 holder.itemView.setOnClickListener(v -> loadDirectory(file));
@@ -314,12 +321,21 @@ public class GowLauncherActivity extends AppCompatActivity {
 
                 if (isExe) {
                     holder.ivIcon.setImageResource(R.drawable.icon_wine);
-                    holder.ivIcon.setColorFilter(0xFFFFC107);
                     
                     if (file.equals(selectedExeFile)) {
-                        holder.itemView.setBackgroundColor(0xFF238636);
+                        holder.ivIcon.setColorFilter(getResources().getColor(R.color.md_theme_gow_primary, null));
+                        ((com.google.android.material.card.MaterialCardView) holder.itemView)
+                            .setCardBackgroundColor(getResources().getColor(R.color.md_theme_gow_primary_container, null));
+                        ((com.google.android.material.card.MaterialCardView) holder.itemView)
+                            .setStrokeWidth(4);
+                        ((com.google.android.material.card.MaterialCardView) holder.itemView)
+                            .setStrokeColor(getResources().getColor(R.color.md_theme_gow_primary, null));
                     } else {
-                        holder.itemView.setBackgroundColor(0xFF1a1f2e);
+                        holder.ivIcon.setColorFilter(getResources().getColor(R.color.md_theme_gow_secondary, null));
+                        ((com.google.android.material.card.MaterialCardView) holder.itemView)
+                            .setCardBackgroundColor(getResources().getColor(R.color.md_theme_gow_surface_container, null));
+                        ((com.google.android.material.card.MaterialCardView) holder.itemView)
+                            .setStrokeWidth(0);
                     }
                     
                     holder.itemView.setOnClickListener(v -> {
@@ -327,9 +343,12 @@ public class GowLauncherActivity extends AppCompatActivity {
                         notifyDataSetChanged();
                     });
                 } else {
-                    holder.ivIcon.setImageResource(android.R.drawable.ic_menu_agenda);
-                    holder.ivIcon.setColorFilter(0xFF58A6FF);
-                    holder.itemView.setBackgroundColor(0xFF1a1f2e);
+                    holder.ivIcon.setImageResource(R.drawable.icon_file);
+                    holder.ivIcon.setColorFilter(getResources().getColor(R.color.md_theme_gow_tertiary, null));
+                    ((com.google.android.material.card.MaterialCardView) holder.itemView)
+                        .setCardBackgroundColor(getResources().getColor(R.color.md_theme_gow_surface_container, null));
+                    ((com.google.android.material.card.MaterialCardView) holder.itemView)
+                        .setStrokeWidth(0);
                     holder.itemView.setOnClickListener(v -> 
                         Toast.makeText(GowLauncherActivity.this, "Selecione apenas arquivos .exe", Toast.LENGTH_SHORT).show()
                     );

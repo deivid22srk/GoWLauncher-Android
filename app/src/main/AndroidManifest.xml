@@ -72,14 +72,14 @@
 
         <activity
             android:name="com.winlator.cmod.GowLauncherActivity"
-            android:theme="@style/AppTheme.Dark"
+            android:theme="@style/Theme.GoW.MaterialYou"
             android:screenOrientation="sensor"
             android:exported="false"
             android:configChanges="keyboard|keyboardHidden|orientation|screenSize|screenLayout|smallestScreenSize|density|navigation" />
 
         <activity
             android:name="com.winlator.cmod.GowConfigActivity"
-            android:theme="@style/AppTheme.Dark"
+            android:theme="@style/Theme.GoW.MaterialYou"
             android:screenOrientation="sensor"
             android:exported="false"
             android:configChanges="keyboard|keyboardHidden|orientation|screenSize|screenLayout|smallestScreenSize|density|navigation" />

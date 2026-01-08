@@ -135,4 +135,42 @@
     <color name="tooltip_background_dark">#e6616161</color>
     <color name="tooltip_background_light">#e6ffffff</color>
 
+    <!-- Material You GoW Theme - Dynamic Colors -->
+    <color name="md_theme_gow_primary">#D4AF37</color>
+    <color name="md_theme_gow_on_primary">#1A1816</color>
+    <color name="md_theme_gow_primary_container">#2D2820</color>
+    <color name="md_theme_gow_on_primary_container">#F4E4C1</color>
+    <color name="md_theme_gow_secondary">#C43E3E</color>
+    <color name="md_theme_gow_on_secondary">#FFFFFF</color>
+    <color name="md_theme_gow_secondary_container">#3D1212</color>
+    <color name="md_theme_gow_on_secondary_container">#F5D6D6</color>
+    <color name="md_theme_gow_tertiary">#7C8B99</color>
+    <color name="md_theme_gow_on_tertiary">#FFFFFF</color>
+    <color name="md_theme_gow_tertiary_container">#1F2933</color>
+    <color name="md_theme_gow_on_tertiary_container">#D9E2EC</color>
+    <color name="md_theme_gow_error">#FFB4AB</color>
+    <color name="md_theme_gow_on_error">#690005</color>
+    <color name="md_theme_gow_error_container">#93000A</color>
+    <color name="md_theme_gow_on_error_container">#FFDAD6</color>
+    <color name="md_theme_gow_background">#0A0A0A</color>
+    <color name="md_theme_gow_on_background">#E8E6E1</color>
+    <color name="md_theme_gow_surface">#121212</color>
+    <color name="md_theme_gow_on_surface">#E8E6E1</color>
+    <color name="md_theme_gow_surface_variant">#1C1C1C</color>
+    <color name="md_theme_gow_on_surface_variant">#CFC6BD</color>
+    <color name="md_theme_gow_outline">#998F87</color>
+    <color name="md_theme_gow_outline_variant">#4F4740</color>
+    <color name="md_theme_gow_shadow">#000000</color>
+    <color name="md_theme_gow_scrim">#000000</color>
+    <color name="md_theme_gow_inverse_surface">#E8E6E1</color>
+    <color name="md_theme_gow_inverse_on_surface">#313029</color>
+    <color name="md_theme_gow_inverse_primary">#7A5A00</color>
+    <color name="md_theme_gow_surface_dim">#121212</color>
+    <color name="md_theme_gow_surface_bright">#393832</color>
+    <color name="md_theme_gow_surface_container_lowest">#0D0C09</color>
+    <color name="md_theme_gow_surface_container_low">#1A1916</color>
+    <color name="md_theme_gow_surface_container">#1E1E1A</color>
+    <color name="md_theme_gow_surface_container_high">#292824</color>
+    <color name="md_theme_gow_surface_container_highest">#33322F</color>
+
 </resources>

@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.google.android.material.appbar.MaterialToolbar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.preference.PreferenceManager;
 
@@ -41,9 +42,11 @@ public class GowConfigActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.gow_config_activity);
 
+        MaterialToolbar toolbar = findViewById(R.id.Toolbar);
+        setSupportActionBar(toolbar);
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-            getSupportActionBar().setTitle("Configurações - God of War");
+            getSupportActionBar().setTitle("Configurações");
         }
 
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
