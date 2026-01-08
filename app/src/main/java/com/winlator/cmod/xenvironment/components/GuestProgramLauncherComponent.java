@@ -72,13 +72,17 @@ public class GuestProgramLauncherComponent extends EnvironmentComponent {
         ImageFs imageFs = environment.getImageFs();
         Context context = environment.getContext();
 
-        // Fallback to default if the shared preference is not set or is empty
         String box64Version = container.getBox64Version();
 
         if (shortcut != null)
             box64Version = shortcut.getExtra("box64Version", shortcut.container.getBox64Version());
 
         Log.d("GuestProgramLauncherComponent", "box64Version: " + box64Version);
+
+        if (box64Version == null || box64Version.isEmpty()) {
+            Log.d("GuestProgramLauncherComponent", "box64Version is null or empty, skipping box64 extraction (FEXCore mode)");
+            return;
+        }
 
         File rootDir = imageFs.getRootDir();
 
@@ -92,7 +96,6 @@ public class GuestProgramLauncherComponent extends EnvironmentComponent {
             container.saveData();
         }
 
-        // Set execute permissions for box64 just in case
         File box64File = new File(rootDir, "/usr/bin/box64");
         if (box64File.exists()) {
             FileUtils.chmod(box64File, 0755);
