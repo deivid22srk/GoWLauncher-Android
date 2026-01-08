@@ -219,7 +219,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="• Wine/Proton: 9.0 ARM64EC\n• VKD3D: Feature Level 12_1\n• Emulador: FEXCore\n• Resolução: 1920x1080\n• Vulkan API: 1.3"
+                    android:text="• Wine/Proton: 9.0 ARM64EC\n• VKD3D: Feature Level 12_1\n• Emulador: FEXCore 2508\n• Resolução: 1920x1080\n• Vulkan API: 1.3"
                     android:textSize="13sp"
                     android:lineSpacingExtra="6dp"
                     android:textColor="#C9D1D9"

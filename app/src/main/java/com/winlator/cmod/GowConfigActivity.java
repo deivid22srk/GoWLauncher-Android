@@ -89,11 +89,18 @@ public class GowConfigActivity extends AppCompatActivity {
             }
         }
 
-        String[] fexVersions = {"", "v24.09", "v24.08", "v24.07"};
+        String[] fexVersions = {DefaultVersion.FEXCORE};
         ArrayAdapter<String> fexAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, fexVersions);
         fexAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerFEXCore.setAdapter(fexAdapter);
-        spinnerFEXCore.setSelection(0);
+        
+        String savedFex = sharedPreferences.getString(PREF_FEXCORE_VERSION, DefaultVersion.FEXCORE);
+        for (int i = 0; i < fexVersions.length; i++) {
+            if (fexVersions[i].equals(savedFex)) {
+                spinnerFEXCore.setSelection(i);
+                break;
+            }
+        }
 
         String[] turnipVersions = {"turnip25.1.0", "v819"};
         ArrayAdapter<String> turnipAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, turnipVersions);
