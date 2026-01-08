@@ -27,6 +27,7 @@ public class GowConfigActivity extends AppCompatActivity {
     private Spinner spinnerDXVK;
     private Spinner spinnerFEXCore;
     private Spinner spinnerTurnip;
+    private Spinner spinnerResolution;
     private Button btStartGame;
     
     private Container gowContainer;
@@ -36,6 +37,7 @@ public class GowConfigActivity extends AppCompatActivity {
     private static final String PREF_DXVK_VERSION = "gow_dxvk_version";
     private static final String PREF_FEXCORE_VERSION = "gow_fexcore_version";
     private static final String PREF_TURNIP_VERSION = "gow_turnip_version";
+    private static final String PREF_RESOLUTION = "gow_resolution";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,6 +71,7 @@ public class GowConfigActivity extends AppCompatActivity {
         spinnerDXVK = findViewById(R.id.SpinnerDXVK);
         spinnerFEXCore = findViewById(R.id.SpinnerFEXCore);
         spinnerTurnip = findViewById(R.id.SpinnerTurnip);
+        spinnerResolution = findViewById(R.id.SpinnerResolution);
         btStartGame = findViewById(R.id.BTStartGame);
 
         setupSpinners();
@@ -77,6 +80,19 @@ public class GowConfigActivity extends AppCompatActivity {
     }
 
     private void setupSpinners() {
+        String[] resolutions = {"854x480", "1280x720", "1366x768", "1600x900", "1920x1080", "2560x1440"};
+        ArrayAdapter<String> resolutionAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, resolutions);
+        resolutionAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerResolution.setAdapter(resolutionAdapter);
+        
+        String savedResolution = sharedPreferences.getString(PREF_RESOLUTION, "1920x1080");
+        for (int i = 0; i < resolutions.length; i++) {
+            if (resolutions[i].equals(savedResolution)) {
+                spinnerResolution.setSelection(i);
+                break;
+            }
+        }
+
         String[] dxvkVersions = {"2.3.1-arm64ec-gplasync", "2.3.1", "1.10.3-arm64ec-async", "1.10.3"};
         ArrayAdapter<String> dxvkAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, dxvkVersions);
         dxvkAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -121,17 +137,20 @@ public class GowConfigActivity extends AppCompatActivity {
         String dxvkVersion = spinnerDXVK.getSelectedItem().toString();
         String fexVersion = spinnerFEXCore.getSelectedItem().toString();
         String turnipVersion = spinnerTurnip.getSelectedItem().toString();
+        String resolution = spinnerResolution.getSelectedItem().toString();
 
         sharedPreferences.edit()
             .putString(PREF_DXVK_VERSION, dxvkVersion)
             .putString(PREF_FEXCORE_VERSION, fexVersion)
             .putString(PREF_TURNIP_VERSION, turnipVersion)
+            .putString(PREF_RESOLUTION, resolution)
             .apply();
 
-        GowLogger.i("GowConfig", "Configurações salvas - DXVK: " + dxvkVersion + ", FEXCore: " + fexVersion + ", Turnip: " + turnipVersion);
+        GowLogger.i("GowConfig", "Configurações salvas - DXVK: " + dxvkVersion + ", FEXCore: " + fexVersion + ", Turnip: " + turnipVersion + ", Resolução: " + resolution);
 
         String graphicsDriverConfig = "vulkanVersion=1.3;version=" + turnipVersion + ";blacklistedExtensions=;maxDeviceMemory=0;presentMode=mailbox;syncFrame=0;disablePresentWait=0;resourceType=auto;bcnEmulation=auto;bcnEmulationType=software;bcnEmulationCache=0";
         gowContainer.setGraphicsDriverConfig(graphicsDriverConfig);
+        gowContainer.setScreenSize(resolution);
 
         String dxwrapperConfig = "version=" + dxvkVersion + ",framerate=0,async=0,asyncCache=0,vkd3dVersion=" + DefaultVersion.VKD3D + ",vkd3dLevel=12_1,ddrawrapper=" + Container.DEFAULT_DDRAWRAPPER + ",csmt=3,gpuName=NVIDIA GeForce GTX 480,videoMemorySize=2048,strict_shader_math=1,OffscreenRenderingMode=fbo,renderer=gl";
         gowContainer.setDXWrapperConfig(dxwrapperConfig);
