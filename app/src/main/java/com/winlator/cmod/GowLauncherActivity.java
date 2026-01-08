@@ -88,50 +88,43 @@ public class GowLauncherActivity extends AppCompatActivity {
     private void createGowContainer() {
         preloaderDialog.show(R.string.please_wait);
         
-        Executors.newSingleThreadExecutor().execute(() -> {
-            try {
-                // Create container with God of War settings
-                JSONObject containerData = new JSONObject();
-                containerData.put("name", GOW_CONTAINER_NAME);
-                containerData.put("screenSize", "1920x1080"); // GoW native resolution
-                containerData.put("envVars", Container.DEFAULT_ENV_VARS);
-                containerData.put("graphicsDriver", Container.DEFAULT_GRAPHICS_DRIVER);
-                containerData.put("dxwrapper", Container.DEFAULT_DXWRAPPER);
-                containerData.put("audioDriver", Container.DEFAULT_AUDIO_DRIVER);
-                containerData.put("emulator", Container.DEFAULT_EMULATOR);
-                containerData.put("wincomponents", Container.DEFAULT_WINCOMPONENTS);
-                containerData.put("drives", Container.DEFAULT_DRIVES);
-                containerData.put("showFPS", false);
-                containerData.put("startupSelection", Container.STARTUP_SELECTION_ESSENTIAL);
-                containerData.put("wineVersion", WineInfo.MAIN_WINE_VERSION.identifier());
+        try {
+            JSONObject containerData = new JSONObject();
+            containerData.put("name", GOW_CONTAINER_NAME);
+            containerData.put("screenSize", "1920x1080");
+            containerData.put("envVars", Container.DEFAULT_ENV_VARS);
+            containerData.put("graphicsDriver", Container.DEFAULT_GRAPHICS_DRIVER);
+            containerData.put("dxwrapper", Container.DEFAULT_DXWRAPPER);
+            containerData.put("audioDriver", Container.DEFAULT_AUDIO_DRIVER);
+            containerData.put("emulator", Container.DEFAULT_EMULATOR);
+            containerData.put("wincomponents", Container.DEFAULT_WINCOMPONENTS);
+            containerData.put("drives", Container.DEFAULT_DRIVES);
+            containerData.put("showFPS", false);
+            containerData.put("startupSelection", Container.STARTUP_SELECTION_ESSENTIAL);
+            containerData.put("wineVersion", WineInfo.MAIN_WINE_VERSION.identifier());
 
-                ContentsManager contentsManager = new ContentsManager(this);
-                
-                gowContainer = containerManager.createContainerAsync(containerData, contentsManager, (container) -> {
-                    runOnUiThread(() -> {
-                        if (container != null) {
-                            gowContainer = container;
-                            sharedPreferences.edit().putBoolean(PREF_CONTAINER_CREATED, true).apply();
-                            preloaderDialog.close();
-                            Toast.makeText(this, "Container criado com sucesso!", Toast.LENGTH_SHORT).show();
-                            initializeFileBrowser();
-                        } else {
-                            preloaderDialog.close();
-                            Toast.makeText(this, "Erro ao criar container", Toast.LENGTH_LONG).show();
-                            finish();
-                        }
-                    });
-                });
-                
-            } catch (Exception e) {
-                e.printStackTrace();
-                runOnUiThread(() -> {
+            ContentsManager contentsManager = new ContentsManager(this);
+            
+            containerManager.createContainerAsync(containerData, contentsManager, (container) -> {
+                if (container != null) {
+                    gowContainer = container;
+                    sharedPreferences.edit().putBoolean(PREF_CONTAINER_CREATED, true).apply();
                     preloaderDialog.close();
-                    Toast.makeText(this, "Erro: " + e.getMessage(), Toast.LENGTH_LONG).show();
+                    Toast.makeText(this, "Container criado com sucesso!", Toast.LENGTH_SHORT).show();
+                    initializeFileBrowser();
+                } else {
+                    preloaderDialog.close();
+                    Toast.makeText(this, "Erro ao criar container", Toast.LENGTH_LONG).show();
                     finish();
-                });
-            }
-        });
+                }
+            });
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+            preloaderDialog.close();
+            Toast.makeText(this, "Erro: " + e.getMessage(), Toast.LENGTH_LONG).show();
+            finish();
+        }
     }
 
     private void loadGowContainer() {
