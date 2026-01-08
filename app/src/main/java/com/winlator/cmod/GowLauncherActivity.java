@@ -124,7 +124,7 @@ public class GowLauncherActivity extends AppCompatActivity {
                 containerData.put("graphicsDriver", Container.DEFAULT_GRAPHICS_DRIVER);
                 containerData.put("graphicsDriverConfig", "vulkanVersion=1.3;version=turnip25.1.0;blacklistedExtensions=;maxDeviceMemory=0;presentMode=mailbox;syncFrame=0;disablePresentWait=0;resourceType=auto;bcnEmulation=auto;bcnEmulationType=software;bcnEmulationCache=0");
                 containerData.put("dxwrapper", Container.DEFAULT_DXWRAPPER);
-                containerData.put("dxwrapperConfig", Container.DEFAULT_DXWRAPPERCONFIG);
+                containerData.put("dxwrapperConfig", "version=2.6.2-1-arm64ec-gplasync,framerate=0,async=0,asyncCache=0,vkd3dVersion=" + DefaultVersion.VKD3D + ",vkd3dLevel=12_1,ddrawrapper=" + Container.DEFAULT_DDRAWRAPPER + ",csmt=3,gpuName=NVIDIA GeForce GTX 480,videoMemorySize=2048,strict_shader_math=1,OffscreenRenderingMode=fbo,renderer=gl");
                 containerData.put("audioDriver", Container.DEFAULT_AUDIO_DRIVER);
                 containerData.put("emulator", Container.DEFAULT_EMULATOR);
                 containerData.put("wincomponents", Container.DEFAULT_WINCOMPONENTS);
@@ -138,8 +138,8 @@ public class GowLauncherActivity extends AppCompatActivity {
                 containerData.put("cpuListWoW64", "");
                 containerData.put("box64Version", "");
                 containerData.put("box64Preset", Box64Preset.COMPATIBILITY);
-                containerData.put("fexcoreVersion", "");
-                containerData.put("fexcorePreset", FEXCorePreset.INTERMEDIATE);
+                containerData.put("fexcoreVersion", "2601");
+                containerData.put("fexcorePreset", FEXCorePreset.GOW_OPTIMIZED);
                 containerData.put("desktopTheme", WineThemeManager.DEFAULT_DESKTOP_THEME);
                 containerData.put("midiSoundFont", "");
                 containerData.put("lc_all", "");

@@ -17,6 +17,7 @@ import com.winlator.cmod.container.Container;
 import com.winlator.cmod.container.ContainerManager;
 import com.winlator.cmod.core.DefaultVersion;
 import com.winlator.cmod.core.GowLogger;
+import com.winlator.cmod.fexcore.FEXCorePreset;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -93,12 +94,12 @@ public class GowConfigActivity extends AppCompatActivity {
             }
         }
 
-        String[] dxvkVersions = {"2.3.1-arm64ec-gplasync", "2.3.1", "1.10.3-arm64ec-async", "1.10.3"};
+        String[] dxvkVersions = {"2.6.2-1-arm64ec-gplasync", "2.3.1-arm64ec-gplasync", "2.3.1", "1.10.3-arm64ec-async", "1.10.3"};
         ArrayAdapter<String> dxvkAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, dxvkVersions);
         dxvkAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerDXVK.setAdapter(dxvkAdapter);
         
-        String savedDXVK = sharedPreferences.getString(PREF_DXVK_VERSION, DefaultVersion.DXVK);
+        String savedDXVK = sharedPreferences.getString(PREF_DXVK_VERSION, "2.6.2-1-arm64ec-gplasync");
         for (int i = 0; i < dxvkVersions.length; i++) {
             if (dxvkVersions[i].equals(savedDXVK)) {
                 spinnerDXVK.setSelection(i);
@@ -106,12 +107,12 @@ public class GowConfigActivity extends AppCompatActivity {
             }
         }
 
-        String[] fexVersions = {DefaultVersion.FEXCORE};
+        String[] fexVersions = {"2601", "2508"};
         ArrayAdapter<String> fexAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, fexVersions);
         fexAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerFEXCore.setAdapter(fexAdapter);
         
-        String savedFex = sharedPreferences.getString(PREF_FEXCORE_VERSION, DefaultVersion.FEXCORE);
+        String savedFex = sharedPreferences.getString(PREF_FEXCORE_VERSION, "2601");
         for (int i = 0; i < fexVersions.length; i++) {
             if (fexVersions[i].equals(savedFex)) {
                 spinnerFEXCore.setSelection(i);
@@ -156,6 +157,7 @@ public class GowConfigActivity extends AppCompatActivity {
         gowContainer.setDXWrapperConfig(dxwrapperConfig);
 
         gowContainer.setFEXCoreVersion(fexVersion);
+        gowContainer.setFEXCorePreset(FEXCorePreset.GOW_OPTIMIZED);
         gowContainer.saveData();
 
         GowLogger.i("GowConfig", "Container atualizado com novas configurações");
