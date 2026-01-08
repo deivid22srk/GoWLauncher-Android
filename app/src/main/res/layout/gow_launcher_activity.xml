@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="?android:attr/windowBackground">
+
+    <!-- Header -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimary"
+        android:padding="16dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="God of War 2018"
+            android:textColor="#FFFFFF"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:gravity="center" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Selecione o arquivo GoW.exe para iniciar o jogo"
+            android:textColor="#CCFFFFFF"
+            android:textSize="14sp"
+            android:gravity="center"
+            android:layout_marginTop="4dp" />
+    </LinearLayout>
+
+    <!-- Current Path Bar -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimaryDark"
+        android:padding="12dp"
+        android:orientation="horizontal"
+        android:gravity="center_vertical">
+
+        <ImageButton
+            android:id="@+id/BTUpDir"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:src="@android:drawable/ic_menu_revert"
+            android:tint="#FFFFFF"
+            android:tooltipText="Voltar" />
+
+        <TextView
+            android:id="@+id/TVCurrentPath"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="/storage/emulated/0"
+            android:textColor="#FFFFFF"
+            android:textSize="14sp"
+            android:layout_marginStart="12dp"
+            android:ellipsize="start"
+            android:singleLine="true" />
+    </LinearLayout>
+
+    <!-- File List -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/RecyclerViewFiles"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:scrollbars="vertical" />
+
+    <!-- Selected File Display and Start Button -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@color/colorPrimaryDark"
+        android:padding="16dp">
+
+        <TextView
+            android:id="@+id/TVSelectedFile"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Nenhum arquivo selecionado"
+            android:textColor="#FFFFFF"
+            android:textSize="14sp"
+            android:layout_marginBottom="12dp"
+            android:ellipsize="middle"
+            android:singleLine="true" />
+
+        <Button
+            android:id="@+id/BTStartGame"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:text="INICIAR GOD OF WAR"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:background="@color/colorAccent"
+            android:textColor="#FFFFFF"
+            android:enabled="false" />
+    </LinearLayout>
+
+</LinearLayout>
