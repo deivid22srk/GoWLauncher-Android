@@ -1,58 +1,86 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="?android:attr/windowBackground">
+    android:background="#0d1117">
 
-    <!-- Header -->
+    <!-- Hero Header with Gradient -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/colorPrimary"
-        android:padding="16dp"
-        android:orientation="vertical">
+        android:background="#1a1f2e"
+        android:orientation="vertical"
+        android:elevation="8dp"
+        android:paddingTop="16dp"
+        android:paddingBottom="24dp">
 
+        <!-- Top Bar -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:gravity="center_vertical">
+            android:gravity="center_vertical"
+            android:paddingStart="12dp"
+            android:paddingEnd="16dp">
 
             <ImageButton
                 android:id="@+id/BTBackToMain"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
                 android:background="?attr/selectableItemBackgroundBorderless"
                 android:src="@android:drawable/ic_menu_revert"
-                android:tint="#FFFFFF"
+                android:tint="#E0E0E0"
+                android:padding="12dp"
                 android:tooltipText="Voltar ao Menu Principal" />
 
-            <LinearLayout
+            <View
                 android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_weight="1" />
+
+        </LinearLayout>
+
+        <!-- Title Section -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginTop="8dp"
+            android:paddingStart="24dp"
+            android:paddingEnd="24dp">
+
+            <TextView
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:orientation="vertical"
-                android:layout_marginStart="12dp">
+                android:text="⚔️ GOD OF WAR"
+                android:textColor="#FFC107"
+                android:textSize="32sp"
+                android:textStyle="bold"
+                android:letterSpacing="0.05" />
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="God of War 2018"
-                    android:textColor="#FFFFFF"
-                    android:textSize="24sp"
-                    android:textStyle="bold"
-                    android:gravity="center" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="2018 Edition"
+                android:textColor="#90A4AE"
+                android:textSize="16sp"
+                android:layout_marginTop="2dp" />
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Selecione o arquivo GoW.exe para iniciar o jogo"
-                    android:textColor="#CCFFFFFF"
-                    android:textSize="14sp"
-                    android:gravity="center"
-                    android:layout_marginTop="4dp" />
-            </LinearLayout>
+            <View
+                android:layout_width="60dp"
+                android:layout_height="3dp"
+                android:background="#FFC107"
+                android:layout_marginTop="12dp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="📁 Selecione o executável GoW.exe"
+                android:textColor="#B0BEC5"
+                android:textSize="14sp"
+                android:layout_marginTop="12dp" />
         </LinearLayout>
     </LinearLayout>
 
@@ -60,27 +88,30 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/colorPrimaryDark"
-        android:padding="12dp"
+        android:background="#161b22"
+        android:padding="14dp"
         android:orientation="horizontal"
-        android:gravity="center_vertical">
+        android:gravity="center_vertical"
+        android:elevation="2dp">
 
         <ImageButton
             android:id="@+id/BTUpDir"
-            android:layout_width="32dp"
-            android:layout_height="32dp"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:src="@android:drawable/ic_menu_revert"
-            android:tint="#FFFFFF"
+            android:tint="#FFD54F"
             android:tooltipText="Voltar" />
 
         <TextView
             android:id="@+id/TVCurrentPath"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:text="/storage/emulated/0"
-            android:textColor="#FFFFFF"
-            android:textSize="14sp"
+            android:textColor="#C9D1D9"
+            android:textSize="13sp"
+            android:fontFamily="monospace"
             android:layout_marginStart="12dp"
             android:ellipsize="start"
             android:singleLine="true" />
@@ -92,6 +123,9 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
+        android:background="#0d1117"
+        android:padding="8dp"
+        android:clipToPadding="false"
         android:scrollbars="vertical" />
 
     <!-- Selected File Display and Start Button -->
@@ -99,29 +133,42 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:background="@color/colorPrimaryDark"
-        android:padding="16dp">
+        android:background="#161b22"
+        android:elevation="12dp"
+        android:padding="20dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="✓ ARQUIVO SELECIONADO"
+            android:textColor="#58A6FF"
+            android:textSize="11sp"
+            android:textStyle="bold"
+            android:letterSpacing="0.1"
+            android:layout_marginBottom="6dp" />
 
         <TextView
             android:id="@+id/TVSelectedFile"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Nenhum arquivo selecionado"
-            android:textColor="#FFFFFF"
-            android:textSize="14sp"
-            android:layout_marginBottom="12dp"
+            android:textColor="#E0E0E0"
+            android:textSize="15sp"
+            android:fontFamily="monospace"
+            android:layout_marginBottom="16dp"
             android:ellipsize="middle"
             android:singleLine="true" />
 
         <Button
             android:id="@+id/BTStartGame"
             android:layout_width="match_parent"
-            android:layout_height="56dp"
-            android:text="CONFIGURAR E INICIAR JOGO"
+            android:layout_height="60dp"
+            android:text="⚙️ CONFIGURAR E INICIAR"
             android:textSize="16sp"
             android:textStyle="bold"
-            android:background="@color/colorAccent"
+            android:background="#238636"
             android:textColor="#FFFFFF"
+            android:letterSpacing="0.05"
             android:enabled="false" />
     </LinearLayout>
 

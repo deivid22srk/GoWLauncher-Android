@@ -12,6 +12,8 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.preference.PreferenceManager;
 
+import android.os.Environment;
+
 import com.winlator.cmod.container.Container;
 import com.winlator.cmod.container.ContainerManager;
 import com.winlator.cmod.core.DefaultVersion;
@@ -107,6 +109,21 @@ public class GowConfigActivity extends AppCompatActivity {
         }
     }
 
+    private String convertAndroidPathToWinePath(String androidPath) {
+        String externalStoragePath = Environment.getExternalStorageDirectory().getAbsolutePath();
+        
+        if (androidPath.startsWith(externalStoragePath)) {
+            String relativePath = androidPath.substring(externalStoragePath.length());
+            if (relativePath.startsWith("/")) {
+                relativePath = relativePath.substring(1);
+            }
+            String winePath = "D:\\" + relativePath.replace("/", "\\");
+            return winePath;
+        }
+        
+        return androidPath.replace("/", "\\");
+    }
+
     private void startGame() {
         String dxvkVersion = spinnerDXVK.getSelectedItem().toString();
         String fexVersion = spinnerFEXCore.getSelectedItem().toString();
@@ -133,8 +150,11 @@ public class GowConfigActivity extends AppCompatActivity {
 
         try {
             String displayName = "God of War";
-            String unixPath = selectedExeFile.getAbsolutePath();
-            String workDir = selectedExeFile.getParent();
+            String winePath = convertAndroidPathToWinePath(selectedExeFile.getAbsolutePath());
+            String wineWorkDir = convertAndroidPathToWinePath(selectedExeFile.getParent());
+
+            GowLogger.i("GowConfig", "Caminho convertido - Android: " + selectedExeFile.getAbsolutePath() + " -> Wine: " + winePath);
+            GowLogger.i("GowConfig", "Diretório convertido - Android: " + selectedExeFile.getParent() + " -> Wine: " + wineWorkDir);
 
             File shortcutsDir = gowContainer.getDesktopDir();
             if (!shortcutsDir.exists()) shortcutsDir.mkdirs();
@@ -144,12 +164,12 @@ public class GowConfigActivity extends AppCompatActivity {
             try (PrintWriter writer = new PrintWriter(new FileWriter(desktopFile))) {
                 writer.println("[Desktop Entry]");
                 writer.println("Name=" + displayName);
-                writer.println("Exec=env WINEPREFIX=\"/home/xuser/.wine\" wine \"" + unixPath + "\"");
+                writer.println("Exec=env WINEPREFIX=\"/home/xuser/.wine\" wine \"" + winePath + "\"");
                 writer.println("Type=Application");
                 writer.println("Terminal=false");
                 writer.println("StartupNotify=true");
                 writer.println("Icon=" + displayName);
-                writer.println("Path=" + workDir);
+                writer.println("Path=" + wineWorkDir);
                 writer.println("container_id:" + gowContainer.id);
                 writer.println("");
                 writer.println("[Extra Data]");

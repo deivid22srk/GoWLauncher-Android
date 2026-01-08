@@ -314,21 +314,22 @@ public class GowLauncherActivity extends AppCompatActivity {
 
                 if (isExe) {
                     holder.ivIcon.setImageResource(R.drawable.icon_wine);
+                    holder.ivIcon.setColorFilter(0xFFFFC107);
                     
-                    // Highlight if this is the selected file
                     if (file.equals(selectedExeFile)) {
-                        holder.itemView.setBackgroundColor(0xFF4CAF50); // Green highlight
+                        holder.itemView.setBackgroundColor(0xFF238636);
                     } else {
-                        holder.itemView.setBackgroundColor(0x00000000); // Transparent
+                        holder.itemView.setBackgroundColor(0xFF1a1f2e);
                     }
                     
                     holder.itemView.setOnClickListener(v -> {
                         selectExeFile(file);
-                        notifyDataSetChanged(); // Refresh to update highlighting
+                        notifyDataSetChanged();
                     });
                 } else {
                     holder.ivIcon.setImageResource(android.R.drawable.ic_menu_agenda);
-                    holder.itemView.setBackgroundColor(0x00000000);
+                    holder.ivIcon.setColorFilter(0xFF58A6FF);
+                    holder.itemView.setBackgroundColor(0xFF1a1f2e);
                     holder.itemView.setOnClickListener(v -> 
                         Toast.makeText(GowLauncherActivity.this, "Selecione apenas arquivos .exe", Toast.LENGTH_SHORT).show()
                     );

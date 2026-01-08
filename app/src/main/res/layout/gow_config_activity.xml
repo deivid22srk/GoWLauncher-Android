@@ -2,142 +2,252 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="?android:attr/windowBackground">
+    android:background="#0d1117"
+    android:fillViewport="true">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="16dp">
+        android:orientation="vertical">
 
-        <TextView
+        <!-- Hero Header -->
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Configurações do God of War"
-            android:textSize="24sp"
-            android:textStyle="bold"
-            android:gravity="center"
-            android:layout_marginBottom="24dp"
-            android:textColor="?android:attr/textColorPrimary" />
+            android:orientation="vertical"
+            android:background="#1a1f2e"
+            android:elevation="8dp"
+            android:padding="24dp">
 
-        <TextView
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="⚙️ CONFIGURAÇÕES"
+                android:textSize="28sp"
+                android:textStyle="bold"
+                android:textColor="#FFC107"
+                android:letterSpacing="0.05" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="God of War 2018"
+                android:textSize="18sp"
+                android:textColor="#90A4AE"
+                android:layout_marginTop="4dp" />
+
+            <View
+                android:layout_width="60dp"
+                android:layout_height="3dp"
+                android:background="#FFC107"
+                android:layout_marginTop="12dp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Ajuste as configurações para melhor performance"
+                android:textSize="14sp"
+                android:textColor="#B0BEC5"
+                android:layout_marginTop="12dp" />
+        </LinearLayout>
+
+        <!-- Configuration Cards Container -->
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Personalize as configurações antes de iniciar o jogo"
-            android:textSize="14sp"
-            android:gravity="center"
-            android:layout_marginBottom="32dp"
-            android:textColor="?android:attr/textColorSecondary" />
+            android:orientation="vertical"
+            android:padding="16dp">
 
-        <TextView
+            <!-- Turnip Driver Card -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:background="#161b22"
+                android:elevation="4dp"
+                android:padding="20dp"
+                android:layout_marginBottom="12dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="🎮 DRIVER GRÁFICO"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    android:textColor="#58A6FF"
+                    android:letterSpacing="0.1" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Turnip Mesa"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:textColor="#E0E0E0"
+                    android:layout_marginTop="8dp" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Driver Vulkan para GPU Adreno/Qualcomm"
+                    android:textSize="13sp"
+                    android:textColor="#8B949E"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginBottom="12dp" />
+
+                <Spinner
+                    android:id="@+id/SpinnerTurnip"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:background="#0d1117"
+                    android:padding="14dp"
+                    android:popupBackground="#1a1f2e" />
+            </LinearLayout>
+
+            <!-- DXVK Card -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:background="#161b22"
+                android:elevation="4dp"
+                android:padding="20dp"
+                android:layout_marginBottom="12dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="💎 DXVK TRANSLATOR"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    android:textColor="#58A6FF"
+                    android:letterSpacing="0.1" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="DirectX para Vulkan"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:textColor="#E0E0E0"
+                    android:layout_marginTop="8dp" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Traduz chamadas DirectX 9/10/11 para Vulkan"
+                    android:textSize="13sp"
+                    android:textColor="#8B949E"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginBottom="12dp" />
+
+                <Spinner
+                    android:id="@+id/SpinnerDXVK"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:background="#0d1117"
+                    android:padding="14dp"
+                    android:popupBackground="#1a1f2e" />
+            </LinearLayout>
+
+            <!-- FEXCore Card -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:background="#161b22"
+                android:elevation="4dp"
+                android:padding="20dp"
+                android:layout_marginBottom="12dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="⚡ EMULADOR CPU"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    android:textColor="#58A6FF"
+                    android:letterSpacing="0.1" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="FEXCore x86_64"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:textColor="#E0E0E0"
+                    android:layout_marginTop="8dp" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Emula instruções x86_64 em ARM64 (deixe vazio para usar padrão)"
+                    android:textSize="13sp"
+                    android:textColor="#8B949E"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginBottom="12dp" />
+
+                <Spinner
+                    android:id="@+id/SpinnerFEXCore"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:background="#0d1117"
+                    android:padding="14dp"
+                    android:popupBackground="#1a1f2e" />
+            </LinearLayout>
+
+            <!-- Info Card -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:background="#1a1f2e"
+                android:elevation="2dp"
+                android:padding="18dp"
+                android:layout_marginBottom="12dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="📋 CONFIGURAÇÕES APLICADAS"
+                    android:textSize="12sp"
+                    android:textStyle="bold"
+                    android:textColor="#58A6FF"
+                    android:letterSpacing="0.1"
+                    android:layout_marginBottom="10dp" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="• Wine/Proton: 9.0 ARM64EC\n• VKD3D: Feature Level 12_1\n• Emulador: FEXCore\n• Resolução: 1920x1080\n• Vulkan API: 1.3"
+                    android:textSize="13sp"
+                    android:lineSpacingExtra="6dp"
+                    android:textColor="#C9D1D9"
+                    android:fontFamily="monospace" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <!-- Start Button at Bottom -->
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Driver Gráfico Turnip/Wrapper"
-            android:textSize="16sp"
-            android:textStyle="bold"
-            android:layout_marginTop="16dp"
-            android:textColor="?android:attr/textColorPrimary" />
+            android:orientation="vertical"
+            android:background="#161b22"
+            android:elevation="12dp"
+            android:padding="20dp">
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Versão do driver Turnip Mesa para Vulkan"
-            android:textSize="12sp"
-            android:layout_marginBottom="8dp"
-            android:textColor="?android:attr/textColorSecondary" />
-
-        <Spinner
-            android:id="@+id/SpinnerTurnip"
-            android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:layout_marginBottom="24dp"
-            android:background="@android:drawable/btn_dropdown"
-            android:padding="12dp" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="DXVK (DirectX to Vulkan)"
-            android:textSize="16sp"
-            android:textStyle="bold"
-            android:layout_marginTop="16dp"
-            android:textColor="?android:attr/textColorPrimary" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Versão do DXVK para traduzir DirectX 9/10/11 para Vulkan"
-            android:textSize="12sp"
-            android:layout_marginBottom="8dp"
-            android:textColor="?android:attr/textColorSecondary" />
-
-        <Spinner
-            android:id="@+id/SpinnerDXVK"
-            android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:layout_marginBottom="24dp"
-            android:background="@android:drawable/btn_dropdown"
-            android:padding="12dp" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="FEXCore (Emulador x86_64)"
-            android:textSize="16sp"
-            android:textStyle="bold"
-            android:layout_marginTop="16dp"
-            android:textColor="?android:attr/textColorPrimary" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Versão do FEXCore (vazio = usar padrão incluído)"
-            android:textSize="12sp"
-            android:layout_marginBottom="8dp"
-            android:textColor="?android:attr/textColorSecondary" />
-
-        <Spinner
-            android:id="@+id/SpinnerFEXCore"
-            android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:layout_marginBottom="32dp"
-            android:background="@android:drawable/btn_dropdown"
-            android:padding="12dp" />
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="?android:attr/dividerHorizontal"
-            android:layout_marginTop="16dp"
-            android:layout_marginBottom="24dp" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Configurações Aplicadas:"
-            android:textSize="14sp"
-            android:textStyle="bold"
-            android:layout_marginBottom="8dp"
-            android:textColor="?android:attr/textColorPrimary" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="• Wine/Proton: 9.0 ARM64EC\n• VKD3D: None (DirectX 12)\n• Emulador: FEXCore\n• Resolução: 1920x1080\n• Vulkan: 1.3"
-            android:textSize="13sp"
-            android:lineSpacingExtra="4dp"
-            android:layout_marginBottom="32dp"
-            android:textColor="?android:attr/textColorSecondary" />
-
-        <Button
-            android:id="@+id/BTStartGame"
-            android:layout_width="match_parent"
-            android:layout_height="64dp"
-            android:text="INICIAR GOD OF WAR"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            android:background="@color/colorAccent"
-            android:textColor="#FFFFFF" />
+            <Button
+                android:id="@+id/BTStartGame"
+                android:layout_width="match_parent"
+                android:layout_height="64dp"
+                android:text="🎮 INICIAR GOD OF WAR"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:background="#238636"
+                android:textColor="#FFFFFF"
+                android:letterSpacing="0.05" />
+        </LinearLayout>
 
     </LinearLayout>
 
