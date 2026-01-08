@@ -76,7 +76,7 @@ public class GowConfigActivity extends AppCompatActivity {
     }
 
     private void setupSpinners() {
-        String[] dxvkVersions = {"2.3.1", "2.3", "2.2", "2.1", "2.0", "1.10.3"};
+        String[] dxvkVersions = {"2.3.1-arm64ec-gplasync", "2.3.1", "1.10.3-arm64ec-async", "1.10.3"};
         ArrayAdapter<String> dxvkAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, dxvkVersions);
         dxvkAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerDXVK.setAdapter(dxvkAdapter);
