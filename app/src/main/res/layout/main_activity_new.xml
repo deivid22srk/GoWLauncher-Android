@@ -11,9 +11,9 @@
         android:layout_height="match_parent"
         android:layout_marginBottom="80dp" />
 
-    <com.google.android.material.navigationbar.NavigationBarView
+    <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/NavigationBar"
-        style="@style/Widget.Material3.NavigationBar"
+        style="@style/Widget.Material3.BottomNavigationView"
         android:layout_width="match_parent"
         android:layout_height="80dp"
         android:layout_gravity="bottom"

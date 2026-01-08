@@ -19,12 +19,12 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.preference.PreferenceManager;
 
-import com.google.android.material.navigationbar.NavigationBarView;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.winlator.cmod.xenvironment.ImageFs;
 
 public class MainActivityNew extends AppCompatActivity {
 
-    private NavigationBarView navigationBar;
+    private BottomNavigationView navigationBar;
     private SharedPreferences sharedPreferences;
     
     private static final byte PERMISSION_WRITE_EXTERNAL_STORAGE_REQUEST_CODE = 1;
