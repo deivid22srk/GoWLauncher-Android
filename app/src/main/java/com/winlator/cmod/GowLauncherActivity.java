@@ -30,10 +30,16 @@ import com.winlator.cmod.core.PreloaderDialog;
 import com.winlator.cmod.core.WineInfo;
 import com.winlator.cmod.core.GowLogger;
 import com.winlator.cmod.core.WineThemeManager;
+import com.winlator.cmod.core.IconExtractor;
 import com.winlator.cmod.winhandler.WinHandler;
 import com.winlator.cmod.box64.Box64Preset;
 import com.winlator.cmod.fexcore.FEXCorePreset;
+import com.winlator.cmod.game.Game;
+import com.winlator.cmod.game.GameManager;
 
+import android.app.AlertDialog;
+import android.graphics.Bitmap;
+import android.widget.EditText;
 import org.json.JSONObject;
 
 import java.io.File;
@@ -59,6 +65,8 @@ public class GowLauncherActivity extends AppCompatActivity {
     private View loadingOverlay;
     private TextView tvLoadingMessage;
     private SharedPreferences sharedPreferences;
+    private GameManager gameManager;
+    private String mode;
 
     private static final String PREF_SELECTED_EXE = "gow_selected_exe";
     private static final String PREF_CONTAINER_CREATED = "gow_container_created";
@@ -72,15 +80,22 @@ public class GowLauncherActivity extends AppCompatActivity {
         GowLogger.i("GowLauncher", "Arquivo de log: " + GowLogger.getLogFilePath());
         setContentView(R.layout.gow_launcher_activity);
         
-        // Configurar ActionBar com botão de voltar
+        mode = getIntent().getStringExtra("mode");
+        if (mode == null) mode = "select_exe";
+        
         MaterialToolbar toolbar = findViewById(R.id.Toolbar);
         setSupportActionBar(toolbar);
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-            getSupportActionBar().setTitle("God of War");
+            if ("add_game".equals(mode)) {
+                getSupportActionBar().setTitle("Adicionar Jogo");
+            } else {
+                getSupportActionBar().setTitle("God of War");
+            }
         }
 
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        gameManager = new GameManager(this);
         loadingOverlay = findViewById(R.id.LoadingOverlay);
         tvLoadingMessage = findViewById(R.id.TVLoadingMessage);
 
@@ -94,7 +109,13 @@ public class GowLauncherActivity extends AppCompatActivity {
             finish();
         });
         findViewById(R.id.BTUpDir).setOnClickListener(v -> navigateUp());
-        btStartGame.setOnClickListener(v -> startGame());
+        btStartGame.setOnClickListener(v -> {
+            if ("add_game".equals(mode)) {
+                showAddGameDialog();
+            } else {
+                startGame();
+            }
+        });
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
@@ -267,10 +288,66 @@ public class GowLauncherActivity extends AppCompatActivity {
         if (selectedExeFile != null && selectedExeFile.exists()) {
             tvSelectedFile.setText("Arquivo: " + selectedExeFile.getName());
             btStartGame.setEnabled(true);
+            if ("add_game".equals(mode)) {
+                btStartGame.setText("Adicionar Jogo");
+            } else {
+                btStartGame.setText("Iniciar Jogo");
+            }
         } else {
             tvSelectedFile.setText("Nenhum arquivo selecionado");
             btStartGame.setEnabled(false);
         }
+    }
+
+    private void showAddGameDialog() {
+        if (selectedExeFile == null || !selectedExeFile.exists()) {
+            Toast.makeText(this, "Selecione um arquivo .exe primeiro", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        if (gowContainer == null) {
+            Toast.makeText(this, "Container não encontrado", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Nome do Jogo");
+
+        final EditText input = new EditText(this);
+        input.setText(selectedExeFile.getName().replace(".exe", ""));
+        builder.setView(input);
+
+        builder.setPositiveButton("Adicionar", (dialog, which) -> {
+            String gameName = input.getText().toString().trim();
+            if (gameName.isEmpty()) {
+                Toast.makeText(this, "Digite um nome para o jogo", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            addGame(gameName);
+        });
+        builder.setNegativeButton("Cancelar", (dialog, which) -> dialog.cancel());
+
+        builder.show();
+    }
+
+    private void addGame(String gameName) {
+        Bitmap icon = IconExtractor.extractIcon(selectedExeFile);
+        if (icon == null) {
+            icon = IconExtractor.createDefaultIcon(gameName);
+        }
+
+        Game game = new Game(0, gameName, selectedExeFile.getAbsolutePath(), "", gowContainer.id);
+        gameManager.addGame(game);
+
+        File iconFile = gameManager.getGameIconFile(game.id);
+        gameManager.saveGameIcon(game.id, icon);
+        game.iconPath = iconFile.getAbsolutePath();
+        gameManager.updateGame(game);
+
+        Toast.makeText(this, "Jogo adicionado: " + gameName, Toast.LENGTH_SHORT).show();
+        setResult(RESULT_OK);
+        finish();
     }
 
     private void startGame() {

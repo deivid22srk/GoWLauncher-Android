@@ -159,10 +159,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @Override
     protected void onResume() {
         super.onResume();
-        // Check if installation is complete and redirect to GowLauncherActivity
+        // Check if installation is complete and redirect to HomeActivity
         if (!editInputControls && ImageFs.find(this).isValid()) {
-            Intent gowIntent = new Intent(MainActivity.this, GowLauncherActivity.class);
-            startActivity(gowIntent);
+            Intent homeIntent = new Intent(MainActivity.this, HomeActivity.class);
+            startActivity(homeIntent);
             finish();
         }
     }
