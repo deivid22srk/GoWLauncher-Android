@@ -7,6 +7,7 @@ import android.os.Environment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -63,6 +64,12 @@ public class GowLauncherActivity extends AppCompatActivity {
         GowLogger.i("GowLauncher", "=== GoW Launcher Iniciado ===");
         GowLogger.i("GowLauncher", "Arquivo de log: " + GowLogger.getLogFilePath());
         setContentView(R.layout.gow_launcher_activity);
+        
+        // Configurar ActionBar com botão de voltar
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setTitle("God of War 2018");
+        }
 
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         preloaderDialog = new PreloaderDialog(this);
@@ -365,5 +372,28 @@ public class GowLauncherActivity extends AppCompatActivity {
         if (size < 1024) return size + " B";
         int z = (63 - Long.numberOfLeadingZeros(size)) / 10;
         return String.format("%.1f %sB", (double) size / (1L << (z * 10)), " KMGTPE".charAt(z));
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            GowLogger.i("GowLauncher", "Voltando para MainActivity via ActionBar");
+            navigateBackToMain();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onBackPressed() {
+        GowLogger.i("GowLauncher", "Voltando para MainActivity via botão de voltar");
+        navigateBackToMain();
+    }
+
+    private void navigateBackToMain() {
+        Intent intent = new Intent(this, MainActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
+        finish();
     }
 }
