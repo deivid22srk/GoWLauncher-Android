@@ -105,6 +105,7 @@ public class GowLauncherActivity extends AppCompatActivity {
                 containerData.put("screenSize", "1920x1080"); // GoW native resolution
                 containerData.put("envVars", Container.DEFAULT_ENV_VARS);
                 containerData.put("graphicsDriver", Container.DEFAULT_GRAPHICS_DRIVER);
+                containerData.put("graphicsDriverConfig", "vulkanVersion=1.3;version=turnip25.1.0;blacklistedExtensions=;maxDeviceMemory=0;presentMode=mailbox;syncFrame=0;disablePresentWait=0;resourceType=auto;bcnEmulation=auto;bcnEmulationType=software;bcnEmulationCache=0");
                 containerData.put("dxwrapper", Container.DEFAULT_DXWRAPPER);
                 containerData.put("audioDriver", Container.DEFAULT_AUDIO_DRIVER);
                 containerData.put("emulator", Container.DEFAULT_EMULATOR);
@@ -286,7 +287,7 @@ public class GowLauncherActivity extends AppCompatActivity {
             startActivity(intent);
 
         } catch (Exception e) {
-            e.printStackTrace();
+            GowLogger.e("GowLauncher", "Erro ao iniciar jogo", e);
             Toast.makeText(this, "Erro ao iniciar jogo: " + e.getMessage(), Toast.LENGTH_LONG).show();
         }
     }
