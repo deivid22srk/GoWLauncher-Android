@@ -43,7 +43,7 @@ public class MainActivityNew extends AppCompatActivity {
             return;
         }
 
-        setTheme(R.style.Theme.GoW.DynamicColors);
+        setTheme(R.style.Theme_GoW_DynamicColors);
         setContentView(R.layout.main_activity_new);
 
         navigationBar = findViewById(R.id.NavigationBar);

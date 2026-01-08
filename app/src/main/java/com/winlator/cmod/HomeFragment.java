@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -63,8 +64,8 @@ public class HomeFragment extends Fragment {
         recyclerView.setLayoutManager(new GridLayoutManager(requireContext(), 2));
 
         fabAddGame.setOnClickListener(v -> {
-            if (getActivity() instanceof MainActivity) {
-                ((MainActivity) getActivity()).navigateToAddGame();
+            if (getActivity() instanceof MainActivityNew) {
+                ((MainActivityNew) getActivity()).navigateToAddGame();
             }
         });
 
@@ -84,13 +85,15 @@ public class HomeFragment extends Fragment {
 
     private void checkInstallation() {
         if (!ImageFs.find(requireContext()).isValid()) {
-            preloaderDialog.show(R.string.installing_imagefs);
-            ImageFsInstaller.installIfNeeded(requireActivity(), () -> {
-                preloaderDialog.close();
-                if (isAdded()) {
-                    loadGames();
-                }
-            });
+            preloaderDialog.show(R.string.installing_system_files);
+            if (getActivity() instanceof AppCompatActivity) {
+                ImageFsInstaller.installIfNeeded((AppCompatActivity) getActivity(), () -> {
+                    preloaderDialog.close();
+                    if (isAdded()) {
+                        loadGames();
+                    }
+                });
+            }
         }
     }
 

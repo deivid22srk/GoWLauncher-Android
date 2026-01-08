@@ -298,8 +298,8 @@ public class GameSelectorFragment extends Fragment {
 
         Toast.makeText(requireContext(), "Jogo adicionado: " + gameName, Toast.LENGTH_SHORT).show();
         
-        if (getActivity() instanceof MainActivity) {
-            ((MainActivity) getActivity()).navigateToHome();
+        if (getActivity() instanceof MainActivityNew) {
+            ((MainActivityNew) getActivity()).navigateToHome();
         }
     }
 

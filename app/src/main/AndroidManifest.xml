@@ -54,7 +54,7 @@
         <!-- Main activity -->
         <activity
             android:name="com.winlator.cmod.MainActivityNew"
-            android:theme="@style/Theme.GoW.DynamicColors"
+            android:theme="@style/Theme_GoW_DynamicColors"
             android:screenOrientation="sensor"
             android:exported="true"
             android:configChanges="keyboard|keyboardHidden|orientation|screenSize|screenLayout|smallestScreenSize|density|navigation">
