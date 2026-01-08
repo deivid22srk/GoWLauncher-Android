@@ -68,6 +68,18 @@
         </LinearLayout>
 
         <ImageView
+            android:id="@+id/BTFileMenu"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:src="@android:drawable/ic_menu_more"
+            android:tint="@color/md_theme_gow_outline"
+            android:padding="4dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:visibility="gone"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="4dp" />
+
+        <ImageView
             android:id="@+id/IVChevron"
             android:layout_width="24dp"
             android:layout_height="24dp"
