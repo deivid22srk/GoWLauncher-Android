@@ -53,8 +53,8 @@
 
         <!-- Main activity -->
         <activity
-            android:name="com.winlator.cmod.MainActivity"
-            android:theme="@style/AppTheme.Dark"
+            android:name="com.winlator.cmod.MainActivityNew"
+            android:theme="@style/Theme.GoW.DynamicColors"
             android:screenOrientation="sensor"
             android:exported="true"
             android:configChanges="keyboard|keyboardHidden|orientation|screenSize|screenLayout|smallestScreenSize|density|navigation">
@@ -63,6 +63,14 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
+
+        <!-- Old MainActivity for compatibility -->
+        <activity
+            android:name="com.winlator.cmod.MainActivity"
+            android:theme="@style/AppTheme.Dark"
+            android:screenOrientation="sensor"
+            android:exported="false"
+            android:configChanges="keyboard|keyboardHidden|orientation|screenSize|screenLayout|smallestScreenSize|density|navigation" />
 
         <activity
             android:name="com.winlator.cmod.BigPictureActivity"

@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    style="@style/Widget.Material3.CardView.Elevated"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    app:cardBackgroundColor="@color/md_theme_gow_surface_container"
-    app:cardCornerRadius="16dp"
-    app:cardElevation="4dp"
-    android:layout_margin="8dp">
+    android:layout_margin="8dp"
+    app:cardCornerRadius="20dp">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -16,26 +15,36 @@
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="140dp"
-            android:background="@color/md_theme_gow_surface_container_high">
+            android:background="?attr/colorSurfaceContainerHigh">
 
             <ImageView
                 android:id="@+id/IVGameIcon"
-                android:layout_width="80dp"
-                android:layout_height="80dp"
+                android:layout_width="96dp"
+                android:layout_height="96dp"
                 android:layout_gravity="center"
                 android:scaleType="centerCrop"
                 android:src="@drawable/icon_wine" />
 
-            <ImageButton
-                android:id="@+id/BTMore"
+            <com.google.android.material.card.MaterialCardView
+                style="@style/Widget.Material3.CardView.Filled"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_gravity="top|end"
-                android:layout_margin="8dp"
-                android:background="?attr/selectableItemBackgroundBorderless"
-                android:src="@android:drawable/ic_menu_more"
-                android:tint="@color/md_theme_gow_on_surface"
-                android:contentDescription="Mais opções" />
+                android:layout_margin="12dp"
+                app:cardCornerRadius="20dp"
+                app:cardElevation="0dp"
+                app:cardBackgroundColor="?attr/colorSurfaceContainerHighest">
+
+                <ImageButton
+                    android:id="@+id/BTMore"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:src="@android:drawable/ic_menu_more"
+                    android:tint="?attr/colorOnSurface"
+                    android:contentDescription="Mais opções" />
+
+            </com.google.android.material.card.MaterialCardView>
 
         </FrameLayout>
 
@@ -50,10 +59,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Nome do Jogo"
-                android:textColor="@color/md_theme_gow_on_surface"
-                android:textSize="16sp"
-                android:textStyle="bold"
-                android:fontFamily="sans-serif-medium"
+                android:textAppearance="?attr/textAppearanceTitleMedium"
                 android:maxLines="2"
                 android:ellipsize="end"
                 android:gravity="center" />
