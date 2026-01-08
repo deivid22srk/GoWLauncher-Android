@@ -27,6 +27,10 @@ import com.winlator.cmod.core.FileUtils;
 import com.winlator.cmod.core.PreloaderDialog;
 import com.winlator.cmod.core.WineInfo;
 import com.winlator.cmod.core.GowLogger;
+import com.winlator.cmod.core.WineThemeManager;
+import com.winlator.cmod.winhandler.WinHandler;
+import com.winlator.cmod.box64.Box64Preset;
+import com.winlator.cmod.fexcore.FEXCorePreset;
 
 import org.json.JSONObject;
 
@@ -114,13 +118,27 @@ public class GowLauncherActivity extends AppCompatActivity {
                 containerData.put("graphicsDriver", Container.DEFAULT_GRAPHICS_DRIVER);
                 containerData.put("graphicsDriverConfig", "vulkanVersion=1.3;version=turnip25.1.0;blacklistedExtensions=;maxDeviceMemory=0;presentMode=mailbox;syncFrame=0;disablePresentWait=0;resourceType=auto;bcnEmulation=auto;bcnEmulationType=software;bcnEmulationCache=0");
                 containerData.put("dxwrapper", Container.DEFAULT_DXWRAPPER);
+                containerData.put("dxwrapperConfig", Container.DEFAULT_DXWRAPPERCONFIG);
                 containerData.put("audioDriver", Container.DEFAULT_AUDIO_DRIVER);
                 containerData.put("emulator", Container.DEFAULT_EMULATOR);
                 containerData.put("wincomponents", Container.DEFAULT_WINCOMPONENTS);
                 containerData.put("drives", Container.DEFAULT_DRIVES);
                 containerData.put("showFPS", false);
+                containerData.put("fullscreenStretched", false);
+                containerData.put("inputType", WinHandler.DEFAULT_INPUT_TYPE);
                 containerData.put("startupSelection", Container.STARTUP_SELECTION_ESSENTIAL);
                 containerData.put("wineVersion", WineInfo.MAIN_WINE_VERSION.identifier());
+                containerData.put("cpuList", "");
+                containerData.put("cpuListWoW64", "");
+                containerData.put("box64Version", "");
+                containerData.put("box64Preset", Box64Preset.COMPATIBILITY);
+                containerData.put("fexcoreVersion", "");
+                containerData.put("fexcorePreset", FEXCorePreset.INTERMEDIATE);
+                containerData.put("desktopTheme", WineThemeManager.DEFAULT_DESKTOP_THEME);
+                containerData.put("midiSoundFont", "");
+                containerData.put("lc_all", "");
+                containerData.put("primaryController", 1);
+                containerData.put("controllerMapping", "");
 
                 ContentsManager contentsManager = new ContentsManager(this);
                 
