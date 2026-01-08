@@ -267,7 +267,8 @@ public class GowLauncherActivity extends AppCompatActivity {
     }
 
     private void startGame() {
-        GowLogger.i("GowLauncher", "Iniciando jogo: " + selectedExeFile.getAbsolutePath());
+        GowLogger.i("GowLauncher", "Abrindo tela de configurações para: " + selectedExeFile.getAbsolutePath());
+        
         if (selectedExeFile == null || !selectedExeFile.exists()) {
             Toast.makeText(this, "Selecione um arquivo .exe primeiro", Toast.LENGTH_SHORT).show();
             return;
@@ -278,43 +279,10 @@ public class GowLauncherActivity extends AppCompatActivity {
             return;
         }
 
-        try {
-            // Create a shortcut file similar to how FileManagerFragment does it
-            String displayName = "God of War";
-            String unixPath = selectedExeFile.getAbsolutePath();
-            String workDir = selectedExeFile.getParent();
-
-            File shortcutsDir = gowContainer.getDesktopDir();
-            if (!shortcutsDir.exists()) shortcutsDir.mkdirs();
-
-            File desktopFile = new File(shortcutsDir, displayName + ".desktop");
-
-            try (PrintWriter writer = new PrintWriter(new FileWriter(desktopFile))) {
-                writer.println("[Desktop Entry]");
-                writer.println("Name=" + displayName);
-                writer.println("Exec=env WINEPREFIX=\"/home/xuser/.wine\" wine \"" + unixPath + "\"");
-                writer.println("Type=Application");
-                writer.println("Terminal=false");
-                writer.println("StartupNotify=true");
-                writer.println("Icon=" + displayName);
-                writer.println("Path=" + workDir);
-                writer.println("container_id:" + gowContainer.id);
-                writer.println("");
-                writer.println("[Extra Data]");
-                writer.println("container_id=" + gowContainer.id);
-            }
-
-            // Launch the game via XServerDisplayActivity
-            Intent intent = new Intent(this, XServerDisplayActivity.class);
-            intent.putExtra("container_id", gowContainer.id);
-            intent.putExtra("shortcut_path", desktopFile.getAbsolutePath());
-            intent.putExtra("shortcut_name", displayName);
-            startActivity(intent);
-
-        } catch (Exception e) {
-            GowLogger.e("GowLauncher", "Erro ao iniciar jogo", e);
-            Toast.makeText(this, "Erro ao iniciar jogo: " + e.getMessage(), Toast.LENGTH_LONG).show();
-        }
+        Intent intent = new Intent(this, GowConfigActivity.class);
+        intent.putExtra("exe_path", selectedExeFile.getAbsolutePath());
+        intent.putExtra("container_id", gowContainer.id);
+        startActivity(intent);
     }
 
     private class FileAdapter extends RecyclerView.Adapter<FileAdapter.ViewHolder> {
