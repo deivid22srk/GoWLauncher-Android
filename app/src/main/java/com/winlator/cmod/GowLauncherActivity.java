@@ -25,6 +25,7 @@ import com.winlator.cmod.contents.ContentsManager;
 import com.winlator.cmod.core.FileUtils;
 import com.winlator.cmod.core.PreloaderDialog;
 import com.winlator.cmod.core.WineInfo;
+import com.winlator.cmod.core.GowLogger;
 
 import org.json.JSONObject;
 
@@ -58,6 +59,9 @@ public class GowLauncherActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        
+        GowLogger.i("GowLauncher", "=== GoW Launcher Iniciado ===");
+        GowLogger.i("GowLauncher", "Arquivo de log: " + GowLogger.getLogFilePath());
         setContentView(R.layout.gow_launcher_activity);
 
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
@@ -68,6 +72,10 @@ public class GowLauncherActivity extends AppCompatActivity {
         btStartGame = findViewById(R.id.BTStartGame);
         recyclerView = findViewById(R.id.RecyclerViewFiles);
         
+        findViewById(R.id.BTBackToMain).setOnClickListener(v -> {
+            GowLogger.i("GowLauncher", "Voltando ao menu principal");
+            finish();
+        });
         findViewById(R.id.BTUpDir).setOnClickListener(v -> navigateUp());
         btStartGame.setOnClickListener(v -> startGame());
 
@@ -87,6 +95,7 @@ public class GowLauncherActivity extends AppCompatActivity {
 
     private void createGowContainer() {
         preloaderDialog.show(R.string.loading);
+        GowLogger.i("GowLauncher", "Iniciando criação do container God of War com Proton 9.0");
         
         Executors.newSingleThreadExecutor().execute(() -> {
             try {
@@ -112,6 +121,7 @@ public class GowLauncherActivity extends AppCompatActivity {
                         if (container != null) {
                             gowContainer = container;
                             sharedPreferences.edit().putBoolean(PREF_CONTAINER_CREATED, true).apply();
+                            GowLogger.i("GowLauncher", "Container criado com sucesso: " + container.getName() + " (ID: " + container.id + ")");
                             preloaderDialog.close();
                             Toast.makeText(this, "Container criado com sucesso!", Toast.LENGTH_SHORT).show();
                             initializeFileBrowser();
@@ -215,6 +225,7 @@ public class GowLauncherActivity extends AppCompatActivity {
 
     private void selectExeFile(File file) {
         selectedExeFile = file;
+        GowLogger.i("GowLauncher", "Arquivo selecionado: " + file.getAbsolutePath());
         sharedPreferences.edit().putString(PREF_SELECTED_EXE, file.getAbsolutePath()).apply();
         updateSelectedFile();
     }
@@ -230,6 +241,7 @@ public class GowLauncherActivity extends AppCompatActivity {
     }
 
     private void startGame() {
+        GowLogger.i("GowLauncher", "Iniciando jogo: " + selectedExeFile.getAbsolutePath());
         if (selectedExeFile == null || !selectedExeFile.exists()) {
             Toast.makeText(this, "Selecione um arquivo .exe primeiro", Toast.LENGTH_SHORT).show();
             return;
