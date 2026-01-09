@@ -149,42 +149,47 @@ public class GuestProgramLauncherComponent extends EnvironmentComponent {
     @Override
     public void start() {
         synchronized (lock) {
-            if (wineInfo.isArm64EC())
-                extractEmulatorsDlls();
-            else
-                extractBox64Files();
-            checkDependencies();
-            pid = execGuestProgram();
+            try {
+                if (wineInfo.isArm64EC())
+                    extractEmulatorsDlls();
+                else
+                    extractBox64Files();
+                checkDependencies();
+                pid = execGuestProgram();
+            } catch (IOException e) {
+                Log.e("GuestProgramLauncherComponent", "Error during startup: " + e.getMessage());
+                if (terminationCallback != null) {
+                    terminationCallback.call(1);
+                }
+            }
         }
     }
 
 
-    private String checkDependencies() {
+    private void checkDependencies() throws IOException {
         String curlPath = environment.getImageFs().getRootDir().getPath() + "/usr/lib/libXau.so";
         String lddCommand = "ldd " + curlPath;
-
-        StringBuilder output = new StringBuilder("Checking Curl dependencies...\n");
+        StringBuilder errorOutput = new StringBuilder();
 
         try {
             java.lang.Process process = Runtime.getRuntime().exec(lddCommand);
             BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
-            BufferedReader errorReader = new BufferedReader(new InputStreamReader(process.getErrorStream()));
-
             String line;
+            boolean hasMissingDeps = false;
             while ((line = reader.readLine()) != null) {
-                output.append(line).append("\n");
-            }
-            while ((line = errorReader.readLine()) != null) {
-                output.append(line).append("\n");
+                if (line.contains("not found")) {
+                    hasMissingDeps = true;
+                    errorOutput.append(line).append("\n");
+                }
             }
 
             process.waitFor();
+            if (hasMissingDeps) {
+                throw new IOException("Missing dependencies:\n" + errorOutput.toString());
+            }
         } catch (Exception e) {
-            output.append("Error running ldd: ").append(e.getMessage());
+            throw new IOException("Error checking dependencies: " + e.getMessage());
         }
-
-        Log.d("CurlDeps", output.toString()); // Log the full dependency output
-        return output.toString();
     }
 
 

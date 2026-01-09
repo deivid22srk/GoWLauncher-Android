@@ -183,6 +183,9 @@ public class XServerDisplayActivity extends AppCompatActivity implements Navigat
     private Runnable configChangedCallback = null;
     private boolean isPaused = false;
     private boolean isRelativeMouseMovement = false;
+    private Handler startupTimeoutHandler;
+    private Runnable startupTimeoutRunnable;
+    private static final int STARTUP_TIMEOUT = 30000;
 
     // Inside the XServerDisplayActivity class
     private SensorManager sensorManager;
@@ -512,6 +515,7 @@ public class XServerDisplayActivity extends AppCompatActivity implements Navigat
                 if (!winStarted[0] && window.isApplicationWindow()) {
                     xServerView.getRenderer().setCursorVisible(true);
                     preloaderDialog.closeOnUiThread();
+                    startupTimeoutHandler.removeCallbacks(startupTimeoutRunnable);
                     winStarted[0] = true;
                 }
                     
@@ -603,6 +607,10 @@ public class XServerDisplayActivity extends AppCompatActivity implements Navigat
             configChangedCallback = runnable;
         } else
               runnable.run();
+
+        startupTimeoutHandler = new Handler(Looper.getMainLooper());
+        startupTimeoutRunnable = this::showStartupErrorDialog;
+        startupTimeoutHandler.postDelayed(startupTimeoutRunnable, STARTUP_TIMEOUT);
     }
 
     // Method to parse container_id from .desktop file
@@ -798,6 +806,7 @@ public class XServerDisplayActivity extends AppCompatActivity implements Navigat
     }
 
     private void exit() {
+        startupTimeoutHandler.removeCallbacks(startupTimeoutRunnable);
         NotificationManagerCompat.from(this).cancel(NOTIFICATION_ID);
         preloaderDialog.showOnUiThread(R.string.shutdown);
         handler.postDelayed(new Runnable() {
@@ -1147,7 +1156,13 @@ public class XServerDisplayActivity extends AppCompatActivity implements Navigat
 
         // Pass final envVars to the launcher
         guestProgramLauncherComponent.setEnvVars(envVars);
-        guestProgramLauncherComponent.setTerminationCallback((status) -> exit());
+        guestProgramLauncherComponent.setTerminationCallback((status) -> {
+            if (status != 0) {
+                showStartupErrorDialog();
+            } else {
+                exit();
+            }
+        });
 
         // Add the launcher to our environment
         environment.addComponent(guestProgramLauncherComponent);
@@ -1972,6 +1987,16 @@ private String getExecutable() {
         this.screenEffectProfile = screenEffectProfile;
     }
 
+    private void showStartupErrorDialog() {
+        runOnUiThread(() -> {
+            if (isFinishing()) return;
+            new AlertDialog.Builder(this)
+                .setTitle("Startup Error")
+                .setMessage("The application failed to start in time. Please check your container settings and try again.")
+                .setPositiveButton(android.R.string.ok, (dialog, which) -> exit())
+                .show();
+        });
+    }
 }
 
 
