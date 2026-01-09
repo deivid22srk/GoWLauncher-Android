@@ -1,0 +1,135 @@
+1767919716.150 10514 12727 12727 D ViewRootImpl: Skipping stats log for color mode
+1767919716.247 10514 12727 12727 D InsetsController: hide(ime(), fromIme=false)
+1767919716.247 10514 12727 12727 I ImeTracker: com.gowlauncher:595e0ba0: onCancelled at PHASE_CLIENT_ALREADY_HIDDEN
+1767919719.090 10514 12727 12727 D VRI[MainActivityNew]: visibilityChanged oldVisibility=true newVisibility=false
+1767919722.356 10514 12727 12727 D ViewRootImpl: Skipping stats log for color mode
+1767919722.753 10514 12727 12727 D InsetsController: hide(ime(), fromIme=false)
+1767919722.753 10514 12727 12727 I ImeTracker: com.gowlauncher:96883896: onCancelled at PHASE_CLIENT_ALREADY_HIDDEN
+1767919723.740 10514 12727 12727 W WindowOnBackDispatcher: OnBackInvokedCallback is not enabled for the application.
+1767919723.740 10514 12727 12727 W WindowOnBackDispatcher: Set 'android:enableOnBackInvokedCallback="true"' in the application manifest.
+1767919723.789 10514 12727 12727 W HWUI    : Image decoding logging dropped!
+1767919723.799 10514 12727 12727 W HWUI    : Image decoding logging dropped!
+1767919723.822 10514 12727 12727 W RecyclerView: No adapter attached; skipping layout
+1767919723.823 10514 12727 13201 D WineInfo: Creating WineInfo from identifier proton-9.0-arm64ec
+1767919723.857 10514 12727 13201 D nativeloader: Load /data/app/~~G98GB8FD40c6yff_8Lzi1w==/com.gowlauncher-BKi9bMY3a_xgox-ziyeMfg==/lib/arm64/libzstd-jni-1.5.2-3.so using class loader ns clns-7 (caller=/data/app/~~G98GB8FD40c6yff_8Lzi1w==/com.gowlauncher-BKi9bMY3a_xgox-ziyeMfg==/base.apk): ok
+1767919724.319 10514 12727 13201 E AndroidRuntime: FATAL EXCEPTION: pool-9-thread-1
+1767919724.319 10514 12727 13201 E AndroidRuntime: Process: com.gowlauncher, PID: 12727
+1767919724.319 10514 12727 13201 E AndroidRuntime: java.lang.NullPointerException: Attempt to get length of null array
+1767919724.319 10514 12727 13201 E AndroidRuntime: 	at com.winlator.cmod.container.ContainerManager.extractCommonDlls(ContainerManager.java:238)
+1767919724.319 10514 12727 13201 E AndroidRuntime: 	at com.winlator.cmod.container.ContainerManager.extractContainerPatternFile(ContainerManager.java:267)
+1767919724.319 10514 12727 13201 E AndroidRuntime: 	at com.winlator.cmod.container.ContainerManager.createContainer(ContainerManager.java:133)
+1767919724.319 10514 12727 13201 E AndroidRuntime: 	at com.winlator.cmod.container.ContainerManager.lambda$createContainerAsync$1(ContainerManager.java:98)
+1767919724.319 10514 12727 13201 E AndroidRuntime: 	at com.winlator.cmod.container.ContainerManager.$r8$lambda$vkGsM06BZgh_Ld1anuFVGzyunYE(Unknown Source:0)
+1767919724.319 10514 12727 13201 E AndroidRuntime: 	at com.winlator.cmod.container.ContainerManager$$ExternalSyntheticLambda6.run(D8$$SyntheticClass:0)
+1767919724.319 10514 12727 13201 E AndroidRuntime: 	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1156)
+1767919724.319 10514 12727 13201 E AndroidRuntime: 	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:651)
+1767919724.319 10514 12727 13201 E AndroidRuntime: 	at java.lang.Thread.run(Thread.java:1119)
+1767919724.326 10514 12727 13201 I Process : Sending signal. PID: 12727 SIG: 9
+1767919725.996 10514 13216 13216 I libc    : SetHeapTaggingLevel: tag level set to 0
+1767919726.005 10514 13216 13216 I com.gowlauncher: Late-enabling -Xcheck:jni
+1767919726.025 10514 13216 13216 I com.gowlauncher: Using CollectorTypeCMC GC.
+1767919726.033 10514 13216 13216 D nativeloader: Load libframework-connectivity-tiramisu-jni.so using APEX ns com_android_tethering for caller /apex/com.android.tethering/javalib/framework-connectivity-t.jar: ok
+1767919726.073 10514 13216 13216 D ApplicationLoaders: Returning zygote-cached class loader: /system/framework/android.test.base.jar
+1767919726.073 10514 13216 13216 D ApplicationLoaders: Returning zygote-cached class loader: /system_ext/framework/androidx.window.extensions.jar
+1767919726.073 10514 13216 13216 D ApplicationLoaders: Returning zygote-cached class loader: /system_ext/framework/androidx.window.sidecar.jar
+1767919726.074 10514 13216 13216 W ziparchive: Unable to open '/data/app/~~G98GB8FD40c6yff_8Lzi1w==/com.gowlauncher-BKi9bMY3a_xgox-ziyeMfg==/base.dm': No such file or directory
+1767919726.075 10514 13216 13216 W ziparchive: Unable to open '/data/app/~~G98GB8FD40c6yff_8Lzi1w==/com.gowlauncher-BKi9bMY3a_xgox-ziyeMfg==/base.dm': No such file or directory
+1767919726.264 10514 13216 13216 D nativeloader: Configuring clns-7 for other apk /data/app/~~G98GB8FD40c6yff_8Lzi1w==/com.gowlauncher-BKi9bMY3a_xgox-ziyeMfg==/base.apk. target_sdk_version=28, uses_libraries=, library_path=/data/app/~~G98GB8FD40c6yff_8Lzi1w==/com.gowlauncher-BKi9bMY3a_xgox-ziyeMfg==/lib/arm64:/data/app/~~G98GB8FD40c6yff_8Lzi1w==/com.gowlauncher-BKi9bMY3a_xgox-ziyeMfg==/base.apk!/lib/arm64-v8a, permitted_path=/data:/mnt/expand:/data/user/0/com.gowlauncher
+1767919726.264 10514 13216 13216 D nativeloader: Extending system_exposed_libraries: libupdateprof.qti.so:libQOC.qti.so:libdiag_system.qti.so:libqape.qti.so:libqesdk_ndk_platform.qti.so:liblistenjni.qti.so
+1767919726.270 10514 13216 13216 I com.gowlauncher: AssetManager2(0x73a2223438) locale list changing from [] to [pt-BR]
+1767919726.274 10514 13216 13216 V GraphicsEnvironment: Currently set values for:
+1767919726.274 10514 13216 13216 V GraphicsEnvironment:   angle_gl_driver_selection_pkgs=[]
+1767919726.274 10514 13216 13216 V GraphicsEnvironment:   angle_gl_driver_selection_values=[]
+1767919726.274 10514 13216 13216 V GraphicsEnvironment: com.gowlauncher is not listed in per-application setting
+1767919726.274 10514 13216 13216 V GraphicsEnvironment: Neither updatable production driver nor prerelease driver is supported.
+1767919726.321 10514 13216 13216 I com.gowlauncher: AssetManager2(0x73a2221818) locale list changing from [] to [pt-BR]
+1767919726.349 10514 13216 13216 D AppCompatDelegate: Checking for metadata for AppLocalesMetadataHolderService : Service not found
+1767919726.350 10514 13216 13216 I com.gowlauncher: AssetManager2(0x73a221dfd8) locale list changing from [] to [pt-BR]
+1767919726.399 10514 13216 13216 D DesktopModeFlagsUtil: Toggle override initialized to: OVERRIDE_UNSET
+1767919726.431 10514 13216 13216 W com.gowlauncher: Accessing hidden method Landroid/view/View;->computeFitSystemWindows(Landroid/graphics/Rect;Landroid/graphics/Rect;)Z (unsupported, reflection, allowed)
+1767919726.431 10514 13216 13216 W com.gowlauncher: Accessing hidden method Landroid/view/ViewGroup;->makeOptionalFitsSystemWindows()V (unsupported, reflection, allowed)
+1767919726.435 10514 13216 13216 D CompatChangeReporter: Compat change id reported: 37756858; UID 10514; state: ENABLED
+1767919726.491 10514 13216 13216 W HWUI    : Image decoding logging dropped!
+1767919726.522 10514 13216 13216 W HWUI    : Image decoding logging dropped!
+1767919726.578 10514 13216 13216 E ContainerManager: Error loading containers
+1767919726.578 10514 13216 13216 E ContainerManager: org.json.JSONException: End of input at character 0 of
+1767919726.578 10514 13216 13216 E ContainerManager: 	at org.json.JSONTokener.syntaxError(JSONTokener.java:469)
+1767919726.578 10514 13216 13216 E ContainerManager: 	at org.json.JSONTokener.nextValue(JSONTokener.java:101)
+1767919726.578 10514 13216 13216 E ContainerManager: 	at org.json.JSONObject.<init>(JSONObject.java:168)
+1767919726.578 10514 13216 13216 E ContainerManager: 	at org.json.JSONObject.<init>(JSONObject.java:185)
+1767919726.578 10514 13216 13216 E ContainerManager: 	at com.winlator.cmod.container.ContainerManager.loadContainers(ContainerManager.java:69)
+1767919726.578 10514 13216 13216 E ContainerManager: 	at com.winlator.cmod.container.ContainerManager.<init>(ContainerManager.java:40)
+1767919726.578 10514 13216 13216 E ContainerManager: 	at com.winlator.cmod.HomeFragment.onCreate(HomeFragment.java:51)
+1767919726.578 10514 13216 13216 E ContainerManager: 	at androidx.fragment.app.Fragment.performCreate(Fragment.java:2981)
+1767919726.578 10514 13216 13216 E ContainerManager: 	at androidx.fragment.app.FragmentStateManager.create(FragmentStateManager.java:474)
+1767919726.578 10514 13216 13216 E ContainerManager: 	at androidx.fragment.app.FragmentStateManager.moveToExpectedState(FragmentStateManager.java:257)
+1767919726.578 10514 13216 13216 E ContainerManager: 	at androidx.fragment.app.FragmentManager.executeOpsTogether(FragmentManager.java:1840)
+1767919726.578 10514 13216 13216 E ContainerManager: 	at androidx.fragment.app.FragmentManager.removeRedundantOperationsAndExecute(FragmentManager.java:1758)
+1767919726.578 10514 13216 13216 E ContainerManager: 	at androidx.fragment.app.FragmentManager.execPendingActions(FragmentManager.java:1701)
+1767919726.578 10514 13216 13216 E ContainerManager: 	at androidx.fragment.app.FragmentManager.dispatchStateChange(FragmentManager.java:2849)
+1767919726.578 10514 13216 13216 E ContainerManager: 	at androidx.fragment.app.FragmentManager.dispatchActivityCreated(FragmentManager.java:2784)
+1767919726.578 10514 13216 13216 E ContainerManager: 	at androidx.fragment.app.FragmentController.dispatchActivityCreated(FragmentController.java:262)
+1767919726.578 10514 13216 13216 E ContainerManager: 	at androidx.fragment.app.FragmentActivity.onStart(FragmentActivity.java:478)
+1767919726.578 10514 13216 13216 E ContainerManager: 	at androidx.appcompat.app.AppCompatActivity.onStart(AppCompatActivity.java:251)
+1767919726.578 10514 13216 13216 E ContainerManager: 	at android.app.Instrumentation.callActivityOnStart(Instrumentation.java:1706)
+1767919726.578 10514 13216 13216 E ContainerManager: 	at android.app.Activity.performStart(Activity.java:9122)
+1767919726.578 10514 13216 13216 E ContainerManager: 	at android.app.ActivityThread.handleStartActivity(ActivityThread.java:4231)
+1767919726.578 10514 13216 13216 E ContainerManager: 	at android.app.servertransaction.TransactionExecutor.performLifecycleSequence(TransactionExecutor.java:214)
+1767919726.578 10514 13216 13216 E ContainerManager: 	at android.app.servertransaction.TransactionExecutor.cycleToPath(TransactionExecutor.java:194)
+1767919726.578 10514 13216 13216 E ContainerManager: 	at android.app.servertransaction.TransactionExecutor.executeLifecycleItem(TransactionExecutor.java:166)
+1767919726.578 10514 13216 13216 E ContainerManager: 	at android.app.servertransaction.TransactionExecutor.executeTransactionItems(TransactionExecutor.java:101)
+1767919726.578 10514 13216 13216 E ContainerManager: 	at android.app.servertransaction.TransactionExecutor.execute(TransactionExecutor.java:80)
+1767919726.578 10514 13216 13216 E ContainerManager: 	at android.app.ActivityThread$H.handleMessage(ActivityThread.java:2773)
+1767919726.578 10514 13216 13216 E ContainerManager: 	at android.os.Handler.dispatchMessage(Handler.java:109)
+1767919726.578 10514 13216 13216 E ContainerManager: 	at android.os.Looper.loopOnce(Looper.java:232)
+1767919726.578 10514 13216 13216 E ContainerManager: 	at android.os.Looper.loop(Looper.java:317)
+1767919726.578 10514 13216 13216 E ContainerManager: 	at android.app.ActivityThread.main(ActivityThread.java:8934)
+1767919726.578 10514 13216 13216 E ContainerManager: 	at java.lang.reflect.Method.invoke(Native Method)
+1767919726.578 10514 13216 13216 E ContainerManager: 	at com.android.internal.os.RuntimeInit$MethodAndArgsCaller.run(RuntimeInit.java:591)
+1767919726.578 10514 13216 13216 E ContainerManager: 	at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:911)
+1767919726.644 10514 13216 13216 W HWUI    : Image decoding logging dropped!
+1767919726.687 10514 13216 13216 W HWUI    : Unknown dataspace 0
+1767919726.796 10514 13216 13233 I AdrenoGLES-0: QUALCOMM build                   : 923a446bf8, I23d7d7df15
+1767919726.796 10514 13216 13233 I AdrenoGLES-0: Build Date                       : 09/05/24
+1767919726.796 10514 13216 13233 I AdrenoGLES-0: OpenGL ES Shader Compiler Version: EV031.35.01.12
+1767919726.796 10514 13216 13233 I AdrenoGLES-0: Local Branch                     :
+1767919726.796 10514 13216 13233 I AdrenoGLES-0: Remote Branch                    : refs/tags/AU_LINUX_ANDROID_LA.UM.9.14.11.00.00.571.148
+1767919726.796 10514 13216 13233 I AdrenoGLES-0: Remote Branch                    : NONE
+1767919726.796 10514 13216 13233 I AdrenoGLES-0: Reconstruct Branch               : NOTHING
+1767919726.796 10514 13216 13233 I AdrenoGLES-0: Build Config                     : S P 10.0.7 AArch64
+1767919726.796 10514 13216 13233 I AdrenoGLES-0: Driver Path                      : /vendor/lib64/egl/libGLESv2_adreno.so
+1767919726.806 10514 13216 13233 I AdrenoGLES-0: PFP: 0x016ee201, ME: 0x00000000
+1767919726.830 10514 13216 13241 I Gralloc4: Adding additional valid usage bits: 0x8202000
+1767919726.938 10514 13216 13216 D InsetsController: hide(ime(), fromIme=false)
+1767919726.938 10514 13216 13216 I ImeTracker: com.gowlauncher:c7d9c3ed: onCancelled at PHASE_CLIENT_ALREADY_HIDDEN
+1767919727.852 10514 13216 13216 W WindowOnBackDispatcher: OnBackInvokedCallback is not enabled for the application.
+1767919727.852 10514 13216 13216 W WindowOnBackDispatcher: Set 'android:enableOnBackInvokedCallback="true"' in the application manifest.
+1767919727.898 10514 13216 13216 W HWUI    : Image decoding logging dropped!
+1767919727.924 10514 13216 13216 E ContainerManager: Error loading containers
+1767919727.924 10514 13216 13216 E ContainerManager: org.json.JSONException: End of input at character 0 of
+1767919727.924 10514 13216 13216 E ContainerManager: 	at org.json.JSONTokener.syntaxError(JSONTokener.java:469)
+1767919727.924 10514 13216 13216 E ContainerManager: 	at org.json.JSONTokener.nextValue(JSONTokener.java:101)
+1767919727.924 10514 13216 13216 E ContainerManager: 	at org.json.JSONObject.<init>(JSONObject.java:168)
+1767919727.924 10514 13216 13216 E ContainerManager: 	at org.json.JSONObject.<init>(JSONObject.java:185)
+1767919727.924 10514 13216 13216 E ContainerManager: 	at com.winlator.cmod.container.ContainerManager.loadContainers(ContainerManager.java:69)
+1767919727.924 10514 13216 13216 E ContainerManager: 	at com.winlator.cmod.container.ContainerManager.<init>(ContainerManager.java:40)
+1767919727.924 10514 13216 13216 E ContainerManager: 	at com.winlator.cmod.GameSelectorFragment.onCreateView(GameSelectorFragment.java:88)
+1767919727.924 10514 13216 13216 E ContainerManager: 	at androidx.fragment.app.Fragment.performCreateView(Fragment.java:2995)
+1767919727.924 10514 13216 13216 E ContainerManager: 	at androidx.fragment.app.FragmentStateManager.createView(FragmentStateManager.java:523)
+1767919727.924 10514 13216 13216 E ContainerManager: 	at androidx.fragment.app.FragmentStateManager.moveToExpectedState(FragmentStateManager.java:261)
+1767919727.924 10514 13216 13216 E ContainerManager: 	at androidx.fragment.app.FragmentManager.executeOpsTogether(FragmentManager.java:1840)
+1767919727.924 10514 13216 13216 E ContainerManager: 	at androidx.fragment.app.FragmentManager.removeRedundantOperationsAndExecute(FragmentManager.java:1758)
+1767919727.924 10514 13216 13216 E ContainerManager: 	at androidx.fragment.app.FragmentManager.execPendingActions(FragmentManager.java:1701)
+1767919727.924 10514 13216 13216 E ContainerManager: 	at androidx.fragment.app.FragmentManager$4.run(FragmentManager.java:488)
+1767919727.924 10514 13216 13216 E ContainerManager: 	at android.os.Handler.handleCallback(Handler.java:991)
+1767919727.924 10514 13216 13216 E ContainerManager: 	at android.os.Handler.dispatchMessage(Handler.java:102)
+1767919727.924 10514 13216 13216 E ContainerManager: 	at android.os.Looper.loopOnce(Looper.java:232)
+1767919727.924 10514 13216 13216 E ContainerManager: 	at android.os.Looper.loop(Looper.java:317)
+1767919727.924 10514 13216 13216 E ContainerManager: 	at android.app.ActivityThread.main(ActivityThread.java:8934)
+1767919727.924 10514 13216 13216 E ContainerManager: 	at java.lang.reflect.Method.invoke(Native Method)
+1767919727.924 10514 13216 13216 E ContainerManager: 	at com.android.internal.os.RuntimeInit$MethodAndArgsCaller.run(RuntimeInit.java:591)
+1767919727.924 10514 13216 13216 E ContainerManager: 	at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:911)
+1767919727.943 10514 13216 13216 W RecyclerView: No adapter attached; skipping layout
+1767919731.471 10514 13216 13216 W WindowOnBackDispatcher: sendCancelIfRunning: isInProgress=false callback=android.view.ViewRootImpl$$ExternalSyntheticLambda13@8286a21
+1767919731.597 10514 13216 13277 D ProfileInstaller: Installing profile for com.gowlauncher
+1767919732.354 10514 13216 13216 D VRI[MainActivityNew]: visibilityChanged oldVisibility=true newVisibility=false
