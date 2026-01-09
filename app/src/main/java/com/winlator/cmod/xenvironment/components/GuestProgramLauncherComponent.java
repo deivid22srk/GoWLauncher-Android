@@ -83,10 +83,23 @@ public class GuestProgramLauncherComponent extends EnvironmentComponent {
 
         if (!box64Version.equals(container.getExtra("box64Version"))) {
             ContentProfile profile = contentsManager.getProfileByEntryName("box64-" + box64Version);
-            if (profile != null)
+            if (profile != null) {
                 contentsManager.applyContent(profile);
-            else
-                TarCompressorUtils.extract(TarCompressorUtils.Type.ZSTD, context, "box64/box64-" + box64Version + ".tzst", rootDir);
+            } else {
+                File decompressedDir = new File(context.getFilesDir(), "contents/box64/box64-" + box64Version);
+                if (decompressedDir.exists() && decompressedDir.isDirectory()) {
+                    Log.d("GuestProgramLauncherComponent", "Using decompressed box64 from: " + decompressedDir);
+                    FileUtils.copy(decompressedDir, rootDir);
+                } else {
+                    File contentsFile = new File(context.getFilesDir(), "contents/box64/box64-" + box64Version + ".tzst");
+                    if (contentsFile.exists()) {
+                        Log.d("GuestProgramLauncherComponent", "Extracting box64 from .tzst: " + contentsFile);
+                        TarCompressorUtils.extract(TarCompressorUtils.Type.ZSTD, contentsFile, rootDir);
+                    } else {
+                        TarCompressorUtils.extract(TarCompressorUtils.Type.ZSTD, context, "box64/box64-" + box64Version + ".tzst", rootDir);
+                    }
+                }
+            }
             container.putExtra("box64Version", box64Version);
             container.saveData();
         }
@@ -118,11 +131,24 @@ public class GuestProgramLauncherComponent extends EnvironmentComponent {
             if (profile != null) {
                 contentsManager.applyContent(profile);
             } else {
-                File contentsFile = new File(environment.getContext().getFilesDir(), "contents/others/wowbox64/wowbox64-" + wowbox64Version + ".tzst");
-                if (contentsFile.exists()) {
-                    TarCompressorUtils.extract(TarCompressorUtils.Type.ZSTD, contentsFile, system32dir);
+                File decompressedDir = new File(environment.getContext().getFilesDir(), "contents/others/wowbox64/wowbox64-" + wowbox64Version);
+                if (decompressedDir.exists() && decompressedDir.isDirectory()) {
+                    Log.d("GuestProgramLauncherComponent", "Using decompressed wowbox64 from: " + decompressedDir);
+                    File[] dllFiles = decompressedDir.listFiles((dir, name) -> name.endsWith(".dll"));
+                    if (dllFiles != null) {
+                        for (File dll : dllFiles) {
+                            FileUtils.copy(dll, new File(system32dir, dll.getName()));
+                            Log.d("GuestProgramLauncherComponent", "Copied DLL: " + dll.getName());
+                        }
+                    }
                 } else {
-                    TarCompressorUtils.extract(TarCompressorUtils.Type.ZSTD, environment.getContext(), "wowbox64/wowbox64-" + wowbox64Version + ".tzst", system32dir);
+                    File contentsFile = new File(environment.getContext().getFilesDir(), "contents/others/wowbox64/wowbox64-" + wowbox64Version + ".tzst");
+                    if (contentsFile.exists()) {
+                        Log.d("GuestProgramLauncherComponent", "Extracting wowbox64 from .tzst: " + contentsFile);
+                        TarCompressorUtils.extract(TarCompressorUtils.Type.ZSTD, contentsFile, system32dir);
+                    } else {
+                        TarCompressorUtils.extract(TarCompressorUtils.Type.ZSTD, environment.getContext(), "wowbox64/wowbox64-" + wowbox64Version + ".tzst", system32dir);
+                    }
                 }
             }
             container.putExtra("box64Version", wowbox64Version);
@@ -134,11 +160,24 @@ public class GuestProgramLauncherComponent extends EnvironmentComponent {
             if (profile != null) {
                 contentsManager.applyContent(profile);
             } else {
-                File contentsFile = new File(environment.getContext().getFilesDir(), "contents/fexcore/fexcore-" + fexcoreVersion + ".tzst");
-                if (contentsFile.exists()) {
-                    TarCompressorUtils.extract(TarCompressorUtils.Type.ZSTD, contentsFile, system32dir);
+                File decompressedDir = new File(environment.getContext().getFilesDir(), "contents/fexcore/fexcore-" + fexcoreVersion);
+                if (decompressedDir.exists() && decompressedDir.isDirectory()) {
+                    Log.d("GuestProgramLauncherComponent", "Using decompressed fexcore from: " + decompressedDir);
+                    File[] dllFiles = decompressedDir.listFiles((dir, name) -> name.endsWith(".dll"));
+                    if (dllFiles != null) {
+                        for (File dll : dllFiles) {
+                            FileUtils.copy(dll, new File(system32dir, dll.getName()));
+                            Log.d("GuestProgramLauncherComponent", "Copied DLL: " + dll.getName());
+                        }
+                    }
                 } else {
-                    TarCompressorUtils.extract(TarCompressorUtils.Type.ZSTD, environment.getContext(), "fexcore/fexcore-" + fexcoreVersion + ".tzst", system32dir);
+                    File contentsFile = new File(environment.getContext().getFilesDir(), "contents/fexcore/fexcore-" + fexcoreVersion + ".tzst");
+                    if (contentsFile.exists()) {
+                        Log.d("GuestProgramLauncherComponent", "Extracting fexcore from .tzst: " + contentsFile);
+                        TarCompressorUtils.extract(TarCompressorUtils.Type.ZSTD, contentsFile, system32dir);
+                    } else {
+                        TarCompressorUtils.extract(TarCompressorUtils.Type.ZSTD, environment.getContext(), "fexcore/fexcore-" + fexcoreVersion + ".tzst", system32dir);
+                    }
                 }
             }
             container.putExtra("fexcoreVersion", fexcoreVersion);
@@ -190,7 +229,7 @@ public class GuestProgramLauncherComponent extends EnvironmentComponent {
             output.append("Error running ldd: ").append(e.getMessage());
         }
 
-        Log.d("CurlDeps", output.toString()); // Log the full dependency output
+        Log.d("CurlDeps", output.toString());
         return output.toString();
     }
 
@@ -279,7 +318,6 @@ public class GuestProgramLauncherComponent extends EnvironmentComponent {
             envVars.put("WRAPPER_DISABLE_PLACED", "1");
         }
 
-        // Setting up essential environment variables for Wine
         envVars.put("HOME", imageFs.home_path);
         envVars.put("USER", ImageFs.USER);
         envVars.put("TMPDIR", rootDir.getPath() + "/usr/tmp");
@@ -329,7 +367,6 @@ public class GuestProgramLauncherComponent extends EnvironmentComponent {
         
         String ld_preload = "";
         
-        // Check for specific shared memory libraries
         if ((new File(imageFs.getLibDir(), "libandroid-sysvshm.so")).exists()){
             ld_preload = imageFs.getLibDir() + "/libandroid-sysvshm.so";
         }
@@ -344,7 +381,6 @@ public class GuestProgramLauncherComponent extends EnvironmentComponent {
             this.envVars.remove("MANGOHUD_CONFIG");
         }
         
-        // Merge any additional environment variables from external sources
         if (this.envVars != null) {
             envVars.putAll(this.envVars);
         }
@@ -353,7 +389,6 @@ public class GuestProgramLauncherComponent extends EnvironmentComponent {
         if (shortcut != null)
             emulator = shortcut.getExtra("emulator", container.getEmulator());
 
-        // Construct the command without Box64 to the Wine executable
         String command = "";
         String overriddenCommand = envVars.get("GUEST_PROGRAM_LAUNCHER_COMMAND");
         if (!overriddenCommand.isEmpty()) {
@@ -374,7 +409,6 @@ public class GuestProgramLauncherComponent extends EnvironmentComponent {
                 command = imageFs.getBinDir() + "/box64 " + guestExecutable;
         }
 
-        // **Maybe remove this: Set execute permissions for box64 if necessary (Glibc/Proot artifact)
         File box64File = new File(rootDir, "/usr/bin/box64");
         if (box64File.exists()) {
             FileUtils.chmod(box64File, 0755);
