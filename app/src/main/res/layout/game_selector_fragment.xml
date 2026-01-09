@@ -41,11 +41,11 @@
             android:orientation="vertical">
 
             <com.google.android.material.card.MaterialCardView
-                style="@style/Widget.Material3.CardView.Filled"
+                style="@style/Widget.Material3.CardView.Elevated"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="16dp"
-                app:cardBackgroundColor="?attr/colorSecondaryContainer">
+                app:cardBackgroundColor="?attr/colorSurfaceContainerHigh">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -57,43 +57,44 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
-                        android:gravity="center_vertical">
+                        android:gravity="center_vertical"
+                        android:layout_marginBottom="12dp">
 
-                        <TextView
+                        <LinearLayout
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:text="Localização Atual"
-                            android:textAppearance="?attr/textAppearanceLabelLarge"
-                            android:textColor="?attr/colorOnSecondaryContainer" />
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Localização Atual"
+                                android:textAppearance="?attr/textAppearanceLabelMedium"
+                                android:textColor="?attr/colorPrimary" />
+
+                            <TextView
+                                android:id="@+id/TVCurrentPath"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="/storage/emulated/0"
+                                android:textAppearance="?attr/textAppearanceBodyLarge"
+                                android:textColor="?attr/colorOnSurface"
+                                android:fontFamily="monospace"
+                                android:ellipsize="start"
+                                android:singleLine="true"
+                                android:layout_marginTop="4dp" />
+                        </LinearLayout>
 
                         <com.google.android.material.button.MaterialButton
                             android:id="@+id/BTUpDir"
-                            style="@style/Widget.Material3.Button.TextButton.Icon"
+                            style="@style/Widget.Material3.Button.TonalButton.Icon"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Voltar"
                             app:icon="@android:drawable/ic_menu_revert"
-                            android:minWidth="0dp" />
+                            android:layout_marginStart="12dp" />
                     </LinearLayout>
-
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:background="?attr/colorOutlineVariant"
-                        android:layout_marginTop="12dp"
-                        android:layout_marginBottom="12dp" />
-
-                    <TextView
-                        android:id="@+id/TVCurrentPath"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="/storage/emulated/0"
-                        android:textAppearance="?attr/textAppearanceBodyMedium"
-                        android:textColor="?attr/colorOnSecondaryContainer"
-                        android:fontFamily="monospace"
-                        android:ellipsize="start"
-                        android:singleLine="true" />
 
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
@@ -116,45 +117,48 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
-        app:cardElevation="8dp"
-        app:cardCornerRadius="0dp"
-        app:cardBackgroundColor="?attr/colorSurface">
+        app:cardElevation="12dp"
+        app:cardCornerRadius="28dp"
+        android:layout_margin="16dp"
+        app:cardBackgroundColor="?attr/colorSurfaceContainerHigh">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:padding="20dp">
+            android:padding="24dp">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Arquivo Selecionado"
-                android:textAppearance="?attr/textAppearanceLabelSmall"
+                android:textAppearance="?attr/textAppearanceLabelLarge"
                 android:textColor="?attr/colorPrimary"
-                android:layout_marginBottom="8dp" />
+                android:layout_marginBottom="12dp" />
 
             <TextView
                 android:id="@+id/TVSelectedFile"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Nenhum arquivo selecionado"
-                android:textAppearance="?attr/textAppearanceBodyLarge"
-                android:layout_marginBottom="16dp"
+                android:textAppearance="?attr/textAppearanceTitleMedium"
+                android:textColor="?attr/colorOnSurface"
+                android:layout_marginBottom="20dp"
                 android:ellipsize="middle"
-                android:singleLine="true" />
+                android:maxLines="2" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/BTStartGame"
                 style="@style/Widget.Material3.Button.TonalButton"
                 android:layout_width="match_parent"
-                android:layout_height="56dp"
+                android:layout_height="60dp"
                 android:text="Adicionar Jogo"
-                android:textSize="16sp"
+                android:textSize="17sp"
                 android:enabled="false"
                 app:icon="@android:drawable/ic_input_add"
                 app:iconGravity="textStart"
-                app:iconSize="24dp" />
+                app:iconSize="26dp"
+                app:cornerRadius="16dp" />
 
         </LinearLayout>
     </com.google.android.material.card.MaterialCardView>
