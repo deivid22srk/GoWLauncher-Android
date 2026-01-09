@@ -4,7 +4,6 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.util.Log;
 
-import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.RandomAccessFile;
 import java.nio.ByteBuffer;
@@ -34,9 +33,18 @@ public class IconExtractor {
         long offset;
         int size;
     }
+    
+    private static class PEInfo {
+        long sectionTableOffset;
+        int numberOfSections;
+        long resourceDirBase;
+        int resourceRVA;
+    }
 
     public static Bitmap extractIcon(File exeFile) {
         try (RandomAccessFile raf = new RandomAccessFile(exeFile, "r")) {
+            Log.d(TAG, "Starting icon extraction from: " + exeFile.getName());
+            
             byte[] dosHeader = new byte[64];
             raf.read(dosHeader);
             
@@ -86,6 +94,8 @@ public class IconExtractor {
                 return null;
             }
             
+            Log.d(TAG, "Resource RVA: 0x" + Integer.toHexString(resourceRVA) + ", Size: " + resourceSize);
+            
             long sectionTableOffset = peOffset + 24 + optionalHeaderSize;
             long resourceFileOffset = rvaToFileOffset(raf, resourceRVA, sectionTableOffset, numberOfSections);
             
@@ -94,18 +104,30 @@ public class IconExtractor {
                 return null;
             }
             
-            List<ResourceEntry> iconGroupResources = findResourcesByType(raf, resourceFileOffset, resourceRVA, RT_GROUP_ICON, 0);
+            Log.d(TAG, "Resource file offset: 0x" + Long.toHexString(resourceFileOffset));
+            
+            PEInfo peInfo = new PEInfo();
+            peInfo.sectionTableOffset = sectionTableOffset;
+            peInfo.numberOfSections = numberOfSections;
+            peInfo.resourceDirBase = resourceFileOffset;
+            peInfo.resourceRVA = resourceRVA;
+            
+            List<ResourceEntry> iconGroupResources = findResourcesByType(raf, peInfo, RT_GROUP_ICON);
             
             if (iconGroupResources.isEmpty()) {
                 Log.e(TAG, "No icon group resources found");
                 return null;
             }
             
+            Log.d(TAG, "Found " + iconGroupResources.size() + " icon groups");
+            
             ResourceEntry firstIconGroup = iconGroupResources.get(0);
             raf.seek(firstIconGroup.offset);
             
             byte[] iconGroupData = new byte[firstIconGroup.size];
             raf.read(iconGroupData);
+            
+            Log.d(TAG, "Icon group size: " + firstIconGroup.size + " bytes");
             
             List<IconDirEntry> iconEntries = parseIconGroup(iconGroupData);
             
@@ -114,9 +136,14 @@ public class IconExtractor {
                 return null;
             }
             
-            IconDirEntry bestIcon = selectBestIcon(iconEntries);
+            Log.d(TAG, "Found " + iconEntries.size() + " icons in group");
             
-            List<ResourceEntry> iconResources = findResourcesByType(raf, resourceFileOffset, resourceRVA, RT_ICON, 0);
+            IconDirEntry bestIcon = selectBestIcon(iconEntries);
+            Log.d(TAG, "Selected icon: " + bestIcon.width + "x" + bestIcon.height + " " + bestIcon.bitCount + "bpp, ID: " + bestIcon.iconId);
+            
+            List<ResourceEntry> iconResources = findResourcesByType(raf, peInfo, RT_ICON);
+            
+            Log.d(TAG, "Found " + iconResources.size() + " icon resources");
             
             ResourceEntry iconResource = null;
             for (ResourceEntry res : iconResources) {
@@ -131,13 +158,19 @@ public class IconExtractor {
                 return null;
             }
             
+            Log.d(TAG, "Icon data offset: 0x" + Long.toHexString(iconResource.offset) + ", size: " + iconResource.size);
+            
             raf.seek(iconResource.offset);
             byte[] iconData = new byte[iconResource.size];
             raf.read(iconData);
             
             byte[] icoFile = createICOFile(bestIcon, iconData);
             
-            return decodeICO(icoFile);
+            Bitmap result = decodeICO(icoFile);
+            if (result != null) {
+                Log.d(TAG, "Successfully extracted icon: " + result.getWidth() + "x" + result.getHeight());
+            }
+            return result;
             
         } catch (Exception e) {
             Log.e(TAG, "Error extracting icon: " + e.getMessage(), e);
@@ -169,97 +202,118 @@ public class IconExtractor {
         return -1;
     }
     
-    private static List<ResourceEntry> findResourcesByType(RandomAccessFile raf, long resourceBase, int resourceRVA, int resourceType, int level) throws Exception {
+    private static List<ResourceEntry> findResourcesByType(RandomAccessFile raf, PEInfo peInfo, int resourceType) throws Exception {
         List<ResourceEntry> results = new ArrayList<>();
         
-        if (level > 3) return results;
-        
-        raf.seek(resourceBase);
-        
+        raf.seek(peInfo.resourceDirBase);
         byte[] dirHeader = new byte[16];
         raf.read(dirHeader);
         
         int numberOfNamedEntries = ByteBuffer.wrap(dirHeader, 12, 2).order(ByteOrder.LITTLE_ENDIAN).getShort() & 0xFFFF;
         int numberOfIdEntries = ByteBuffer.wrap(dirHeader, 14, 2).order(ByteOrder.LITTLE_ENDIAN).getShort() & 0xFFFF;
         
-        int totalEntries = numberOfNamedEntries + numberOfIdEntries;
-        
-        for (int i = 0; i < totalEntries; i++) {
+        for (int i = 0; i < numberOfNamedEntries + numberOfIdEntries; i++) {
             byte[] entry = new byte[8];
             raf.read(entry);
             
-            int nameOrId = ByteBuffer.wrap(entry, 0, 4).order(ByteOrder.LITTLE_ENDIAN).getInt();
+            int typeId = ByteBuffer.wrap(entry, 0, 4).order(ByteOrder.LITTLE_ENDIAN).getInt();
             int offsetToData = ByteBuffer.wrap(entry, 4, 4).order(ByteOrder.LITTLE_ENDIAN).getInt();
             
-            boolean isDirectory = (offsetToData & 0x80000000) != 0;
-            int actualOffset = offsetToData & 0x7FFFFFFF;
-            
-            if (level == 0 && nameOrId != resourceType) {
-                continue;
-            }
-            
-            if (isDirectory) {
-                long currentPos = raf.getFilePointer();
-                long nextResourceBase = resourceBase - (resourceBase - resourceRVA) + actualOffset;
+            if ((typeId & 0x80000000) == 0 && typeId == resourceType) {
+                boolean isDirectory = (offsetToData & 0x80000000) != 0;
+                int actualOffset = offsetToData & 0x7FFFFFFF;
                 
-                results.addAll(findResourcesByType(raf, nextResourceBase, resourceRVA, resourceType, level + 1));
-                
-                raf.seek(currentPos);
-            } else {
-                long currentPos = raf.getFilePointer();
-                
-                long dataEntryOffset = resourceBase - (resourceBase - resourceRVA) + actualOffset;
-                raf.seek(dataEntryOffset);
-                
-                byte[] dataEntry = new byte[16];
-                raf.read(dataEntry);
-                
-                int dataRVA = ByteBuffer.wrap(dataEntry, 0, 4).order(ByteOrder.LITTLE_ENDIAN).getInt();
-                int size = ByteBuffer.wrap(dataEntry, 4, 4).order(ByteOrder.LITTLE_ENDIAN).getInt();
-                
-                long sectionTableOffset = 0;
-                int numberOfSections = 0;
-                
-                raf.seek(0);
-                byte[] dosHeader = new byte[64];
-                raf.read(dosHeader);
-                int peOffset = ByteBuffer.wrap(dosHeader, 60, 4).order(ByteOrder.LITTLE_ENDIAN).getInt();
-                
-                raf.seek(peOffset + 6);
-                byte[] numberOfSectionsBytes = new byte[2];
-                raf.read(numberOfSectionsBytes);
-                numberOfSections = ByteBuffer.wrap(numberOfSectionsBytes).order(ByteOrder.LITTLE_ENDIAN).getShort() & 0xFFFF;
-                
-                raf.seek(peOffset + 20);
-                byte[] optionalHeaderSizeBytes = new byte[2];
-                raf.read(optionalHeaderSizeBytes);
-                int optionalHeaderSize = ByteBuffer.wrap(optionalHeaderSizeBytes).order(ByteOrder.LITTLE_ENDIAN).getShort() & 0xFFFF;
-                
-                sectionTableOffset = peOffset + 24 + optionalHeaderSize;
-                
-                long fileOffset = rvaToFileOffset(raf, dataRVA, sectionTableOffset, numberOfSections);
-                
-                if (fileOffset != -1) {
-                    ResourceEntry resEntry = new ResourceEntry();
-                    resEntry.id = nameOrId;
-                    resEntry.offset = fileOffset;
-                    resEntry.size = size;
-                    results.add(resEntry);
+                if (isDirectory) {
+                    long level2Offset = peInfo.resourceDirBase + actualOffset;
+                    processLevel2(raf, peInfo, level2Offset, results);
                 }
-                
-                raf.seek(currentPos);
             }
         }
         
         return results;
     }
     
+    private static void processLevel2(RandomAccessFile raf, PEInfo peInfo, long dirOffset, List<ResourceEntry> results) throws Exception {
+        raf.seek(dirOffset);
+        byte[] dirHeader = new byte[16];
+        raf.read(dirHeader);
+        
+        int numberOfNamedEntries = ByteBuffer.wrap(dirHeader, 12, 2).order(ByteOrder.LITTLE_ENDIAN).getShort() & 0xFFFF;
+        int numberOfIdEntries = ByteBuffer.wrap(dirHeader, 14, 2).order(ByteOrder.LITTLE_ENDIAN).getShort() & 0xFFFF;
+        
+        for (int i = 0; i < numberOfNamedEntries + numberOfIdEntries; i++) {
+            byte[] entry = new byte[8];
+            raf.read(entry);
+            
+            int resourceId = ByteBuffer.wrap(entry, 0, 4).order(ByteOrder.LITTLE_ENDIAN).getInt();
+            int offsetToData = ByteBuffer.wrap(entry, 4, 4).order(ByteOrder.LITTLE_ENDIAN).getInt();
+            
+            boolean isDirectory = (offsetToData & 0x80000000) != 0;
+            int actualOffset = offsetToData & 0x7FFFFFFF;
+            
+            if (isDirectory) {
+                long level3Offset = peInfo.resourceDirBase + actualOffset;
+                processLevel3(raf, peInfo, level3Offset, resourceId, results);
+            }
+        }
+    }
+    
+    private static void processLevel3(RandomAccessFile raf, PEInfo peInfo, long dirOffset, int resourceId, List<ResourceEntry> results) throws Exception {
+        raf.seek(dirOffset);
+        byte[] dirHeader = new byte[16];
+        raf.read(dirHeader);
+        
+        int numberOfNamedEntries = ByteBuffer.wrap(dirHeader, 12, 2).order(ByteOrder.LITTLE_ENDIAN).getShort() & 0xFFFF;
+        int numberOfIdEntries = ByteBuffer.wrap(dirHeader, 14, 2).order(ByteOrder.LITTLE_ENDIAN).getShort() & 0xFFFF;
+        
+        for (int i = 0; i < numberOfNamedEntries + numberOfIdEntries; i++) {
+            byte[] entry = new byte[8];
+            raf.read(entry);
+            
+            int languageId = ByteBuffer.wrap(entry, 0, 4).order(ByteOrder.LITTLE_ENDIAN).getInt();
+            int offsetToData = ByteBuffer.wrap(entry, 4, 4).order(ByteOrder.LITTLE_ENDIAN).getInt();
+            
+            int actualOffset = offsetToData & 0x7FFFFFFF;
+            
+            long dataEntryOffset = peInfo.resourceDirBase + actualOffset;
+            raf.seek(dataEntryOffset);
+            
+            byte[] dataEntry = new byte[16];
+            raf.read(dataEntry);
+            
+            int dataRVA = ByteBuffer.wrap(dataEntry, 0, 4).order(ByteOrder.LITTLE_ENDIAN).getInt();
+            int size = ByteBuffer.wrap(dataEntry, 4, 4).order(ByteOrder.LITTLE_ENDIAN).getInt();
+            
+            long fileOffset = rvaToFileOffset(raf, dataRVA, peInfo.sectionTableOffset, peInfo.numberOfSections);
+            
+            if (fileOffset != -1) {
+                ResourceEntry resEntry = new ResourceEntry();
+                resEntry.id = resourceId;
+                resEntry.offset = fileOffset;
+                resEntry.size = size;
+                results.add(resEntry);
+            }
+        }
+    }
+    
     private static List<IconDirEntry> parseIconGroup(byte[] data) {
         List<IconDirEntry> entries = new ArrayList<>();
         
-        if (data.length < 6) return entries;
+        if (data.length < 6) {
+            Log.e(TAG, "Icon group data too small: " + data.length + " bytes");
+            return entries;
+        }
         
+        int reserved = ByteBuffer.wrap(data, 0, 2).order(ByteOrder.LITTLE_ENDIAN).getShort() & 0xFFFF;
+        int type = ByteBuffer.wrap(data, 2, 2).order(ByteOrder.LITTLE_ENDIAN).getShort() & 0xFFFF;
         int count = ByteBuffer.wrap(data, 4, 2).order(ByteOrder.LITTLE_ENDIAN).getShort() & 0xFFFF;
+        
+        Log.d(TAG, "Icon group header - Reserved: " + reserved + ", Type: " + type + ", Count: " + count);
+        
+        if (type != 1) {
+            Log.e(TAG, "Invalid icon group type: " + type);
+            return entries;
+        }
         
         for (int i = 0; i < count && (6 + i * 14 + 14) <= data.length; i++) {
             int offset = 6 + i * 14;
@@ -276,6 +330,8 @@ public class IconExtractor {
             entry.bitCount = ByteBuffer.wrap(data, offset + 6, 2).order(ByteOrder.LITTLE_ENDIAN).getShort() & 0xFFFF;
             entry.bytesInRes = ByteBuffer.wrap(data, offset + 8, 4).order(ByteOrder.LITTLE_ENDIAN).getInt();
             entry.iconId = ByteBuffer.wrap(data, offset + 12, 2).order(ByteOrder.LITTLE_ENDIAN).getShort() & 0xFFFF;
+            
+            Log.d(TAG, "Icon entry " + i + ": " + entry.width + "x" + entry.height + " " + entry.bitCount + "bpp, ID: " + entry.iconId);
             
             entries.add(entry);
         }
@@ -344,6 +400,7 @@ public class IconExtractor {
             
             if (imageSize > 8 && imageData[0] == (byte)0x89 && imageData[1] == 'P' && 
                 imageData[2] == 'N' && imageData[3] == 'G') {
+                Log.d(TAG, "Decoding PNG icon");
                 return BitmapFactory.decodeByteArray(imageData, 0, imageSize);
             }
             
@@ -357,6 +414,8 @@ public class IconExtractor {
             int bitCount = ByteBuffer.wrap(imageData, 14, 2).order(ByteOrder.LITTLE_ENDIAN).getShort() & 0xFFFF;
             
             height = height / 2;
+            
+            Log.d(TAG, "Decoding BMP icon: " + width + "x" + height + " " + bitCount + "bpp");
             
             if (bitCount == 32) {
                 return decodeBMP32(imageData, width, height);
