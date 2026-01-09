@@ -200,6 +200,11 @@ public class GameSelectorFragment extends Fragment {
     }
 
     private void loadDirectory(File dir) {
+        if (dir == null || !dir.exists() || !dir.canRead()) {
+            Toast.makeText(requireContext(), "Não é possível acessar este diretório", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        
         currentDir = dir;
         tvCurrentPath.setText(dir.getAbsolutePath());
 
@@ -207,6 +212,8 @@ public class GameSelectorFragment extends Fragment {
         List<File> fileList = new ArrayList<>();
         if (files != null) {
             fileList.addAll(Arrays.asList(files));
+        } else {
+            Toast.makeText(requireContext(), "Não é possível listar arquivos neste diretório", Toast.LENGTH_SHORT).show();
         }
 
         Collections.sort(fileList, (f1, f2) -> {
@@ -324,7 +331,8 @@ public class GameSelectorFragment extends Fragment {
             if (file.isDirectory()) {
                 holder.ivIcon.setImageResource(R.drawable.icon_folder);
                 holder.ivIcon.clearColorFilter();
-                int count = file.list() != null ? file.list().length : 0;
+                String[] contents = file.list();
+                int count = contents != null ? contents.length : 0;
                 holder.tvDetails.setText(count + " itens");
                 holder.itemView.setOnClickListener(v -> loadDirectory(file));
             } else {

@@ -118,10 +118,13 @@ public class AdrenotoolsManager {
     public ArrayList<String> enumarateInstalledDrivers() {
         ArrayList<String> driversList = new ArrayList<>();
         
-        for (File f : adrenotoolsContentDir.listFiles()) {
-            boolean fromResources = isFromResources(f.getName());
-            if (!fromResources && new File(f, "meta.json").exists())
-                driversList.add(f.getName());
+        File[] files = adrenotoolsContentDir.listFiles();
+        if (files != null) {
+            for (File f : files) {
+                boolean fromResources = isFromResources(f.getName());
+                if (!fromResources && new File(f, "meta.json").exists())
+                    driversList.add(f.getName());
+            }
         }
         return driversList;
     }

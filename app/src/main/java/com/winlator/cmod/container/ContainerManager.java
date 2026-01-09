@@ -66,10 +66,15 @@ public class ContainerManager {
                             );
 
                             container.setRootDir(new File(homeDir, ImageFs.USER + "-" + container.id));
-                            JSONObject data = new JSONObject(FileUtils.readString(container.getConfigFile()));
-                            container.loadData(data);
-                            containers.add(container);
-                            maxContainerId = Math.max(maxContainerId, container.id);
+                            String configContent = FileUtils.readString(container.getConfigFile());
+                            if (configContent != null && !configContent.trim().isEmpty()) {
+                                JSONObject data = new JSONObject(configContent);
+                                container.loadData(data);
+                                containers.add(container);
+                                maxContainerId = Math.max(maxContainerId, container.id);
+                            } else {
+                                Log.w("ContainerManager", "Config file is empty or null for container: " + container.id);
+                            }
                         }
                     }
                 }
@@ -199,9 +204,13 @@ public class ContainerManager {
         for (Container container : containers) {
             File desktopDir = container.getDesktopDir();
             ArrayList<File> files = new ArrayList<>();
-            if (desktopDir.exists())
-                files.addAll(Arrays.asList(desktopDir.listFiles()));
-            if (files != null) {
+            if (desktopDir.exists()) {
+                File[] listFiles = desktopDir.listFiles();
+                if (listFiles != null) {
+                    files.addAll(Arrays.asList(listFiles));
+                }
+            }
+            if (!files.isEmpty()) {
                 for (File file : files) {
                     String fileName = file.getName();
                     if (fileName.endsWith(".lnk")) {
@@ -234,6 +243,11 @@ public class ContainerManager {
         File srcDir = new File(wineInfo.path + "/lib/wine/" + srcName);
 
         File[] srcfiles = srcDir.listFiles(file -> file.isFile());
+        
+        if (srcfiles == null) {
+            Log.w("ContainerManager", "Could not list files in directory: " + srcDir.getAbsolutePath());
+            return;
+        }
 
         for (File file : srcfiles) {
             String dllName = file.getName();

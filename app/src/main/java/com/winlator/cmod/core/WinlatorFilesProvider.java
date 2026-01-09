@@ -137,8 +137,11 @@ public class WinlatorFilesProvider extends DocumentsProvider {
     public Cursor queryChildDocuments(String parentDocumentId, String[] projection, String sortOrder) throws FileNotFoundException {
         final MatrixCursor result = new MatrixCursor(projection != null ? projection : DEFAULT_DOCUMENT_PROJECTION);
         final File parent = getFileForDocId(parentDocumentId);
-        for (File file : parent.listFiles()) {
-            includeFile(result, null, file);
+        File[] files = parent.listFiles();
+        if (files != null) {
+            for (File file : files) {
+                includeFile(result, null, file);
+            }
         }
         return result;
     }
@@ -218,7 +221,10 @@ public class WinlatorFilesProvider extends DocumentsProvider {
             }
             if (isInsideHome) {
                 if (file.isDirectory()) {
-                    Collections.addAll(pending, file.listFiles());
+                    File[] dirFiles = file.listFiles();
+                    if (dirFiles != null) {
+                        Collections.addAll(pending, dirFiles);
+                    }
                 } else {
                     if (file.getName().toLowerCase().contains(query)) {
                         includeFile(result, null, file);

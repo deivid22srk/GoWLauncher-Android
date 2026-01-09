@@ -396,8 +396,13 @@ public class ShortcutsFragment extends Fragment {
             }
 
             boolean found = false;
+            File[] files = shortcutsDir.listFiles();
+            if (files == null) {
+                Toast.makeText(getContext(), "Cannot read shortcuts directory", Toast.LENGTH_SHORT).show();
+                return;
+            }
 
-            for (File f : shortcutsDir.listFiles()) {
+            for (File f : files) {
                 if (f.getName().endsWith(".desktop")) {
                     Shortcut tempShorcut = new Shortcut(container, f);
                     if (tempShorcut.getExecutable().equals(shortcut.getExecutable())) {
