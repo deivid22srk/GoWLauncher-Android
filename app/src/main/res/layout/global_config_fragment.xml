@@ -59,20 +59,20 @@
                     android:padding="20dp"
                     android:gravity="center_vertical">
 
-                    <LinearLayout
+                    <FrameLayout
                         android:layout_width="56dp"
                         android:layout_height="56dp"
-                        android:background="@drawable/ic_launcher_background"
+                        android:background="@drawable/category_icon_background"
                         android:backgroundTint="?attr/colorPrimaryContainer"
-                        android:gravity="center"
                         android:layout_marginEnd="16dp">
                         
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="🎨"
-                            android:textSize="28sp" />
-                    </LinearLayout>
+                        <ImageView
+                            android:layout_width="32dp"
+                            android:layout_height="32dp"
+                            android:layout_gravity="center"
+                            android:src="@drawable/ic_category_graphics"
+                            app:tint="?attr/colorOnPrimaryContainer" />
+                    </FrameLayout>
 
                     <LinearLayout
                         android:layout_width="0dp"
@@ -123,20 +123,20 @@
                     android:padding="20dp"
                     android:gravity="center_vertical">
 
-                    <LinearLayout
+                    <FrameLayout
                         android:layout_width="56dp"
                         android:layout_height="56dp"
-                        android:background="@drawable/ic_launcher_background"
+                        android:background="@drawable/category_icon_background"
                         android:backgroundTint="?attr/colorSecondaryContainer"
-                        android:gravity="center"
                         android:layout_marginEnd="16dp">
                         
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="⚙️"
-                            android:textSize="28sp" />
-                    </LinearLayout>
+                        <ImageView
+                            android:layout_width="32dp"
+                            android:layout_height="32dp"
+                            android:layout_gravity="center"
+                            android:src="@drawable/ic_category_emulation"
+                            app:tint="?attr/colorOnSecondaryContainer" />
+                    </FrameLayout>
 
                     <LinearLayout
                         android:layout_width="0dp"
@@ -187,20 +187,20 @@
                     android:padding="20dp"
                     android:gravity="center_vertical">
 
-                    <LinearLayout
+                    <FrameLayout
                         android:layout_width="56dp"
                         android:layout_height="56dp"
-                        android:background="@drawable/ic_launcher_background"
+                        android:background="@drawable/category_icon_background"
                         android:backgroundTint="?attr/colorTertiaryContainer"
-                        android:gravity="center"
                         android:layout_marginEnd="16dp">
                         
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="🌐"
-                            android:textSize="28sp" />
-                    </LinearLayout>
+                        <ImageView
+                            android:layout_width="32dp"
+                            android:layout_height="32dp"
+                            android:layout_gravity="center"
+                            android:src="@drawable/ic_category_environment"
+                            app:tint="?attr/colorOnTertiaryContainer" />
+                    </FrameLayout>
 
                     <LinearLayout
                         android:layout_width="0dp"
@@ -251,20 +251,20 @@
                     android:padding="20dp"
                     android:gravity="center_vertical">
 
-                    <LinearLayout
+                    <FrameLayout
                         android:layout_width="56dp"
                         android:layout_height="56dp"
-                        android:background="@drawable/ic_launcher_background"
+                        android:background="@drawable/category_icon_background"
                         android:backgroundTint="?attr/colorErrorContainer"
-                        android:gravity="center"
                         android:layout_marginEnd="16dp">
                         
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="⚡"
-                            android:textSize="28sp" />
-                    </LinearLayout>
+                        <ImageView
+                            android:layout_width="32dp"
+                            android:layout_height="32dp"
+                            android:layout_gravity="center"
+                            android:src="@drawable/ic_category_advanced"
+                            app:tint="?attr/colorOnErrorContainer" />
+                    </FrameLayout>
 
                     <LinearLayout
                         android:layout_width="0dp"
