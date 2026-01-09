@@ -830,6 +830,13 @@ public class XServerDisplayActivity extends AppCompatActivity implements Navigat
 
     @Override
     protected void onDestroy() {
+        NotificationManagerCompat.from(this).cancel(NOTIFICATION_ID);
+        if (handler != null) {
+            handler.removeCallbacks(savePlaytimeRunnable);
+        }
+        if (timeoutHandler != null && hideControlsRunnable != null) {
+            timeoutHandler.removeCallbacks(hideControlsRunnable);
+        }
         super.onDestroy();
     }
 
@@ -1147,7 +1154,20 @@ public class XServerDisplayActivity extends AppCompatActivity implements Navigat
 
         // Pass final envVars to the launcher
         guestProgramLauncherComponent.setEnvVars(envVars);
-        guestProgramLauncherComponent.setTerminationCallback((status) -> exit());
+        guestProgramLauncherComponent.setTerminationCallback((status) -> {
+            runOnUiThread(() -> {
+                NotificationManagerCompat.from(this).cancel(NOTIFICATION_ID);
+                savePlaytimeData();
+                handler.removeCallbacks(savePlaytimeRunnable);
+                if (midiHandler != null) midiHandler.stop();
+                if (sensorManager != null) sensorManager.unregisterListener(gyroListener);
+                if (environment != null) environment.stopEnvironmentComponents();
+                if (winHandler != null) winHandler.stop();
+                if (wineRequestHandler != null) wineRequestHandler.stop();
+                ProcessHelper.terminateAllWineProcesses();
+                finish();
+            });
+        });
 
         // Add the launcher to our environment
         environment.addComponent(guestProgramLauncherComponent);

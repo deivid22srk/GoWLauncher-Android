@@ -77,7 +77,9 @@ public class XrActivity extends XServerDisplayActivity implements TextWatcher {
     @Override
     public synchronized void onDestroy() {
         super.onDestroy();
-        System.exit(0);
+        if (this.getClass().equals(XrActivity.class)) {
+            System.exit(0);
+        }
     }
 
     @Override
