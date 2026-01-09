@@ -1,135 +1,169 @@
-1767919716.150 10514 12727 12727 D ViewRootImpl: Skipping stats log for color mode
-1767919716.247 10514 12727 12727 D InsetsController: hide(ime(), fromIme=false)
-1767919716.247 10514 12727 12727 I ImeTracker: com.gowlauncher:595e0ba0: onCancelled at PHASE_CLIENT_ALREADY_HIDDEN
-1767919719.090 10514 12727 12727 D VRI[MainActivityNew]: visibilityChanged oldVisibility=true newVisibility=false
-1767919722.356 10514 12727 12727 D ViewRootImpl: Skipping stats log for color mode
-1767919722.753 10514 12727 12727 D InsetsController: hide(ime(), fromIme=false)
-1767919722.753 10514 12727 12727 I ImeTracker: com.gowlauncher:96883896: onCancelled at PHASE_CLIENT_ALREADY_HIDDEN
-1767919723.740 10514 12727 12727 W WindowOnBackDispatcher: OnBackInvokedCallback is not enabled for the application.
-1767919723.740 10514 12727 12727 W WindowOnBackDispatcher: Set 'android:enableOnBackInvokedCallback="true"' in the application manifest.
-1767919723.789 10514 12727 12727 W HWUI    : Image decoding logging dropped!
-1767919723.799 10514 12727 12727 W HWUI    : Image decoding logging dropped!
-1767919723.822 10514 12727 12727 W RecyclerView: No adapter attached; skipping layout
-1767919723.823 10514 12727 13201 D WineInfo: Creating WineInfo from identifier proton-9.0-arm64ec
-1767919723.857 10514 12727 13201 D nativeloader: Load /data/app/~~G98GB8FD40c6yff_8Lzi1w==/com.gowlauncher-BKi9bMY3a_xgox-ziyeMfg==/lib/arm64/libzstd-jni-1.5.2-3.so using class loader ns clns-7 (caller=/data/app/~~G98GB8FD40c6yff_8Lzi1w==/com.gowlauncher-BKi9bMY3a_xgox-ziyeMfg==/base.apk): ok
-1767919724.319 10514 12727 13201 E AndroidRuntime: FATAL EXCEPTION: pool-9-thread-1
-1767919724.319 10514 12727 13201 E AndroidRuntime: Process: com.gowlauncher, PID: 12727
-1767919724.319 10514 12727 13201 E AndroidRuntime: java.lang.NullPointerException: Attempt to get length of null array
-1767919724.319 10514 12727 13201 E AndroidRuntime: 	at com.winlator.cmod.container.ContainerManager.extractCommonDlls(ContainerManager.java:238)
-1767919724.319 10514 12727 13201 E AndroidRuntime: 	at com.winlator.cmod.container.ContainerManager.extractContainerPatternFile(ContainerManager.java:267)
-1767919724.319 10514 12727 13201 E AndroidRuntime: 	at com.winlator.cmod.container.ContainerManager.createContainer(ContainerManager.java:133)
-1767919724.319 10514 12727 13201 E AndroidRuntime: 	at com.winlator.cmod.container.ContainerManager.lambda$createContainerAsync$1(ContainerManager.java:98)
-1767919724.319 10514 12727 13201 E AndroidRuntime: 	at com.winlator.cmod.container.ContainerManager.$r8$lambda$vkGsM06BZgh_Ld1anuFVGzyunYE(Unknown Source:0)
-1767919724.319 10514 12727 13201 E AndroidRuntime: 	at com.winlator.cmod.container.ContainerManager$$ExternalSyntheticLambda6.run(D8$$SyntheticClass:0)
-1767919724.319 10514 12727 13201 E AndroidRuntime: 	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1156)
-1767919724.319 10514 12727 13201 E AndroidRuntime: 	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:651)
-1767919724.319 10514 12727 13201 E AndroidRuntime: 	at java.lang.Thread.run(Thread.java:1119)
-1767919724.326 10514 12727 13201 I Process : Sending signal. PID: 12727 SIG: 9
-1767919725.996 10514 13216 13216 I libc    : SetHeapTaggingLevel: tag level set to 0
-1767919726.005 10514 13216 13216 I com.gowlauncher: Late-enabling -Xcheck:jni
-1767919726.025 10514 13216 13216 I com.gowlauncher: Using CollectorTypeCMC GC.
-1767919726.033 10514 13216 13216 D nativeloader: Load libframework-connectivity-tiramisu-jni.so using APEX ns com_android_tethering for caller /apex/com.android.tethering/javalib/framework-connectivity-t.jar: ok
-1767919726.073 10514 13216 13216 D ApplicationLoaders: Returning zygote-cached class loader: /system/framework/android.test.base.jar
-1767919726.073 10514 13216 13216 D ApplicationLoaders: Returning zygote-cached class loader: /system_ext/framework/androidx.window.extensions.jar
-1767919726.073 10514 13216 13216 D ApplicationLoaders: Returning zygote-cached class loader: /system_ext/framework/androidx.window.sidecar.jar
-1767919726.074 10514 13216 13216 W ziparchive: Unable to open '/data/app/~~G98GB8FD40c6yff_8Lzi1w==/com.gowlauncher-BKi9bMY3a_xgox-ziyeMfg==/base.dm': No such file or directory
-1767919726.075 10514 13216 13216 W ziparchive: Unable to open '/data/app/~~G98GB8FD40c6yff_8Lzi1w==/com.gowlauncher-BKi9bMY3a_xgox-ziyeMfg==/base.dm': No such file or directory
-1767919726.264 10514 13216 13216 D nativeloader: Configuring clns-7 for other apk /data/app/~~G98GB8FD40c6yff_8Lzi1w==/com.gowlauncher-BKi9bMY3a_xgox-ziyeMfg==/base.apk. target_sdk_version=28, uses_libraries=, library_path=/data/app/~~G98GB8FD40c6yff_8Lzi1w==/com.gowlauncher-BKi9bMY3a_xgox-ziyeMfg==/lib/arm64:/data/app/~~G98GB8FD40c6yff_8Lzi1w==/com.gowlauncher-BKi9bMY3a_xgox-ziyeMfg==/base.apk!/lib/arm64-v8a, permitted_path=/data:/mnt/expand:/data/user/0/com.gowlauncher
-1767919726.264 10514 13216 13216 D nativeloader: Extending system_exposed_libraries: libupdateprof.qti.so:libQOC.qti.so:libdiag_system.qti.so:libqape.qti.so:libqesdk_ndk_platform.qti.so:liblistenjni.qti.so
-1767919726.270 10514 13216 13216 I com.gowlauncher: AssetManager2(0x73a2223438) locale list changing from [] to [pt-BR]
-1767919726.274 10514 13216 13216 V GraphicsEnvironment: Currently set values for:
-1767919726.274 10514 13216 13216 V GraphicsEnvironment:   angle_gl_driver_selection_pkgs=[]
-1767919726.274 10514 13216 13216 V GraphicsEnvironment:   angle_gl_driver_selection_values=[]
-1767919726.274 10514 13216 13216 V GraphicsEnvironment: com.gowlauncher is not listed in per-application setting
-1767919726.274 10514 13216 13216 V GraphicsEnvironment: Neither updatable production driver nor prerelease driver is supported.
-1767919726.321 10514 13216 13216 I com.gowlauncher: AssetManager2(0x73a2221818) locale list changing from [] to [pt-BR]
-1767919726.349 10514 13216 13216 D AppCompatDelegate: Checking for metadata for AppLocalesMetadataHolderService : Service not found
-1767919726.350 10514 13216 13216 I com.gowlauncher: AssetManager2(0x73a221dfd8) locale list changing from [] to [pt-BR]
-1767919726.399 10514 13216 13216 D DesktopModeFlagsUtil: Toggle override initialized to: OVERRIDE_UNSET
-1767919726.431 10514 13216 13216 W com.gowlauncher: Accessing hidden method Landroid/view/View;->computeFitSystemWindows(Landroid/graphics/Rect;Landroid/graphics/Rect;)Z (unsupported, reflection, allowed)
-1767919726.431 10514 13216 13216 W com.gowlauncher: Accessing hidden method Landroid/view/ViewGroup;->makeOptionalFitsSystemWindows()V (unsupported, reflection, allowed)
-1767919726.435 10514 13216 13216 D CompatChangeReporter: Compat change id reported: 37756858; UID 10514; state: ENABLED
-1767919726.491 10514 13216 13216 W HWUI    : Image decoding logging dropped!
-1767919726.522 10514 13216 13216 W HWUI    : Image decoding logging dropped!
-1767919726.578 10514 13216 13216 E ContainerManager: Error loading containers
-1767919726.578 10514 13216 13216 E ContainerManager: org.json.JSONException: End of input at character 0 of
-1767919726.578 10514 13216 13216 E ContainerManager: 	at org.json.JSONTokener.syntaxError(JSONTokener.java:469)
-1767919726.578 10514 13216 13216 E ContainerManager: 	at org.json.JSONTokener.nextValue(JSONTokener.java:101)
-1767919726.578 10514 13216 13216 E ContainerManager: 	at org.json.JSONObject.<init>(JSONObject.java:168)
-1767919726.578 10514 13216 13216 E ContainerManager: 	at org.json.JSONObject.<init>(JSONObject.java:185)
-1767919726.578 10514 13216 13216 E ContainerManager: 	at com.winlator.cmod.container.ContainerManager.loadContainers(ContainerManager.java:69)
-1767919726.578 10514 13216 13216 E ContainerManager: 	at com.winlator.cmod.container.ContainerManager.<init>(ContainerManager.java:40)
-1767919726.578 10514 13216 13216 E ContainerManager: 	at com.winlator.cmod.HomeFragment.onCreate(HomeFragment.java:51)
-1767919726.578 10514 13216 13216 E ContainerManager: 	at androidx.fragment.app.Fragment.performCreate(Fragment.java:2981)
-1767919726.578 10514 13216 13216 E ContainerManager: 	at androidx.fragment.app.FragmentStateManager.create(FragmentStateManager.java:474)
-1767919726.578 10514 13216 13216 E ContainerManager: 	at androidx.fragment.app.FragmentStateManager.moveToExpectedState(FragmentStateManager.java:257)
-1767919726.578 10514 13216 13216 E ContainerManager: 	at androidx.fragment.app.FragmentManager.executeOpsTogether(FragmentManager.java:1840)
-1767919726.578 10514 13216 13216 E ContainerManager: 	at androidx.fragment.app.FragmentManager.removeRedundantOperationsAndExecute(FragmentManager.java:1758)
-1767919726.578 10514 13216 13216 E ContainerManager: 	at androidx.fragment.app.FragmentManager.execPendingActions(FragmentManager.java:1701)
-1767919726.578 10514 13216 13216 E ContainerManager: 	at androidx.fragment.app.FragmentManager.dispatchStateChange(FragmentManager.java:2849)
-1767919726.578 10514 13216 13216 E ContainerManager: 	at androidx.fragment.app.FragmentManager.dispatchActivityCreated(FragmentManager.java:2784)
-1767919726.578 10514 13216 13216 E ContainerManager: 	at androidx.fragment.app.FragmentController.dispatchActivityCreated(FragmentController.java:262)
-1767919726.578 10514 13216 13216 E ContainerManager: 	at androidx.fragment.app.FragmentActivity.onStart(FragmentActivity.java:478)
-1767919726.578 10514 13216 13216 E ContainerManager: 	at androidx.appcompat.app.AppCompatActivity.onStart(AppCompatActivity.java:251)
-1767919726.578 10514 13216 13216 E ContainerManager: 	at android.app.Instrumentation.callActivityOnStart(Instrumentation.java:1706)
-1767919726.578 10514 13216 13216 E ContainerManager: 	at android.app.Activity.performStart(Activity.java:9122)
-1767919726.578 10514 13216 13216 E ContainerManager: 	at android.app.ActivityThread.handleStartActivity(ActivityThread.java:4231)
-1767919726.578 10514 13216 13216 E ContainerManager: 	at android.app.servertransaction.TransactionExecutor.performLifecycleSequence(TransactionExecutor.java:214)
-1767919726.578 10514 13216 13216 E ContainerManager: 	at android.app.servertransaction.TransactionExecutor.cycleToPath(TransactionExecutor.java:194)
-1767919726.578 10514 13216 13216 E ContainerManager: 	at android.app.servertransaction.TransactionExecutor.executeLifecycleItem(TransactionExecutor.java:166)
-1767919726.578 10514 13216 13216 E ContainerManager: 	at android.app.servertransaction.TransactionExecutor.executeTransactionItems(TransactionExecutor.java:101)
-1767919726.578 10514 13216 13216 E ContainerManager: 	at android.app.servertransaction.TransactionExecutor.execute(TransactionExecutor.java:80)
-1767919726.578 10514 13216 13216 E ContainerManager: 	at android.app.ActivityThread$H.handleMessage(ActivityThread.java:2773)
-1767919726.578 10514 13216 13216 E ContainerManager: 	at android.os.Handler.dispatchMessage(Handler.java:109)
-1767919726.578 10514 13216 13216 E ContainerManager: 	at android.os.Looper.loopOnce(Looper.java:232)
-1767919726.578 10514 13216 13216 E ContainerManager: 	at android.os.Looper.loop(Looper.java:317)
-1767919726.578 10514 13216 13216 E ContainerManager: 	at android.app.ActivityThread.main(ActivityThread.java:8934)
-1767919726.578 10514 13216 13216 E ContainerManager: 	at java.lang.reflect.Method.invoke(Native Method)
-1767919726.578 10514 13216 13216 E ContainerManager: 	at com.android.internal.os.RuntimeInit$MethodAndArgsCaller.run(RuntimeInit.java:591)
-1767919726.578 10514 13216 13216 E ContainerManager: 	at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:911)
-1767919726.644 10514 13216 13216 W HWUI    : Image decoding logging dropped!
-1767919726.687 10514 13216 13216 W HWUI    : Unknown dataspace 0
-1767919726.796 10514 13216 13233 I AdrenoGLES-0: QUALCOMM build                   : 923a446bf8, I23d7d7df15
-1767919726.796 10514 13216 13233 I AdrenoGLES-0: Build Date                       : 09/05/24
-1767919726.796 10514 13216 13233 I AdrenoGLES-0: OpenGL ES Shader Compiler Version: EV031.35.01.12
-1767919726.796 10514 13216 13233 I AdrenoGLES-0: Local Branch                     :
-1767919726.796 10514 13216 13233 I AdrenoGLES-0: Remote Branch                    : refs/tags/AU_LINUX_ANDROID_LA.UM.9.14.11.00.00.571.148
-1767919726.796 10514 13216 13233 I AdrenoGLES-0: Remote Branch                    : NONE
-1767919726.796 10514 13216 13233 I AdrenoGLES-0: Reconstruct Branch               : NOTHING
-1767919726.796 10514 13216 13233 I AdrenoGLES-0: Build Config                     : S P 10.0.7 AArch64
-1767919726.796 10514 13216 13233 I AdrenoGLES-0: Driver Path                      : /vendor/lib64/egl/libGLESv2_adreno.so
-1767919726.806 10514 13216 13233 I AdrenoGLES-0: PFP: 0x016ee201, ME: 0x00000000
-1767919726.830 10514 13216 13241 I Gralloc4: Adding additional valid usage bits: 0x8202000
-1767919726.938 10514 13216 13216 D InsetsController: hide(ime(), fromIme=false)
-1767919726.938 10514 13216 13216 I ImeTracker: com.gowlauncher:c7d9c3ed: onCancelled at PHASE_CLIENT_ALREADY_HIDDEN
-1767919727.852 10514 13216 13216 W WindowOnBackDispatcher: OnBackInvokedCallback is not enabled for the application.
-1767919727.852 10514 13216 13216 W WindowOnBackDispatcher: Set 'android:enableOnBackInvokedCallback="true"' in the application manifest.
-1767919727.898 10514 13216 13216 W HWUI    : Image decoding logging dropped!
-1767919727.924 10514 13216 13216 E ContainerManager: Error loading containers
-1767919727.924 10514 13216 13216 E ContainerManager: org.json.JSONException: End of input at character 0 of
-1767919727.924 10514 13216 13216 E ContainerManager: 	at org.json.JSONTokener.syntaxError(JSONTokener.java:469)
-1767919727.924 10514 13216 13216 E ContainerManager: 	at org.json.JSONTokener.nextValue(JSONTokener.java:101)
-1767919727.924 10514 13216 13216 E ContainerManager: 	at org.json.JSONObject.<init>(JSONObject.java:168)
-1767919727.924 10514 13216 13216 E ContainerManager: 	at org.json.JSONObject.<init>(JSONObject.java:185)
-1767919727.924 10514 13216 13216 E ContainerManager: 	at com.winlator.cmod.container.ContainerManager.loadContainers(ContainerManager.java:69)
-1767919727.924 10514 13216 13216 E ContainerManager: 	at com.winlator.cmod.container.ContainerManager.<init>(ContainerManager.java:40)
-1767919727.924 10514 13216 13216 E ContainerManager: 	at com.winlator.cmod.GameSelectorFragment.onCreateView(GameSelectorFragment.java:88)
-1767919727.924 10514 13216 13216 E ContainerManager: 	at androidx.fragment.app.Fragment.performCreateView(Fragment.java:2995)
-1767919727.924 10514 13216 13216 E ContainerManager: 	at androidx.fragment.app.FragmentStateManager.createView(FragmentStateManager.java:523)
-1767919727.924 10514 13216 13216 E ContainerManager: 	at androidx.fragment.app.FragmentStateManager.moveToExpectedState(FragmentStateManager.java:261)
-1767919727.924 10514 13216 13216 E ContainerManager: 	at androidx.fragment.app.FragmentManager.executeOpsTogether(FragmentManager.java:1840)
-1767919727.924 10514 13216 13216 E ContainerManager: 	at androidx.fragment.app.FragmentManager.removeRedundantOperationsAndExecute(FragmentManager.java:1758)
-1767919727.924 10514 13216 13216 E ContainerManager: 	at androidx.fragment.app.FragmentManager.execPendingActions(FragmentManager.java:1701)
-1767919727.924 10514 13216 13216 E ContainerManager: 	at androidx.fragment.app.FragmentManager$4.run(FragmentManager.java:488)
-1767919727.924 10514 13216 13216 E ContainerManager: 	at android.os.Handler.handleCallback(Handler.java:991)
-1767919727.924 10514 13216 13216 E ContainerManager: 	at android.os.Handler.dispatchMessage(Handler.java:102)
-1767919727.924 10514 13216 13216 E ContainerManager: 	at android.os.Looper.loopOnce(Looper.java:232)
-1767919727.924 10514 13216 13216 E ContainerManager: 	at android.os.Looper.loop(Looper.java:317)
-1767919727.924 10514 13216 13216 E ContainerManager: 	at android.app.ActivityThread.main(ActivityThread.java:8934)
-1767919727.924 10514 13216 13216 E ContainerManager: 	at java.lang.reflect.Method.invoke(Native Method)
-1767919727.924 10514 13216 13216 E ContainerManager: 	at com.android.internal.os.RuntimeInit$MethodAndArgsCaller.run(RuntimeInit.java:591)
-1767919727.924 10514 13216 13216 E ContainerManager: 	at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:911)
-1767919727.943 10514 13216 13216 W RecyclerView: No adapter attached; skipping layout
-1767919731.471 10514 13216 13216 W WindowOnBackDispatcher: sendCancelIfRunning: isInProgress=false callback=android.view.ViewRootImpl$$ExternalSyntheticLambda13@8286a21
-1767919731.597 10514 13216 13277 D ProfileInstaller: Installing profile for com.gowlauncher
-1767919732.354 10514 13216 13216 D VRI[MainActivityNew]: visibilityChanged oldVisibility=true newVisibility=false
+1767921328.820 10515 26784 26784 W HWUI    : Image decoding logging dropped!
+1767921328.825 10515 26784 26784 W HWUI    : Image decoding logging dropped!
+1767921328.833 10515 26784 26801 I AdrenoGLES-0: QUALCOMM build                   : 923a446bf8, I23d7d7df15
+1767921328.833 10515 26784 26801 I AdrenoGLES-0: Build Date                       : 09/05/24
+1767921328.833 10515 26784 26801 I AdrenoGLES-0: OpenGL ES Shader Compiler Version: EV031.35.01.12
+1767921328.833 10515 26784 26801 I AdrenoGLES-0: Local Branch                     :
+1767921328.833 10515 26784 26801 I AdrenoGLES-0: Remote Branch                    : refs/tags/AU_LINUX_ANDROID_LA.UM.9.14.11.00.00.571.148
+1767921328.833 10515 26784 26801 I AdrenoGLES-0: Remote Branch                    : NONE
+1767921328.833 10515 26784 26801 I AdrenoGLES-0: Reconstruct Branch               : NOTHING
+1767921328.834 10515 26784 26801 I AdrenoGLES-0: Build Config                     : S P 10.0.7 AArch64
+1767921328.834 10515 26784 26801 I AdrenoGLES-0: Driver Path                      : /vendor/lib64/egl/libGLESv2_adreno.so
+1767921328.844 10515 26784 26801 I AdrenoGLES-0: PFP: 0x016ee201, ME: 0x00000000
+1767921328.900 10515 26784 26801 I AdrenoGLES-0: QUALCOMM build                   : 923a446bf8, I23d7d7df15
+1767921328.900 10515 26784 26801 I AdrenoGLES-0: Build Date                       : 09/05/24
+1767921328.900 10515 26784 26801 I AdrenoGLES-0: OpenGL ES Shader Compiler Version: EV031.35.01.12
+1767921328.900 10515 26784 26801 I AdrenoGLES-0: Local Branch                     :
+1767921328.900 10515 26784 26801 I AdrenoGLES-0: Remote Branch                    : refs/tags/AU_LINUX_ANDROID_LA.UM.9.14.11.00.00.571.148
+1767921328.900 10515 26784 26801 I AdrenoGLES-0: Remote Branch                    : NONE
+1767921328.900 10515 26784 26801 I AdrenoGLES-0: Reconstruct Branch               : NOTHING
+1767921328.900 10515 26784 26801 I AdrenoGLES-0: Build Config                     : S P 10.0.7 AArch64
+1767921328.900 10515 26784 26801 I AdrenoGLES-0: Driver Path                      : /vendor/lib64/egl/libGLESv2_adreno.so
+1767921328.907 10515 26784 26801 I AdrenoGLES-0: PFP: 0x016ee201, ME: 0x00000000
+1767921328.941 10515 26784 26784 D InsetsController: hide(ime(), fromIme=false)
+1767921328.941 10515 26784 26784 I ImeTracker: com.gowlauncher:4ea8018c: onCancelled at PHASE_CLIENT_ALREADY_HIDDEN
+1767921330.226 10515 26784 26784 I com.gowlauncher: AssetManager2(0x73a22388d8) locale list changing from [] to [pt-BR]
+1767921330.240 10515 26784 26784 I com.gowlauncher: AssetManager2(0x73a2234738) locale list changing from [] to [pt-BR]
+1767921330.266 10515 26784 26784 W HWUI    : Image decoding logging dropped!
+1767921330.268 10515 26784 26784 W HWUI    : Image decoding logging dropped!
+1767921330.270 10515 26784 26784 W HWUI    : Image decoding logging dropped!
+1767921330.271 10515 26784 26784 W HWUI    : Image decoding logging dropped!
+1767921330.272 10515 26784 26784 W HWUI    : Image decoding logging dropped!
+1767921330.299 10515 26784 26784 D XServerDisplayActivity: Shortcut Path: /data/user/0/com.gowlauncher/files/imagefs/home/xuser-1/.wine/drive_c/users/xuser/Desktop/GoW.desktop
+1767921330.299 10515 26784 26784 D XServerDisplayActivity: Container ID from Intent: 1
+1767921330.302 10515 26784 26784 D XServerDisplayActivity: Final Container ID: 1
+1767921330.307 10515 26784 26784 D XServerDisplayActivity: Startup wmClass:
+1767921330.307 10515 26784 26784 D WineInfo: Creating WineInfo from identifier proton-9.0-arm64ec
+1767921330.308 10515 26784 26784 D ProcessHelper: All debug callbacks removed
+1767921330.308 10515 26784 26784 D XServerDisplayActivity: Intent Extras: Bundle[{shortcut_name=GoW, shortcut_path=/data/user/0/com.gowlauncher/files/imagefs/home/xuser-1/.wine/drive_c/users/xuser/Desktop/GoW.desktop, container_id=1}]
+1767921330.308 10515 26784 26784 D WinHandler: XInput Disabled set to: false
+1767921330.308 10515 26784 26784 D XServerDisplayActivity: XInput Disabled from Shortcut: false
+1767921330.312 10515 26784 26784 W HWUI    : Image decoding logging dropped!
+1767921330.314 10515 26784 26784 W HWUI    : Image decoding logging dropped!
+1767921330.319 10515 26784 26784 D InsetsController: Setting requestedVisibleTypes to -10 (was -9)
+1767921330.336 10515 26784 26784 D nativeloader: Load /data/app/~~0sH29ymGMf8ptV9K-Gtcew==/com.gowlauncher-nyMhbc5fUBZOhr-nbNkPow==/lib/arm64/libwinlator.so using class loader ns clns-7 (caller=/data/app/~~0sH29ymGMf8ptV9K-Gtcew==/com.gowlauncher-nyMhbc5fUBZOhr-nbNkPow==/base.apk!classes11.dex): ok
+1767921330.333 10515 26784 26784 W com.gowlauncher: type=1400 audit(0.0:224206): avc:  denied  { execstack } for  scontext=u:r:untrusted_app_27:s0:c3,c258,c512,c768 tcontext=u:r:untrusted_app_27:s0:c3,c258,c512,c768 tclass=process permissive=0 app=com.gowlauncher
+1767921330.357 10515 26784 26784 W HWUI    : Image decoding logging dropped!
+1767921330.357 10515 26784 26784 W com.gowlauncher: Accessing hidden field Landroid/graphics/Bitmap;->mNativePtr:J (unsupported, JNI, allowed)
+1767921330.359 10515 26784 26784 W HWUI    : Image decoding logging dropped!
+1767921330.362 10515 26784 26784 D XServerDisplayActivity: Timeout is disabled, controls will stay visible.
+1767921330.362 10515 26784 26784 D XServerDisplayActivity: Input controls simulated confirmation executed.
+1767921330.365 10515 26784 26784 W com.gowlauncher: type=1400 audit(0.0:224207): avc:  denied  { getattr } for  path="/proc/keys" dev="proc" ino=4026532114 scontext=u:r:untrusted_app_27:s0:c3,c258,c512,c768 tcontext=u:object_r:proc_keys:s0 tclass=file permissive=0 app=com.gowlauncher
+1767921330.365 10515 26784 26784 W com.gowlauncher: type=1400 audit(0.0:224208): avc:  denied  { getattr } for  path="/proc/kmsg" dev="proc" ino=4026532061 scontext=u:r:untrusted_app_27:s0:c3,c258,c512,c768 tcontext=u:object_r:proc_kmsg:s0 tclass=file permissive=0 app=com.gowlauncher
+1767921330.365 10515 26784 26784 W com.gowlauncher: type=1400 audit(0.0:224209): avc:  denied  { getattr } for  path="/proc/misc" dev="proc" ino=4026531950 scontext=u:r:untrusted_app_27:s0:c3,c258,c512,c768 tcontext=u:object_r:proc_misc:s0 tclass=file permissive=0 app=com.gowlauncher
+1767921330.365 10515 26784 26784 W com.gowlauncher: type=1400 audit(0.0:224210): avc:  denied  { getattr } for  path="/proc/stat" dev="proc" ino=4026532057 scontext=u:r:untrusted_app_27:s0:c3,c258,c512,c768 tcontext=u:object_r:proc_stat:s0 tclass=file permissive=0 app=com.gowlauncher
+1767921330.365 10515 26784 26784 W com.gowlauncher: type=1400 audit(0.0:224211): avc:  denied  { getattr } for  path="/proc/iomem" dev="proc" ino=4026532097 scontext=u:r:untrusted_app_27:s0:c3,c258,c512,c768 tcontext=u:object_r:proc_iomem:s0 tclass=file permissive=0 app=com.gowlauncher
+1767921330.375 10515 26784 26784 D InsetsController: Setting requestedVisibleTypes to -12 (was -9)
+1767921330.406 10515 26784 27461 I com.gowlauncher: Waiting for a blocking GC ClassLinker
+1767921330.441 10515 26784 26784 W HWUI    : Image decoding logging dropped!
+1767921330.441 10515 26784 27461 I com.gowlauncher: WaitForGcToComplete blocked ClassLinker on Background for 34.965ms
+1767921330.446 10515 26784 26792 W System  : A resource failed to call close.
+1767921330.453 10515 26784 26784 W HWUI    : Image decoding logging dropped!
+1767921330.456 10515 26784 26784 W HWUI    : Image decoding logging dropped!
+1767921330.461 10515 26784 26784 W HWUI    : Image decoding logging dropped!
+1767921330.539 10515 26784 27461 D nativeloader: Load /data/app/~~0sH29ymGMf8ptV9K-Gtcew==/com.gowlauncher-nyMhbc5fUBZOhr-nbNkPow==/lib/arm64/libzstd-jni-1.5.2-3.so using class loader ns clns-7 (caller=/data/app/~~0sH29ymGMf8ptV9K-Gtcew==/com.gowlauncher-nyMhbc5fUBZOhr-nbNkPow==/base.apk): ok
+1767921330.583 10515 26784 27461 D GraphicsDriverExtraction: Adrenotools DriverID: turnip25.1.0
+1767921330.585 10515 26784 27461 D System.out: Failed to create instance
+1767921330.586 10515 26784 27461 E AndroidRuntime: FATAL EXCEPTION: pool-7-thread-1
+1767921330.586 10515 26784 27461 E AndroidRuntime: Process: com.gowlauncher, PID: 26784
+1767921330.586 10515 26784 27461 E AndroidRuntime: java.lang.ArrayIndexOutOfBoundsException: length=1; index=2
+1767921330.586 10515 26784 27461 E AndroidRuntime: 	at com.winlator.cmod.XServerDisplayActivity.extractGraphicsDriverFiles(XServerDisplayActivity.java:1502)
+1767921330.586 10515 26784 27461 E AndroidRuntime: 	at com.winlator.cmod.XServerDisplayActivity.lambda$onCreate$4(XServerDisplayActivity.java:582)
+1767921330.586 10515 26784 27461 E AndroidRuntime: 	at com.winlator.cmod.XServerDisplayActivity.$r8$lambda$IevWqobs0nqwc0bHXKtqXkNLz9o(Unknown Source:0)
+1767921330.586 10515 26784 27461 E AndroidRuntime: 	at com.winlator.cmod.XServerDisplayActivity$$ExternalSyntheticLambda4.run(D8$$SyntheticClass:0)
+1767921330.586 10515 26784 27461 E AndroidRuntime: 	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1156)
+1767921330.586 10515 26784 27461 E AndroidRuntime: 	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:651)
+1767921330.586 10515 26784 27461 E AndroidRuntime: 	at java.lang.Thread.run(Thread.java:1119)
+1767921330.603 10515 26784 27461 I Process : Sending signal. PID: 26784 SIG: 9
+1767921332.526 10515 27481 27481 I libc    : SetHeapTaggingLevel: tag level set to 0
+1767921332.541 10515 27481 27481 I com.gowlauncher: Late-enabling -Xcheck:jni
+1767921332.570 10515 27481 27481 I com.gowlauncher: Using CollectorTypeCMC GC.
+1767921332.580 10515 27481 27481 D nativeloader: Load libframework-connectivity-tiramisu-jni.so using APEX ns com_android_tethering for caller /apex/com.android.tethering/javalib/framework-connectivity-t.jar: ok
+1767921332.633 10515 27481 27481 D ApplicationLoaders: Returning zygote-cached class loader: /system/framework/android.test.base.jar
+1767921332.633 10515 27481 27481 D ApplicationLoaders: Returning zygote-cached class loader: /system_ext/framework/androidx.window.extensions.jar
+1767921332.633 10515 27481 27481 D ApplicationLoaders: Returning zygote-cached class loader: /system_ext/framework/androidx.window.sidecar.jar
+1767921332.634 10515 27481 27481 W ziparchive: Unable to open '/data/app/~~0sH29ymGMf8ptV9K-Gtcew==/com.gowlauncher-nyMhbc5fUBZOhr-nbNkPow==/base.dm': No such file or directory
+1767921332.634 10515 27481 27481 W ziparchive: Unable to open '/data/app/~~0sH29ymGMf8ptV9K-Gtcew==/com.gowlauncher-nyMhbc5fUBZOhr-nbNkPow==/base.dm': No such file or directory
+1767921332.825 10515 27481 27481 D nativeloader: Configuring clns-7 for other apk /data/app/~~0sH29ymGMf8ptV9K-Gtcew==/com.gowlauncher-nyMhbc5fUBZOhr-nbNkPow==/base.apk. target_sdk_version=28, uses_libraries=, library_path=/data/app/~~0sH29ymGMf8ptV9K-Gtcew==/com.gowlauncher-nyMhbc5fUBZOhr-nbNkPow==/lib/arm64:/data/app/~~0sH29ymGMf8ptV9K-Gtcew==/com.gowlauncher-nyMhbc5fUBZOhr-nbNkPow==/base.apk!/lib/arm64-v8a, permitted_path=/data:/mnt/expand:/data/user/0/com.gowlauncher
+1767921332.825 10515 27481 27481 D nativeloader: Extending system_exposed_libraries: libupdateprof.qti.so:libQOC.qti.so:libdiag_system.qti.so:libqape.qti.so:libqesdk_ndk_platform.qti.so:liblistenjni.qti.so
+1767921332.831 10515 27481 27481 I com.gowlauncher: AssetManager2(0x73a2223438) locale list changing from [] to [pt-BR]
+1767921332.836 10515 27481 27481 V GraphicsEnvironment: Currently set values for:
+1767921332.836 10515 27481 27481 V GraphicsEnvironment:   angle_gl_driver_selection_pkgs=[]
+1767921332.836 10515 27481 27481 V GraphicsEnvironment:   angle_gl_driver_selection_values=[]
+1767921332.836 10515 27481 27481 V GraphicsEnvironment: com.gowlauncher is not listed in per-application setting
+1767921332.836 10515 27481 27481 V GraphicsEnvironment: Neither updatable production driver nor prerelease driver is supported.
+1767921332.891 10515 27481 27481 I com.gowlauncher: AssetManager2(0x73a22211d8) locale list changing from [] to [pt-BR]
+1767921332.919 10515 27481 27481 D AppCompatDelegate: Checking for metadata for AppLocalesMetadataHolderService : Service not found
+1767921332.921 10515 27481 27481 I com.gowlauncher: AssetManager2(0x73a2223a78) locale list changing from [] to [pt-BR]
+1767921332.958 10515 27481 27481 D DesktopModeFlagsUtil: Toggle override initialized to: OVERRIDE_UNSET
+1767921332.989 10515 27481 27481 W com.gowlauncher: Accessing hidden method Landroid/view/View;->computeFitSystemWindows(Landroid/graphics/Rect;Landroid/graphics/Rect;)Z (unsupported, reflection, allowed)
+1767921332.990 10515 27481 27481 W com.gowlauncher: Accessing hidden method Landroid/view/ViewGroup;->makeOptionalFitsSystemWindows()V (unsupported, reflection, allowed)
+1767921332.993 10515 27481 27481 D CompatChangeReporter: Compat change id reported: 37756858; UID 10515; state: ENABLED
+1767921333.047 10515 27481 27481 W HWUI    : Image decoding logging dropped!
+1767921333.057 10515 27481 27481 W HWUI    : Image decoding logging dropped!
+1767921333.154 10515 27481 27481 W HWUI    : Image decoding logging dropped!
+1767921333.198 10515 27481 27481 W HWUI    : Unknown dataspace 0
+1767921333.242 10515 27481 27481 W HWUI    : Image decoding logging dropped!
+1767921333.247 10515 27481 27481 W HWUI    : Image decoding logging dropped!
+1767921333.265 10515 27481 27500 I AdrenoGLES-0: QUALCOMM build                   : 923a446bf8, I23d7d7df15
+1767921333.265 10515 27481 27500 I AdrenoGLES-0: Build Date                       : 09/05/24
+1767921333.265 10515 27481 27500 I AdrenoGLES-0: OpenGL ES Shader Compiler Version: EV031.35.01.12
+1767921333.265 10515 27481 27500 I AdrenoGLES-0: Local Branch                     :
+1767921333.265 10515 27481 27500 I AdrenoGLES-0: Remote Branch                    : refs/tags/AU_LINUX_ANDROID_LA.UM.9.14.11.00.00.571.148
+1767921333.265 10515 27481 27500 I AdrenoGLES-0: Remote Branch                    : NONE
+1767921333.265 10515 27481 27500 I AdrenoGLES-0: Reconstruct Branch               : NOTHING
+1767921333.265 10515 27481 27500 I AdrenoGLES-0: Build Config                     : S P 10.0.7 AArch64
+1767921333.265 10515 27481 27500 I AdrenoGLES-0: Driver Path                      : /vendor/lib64/egl/libGLESv2_adreno.so
+1767921333.269 10515 27481 27500 I AdrenoGLES-0: PFP: 0x016ee201, ME: 0x00000000
+1767921333.298 10515 27481 27505 I Gralloc4: Adding additional valid usage bits: 0x8202000
+1767921333.392 10515 27481 27481 D InsetsController: hide(ime(), fromIme=false)
+1767921333.393 10515 27481 27481 I ImeTracker: com.gowlauncher:c78fed2f: onCancelled at PHASE_CLIENT_ALREADY_HIDDEN
+1767921334.172 10515 27481 27481 I com.gowlauncher: AssetManager2(0x73a2230ef8) locale list changing from [] to [pt-BR]
+1767921334.185 10515 27481 27481 I com.gowlauncher: AssetManager2(0x73a2226318) locale list changing from [] to [pt-BR]
+1767921334.211 10515 27481 27481 W HWUI    : Image decoding logging dropped!
+1767921334.213 10515 27481 27481 W HWUI    : Image decoding logging dropped!
+1767921334.216 10515 27481 27481 W HWUI    : Image decoding logging dropped!
+1767921334.217 10515 27481 27481 W HWUI    : Image decoding logging dropped!
+1767921334.218 10515 27481 27481 W HWUI    : Image decoding logging dropped!
+1767921334.244 10515 27481 27481 D XServerDisplayActivity: Shortcut Path: /data/user/0/com.gowlauncher/files/imagefs/home/xuser-1/.wine/drive_c/users/xuser/Desktop/GoW.desktop
+1767921334.244 10515 27481 27481 D XServerDisplayActivity: Container ID from Intent: 1
+1767921334.247 10515 27481 27481 D XServerDisplayActivity: Final Container ID: 1
+1767921334.252 10515 27481 27481 D XServerDisplayActivity: Startup wmClass:
+1767921334.253 10515 27481 27481 D WineInfo: Creating WineInfo from identifier proton-9.0-arm64ec
+1767921334.253 10515 27481 27481 D ProcessHelper: All debug callbacks removed
+1767921334.253 10515 27481 27481 D XServerDisplayActivity: Intent Extras: Bundle[{shortcut_name=GoW, shortcut_path=/data/user/0/com.gowlauncher/files/imagefs/home/xuser-1/.wine/drive_c/users/xuser/Desktop/GoW.desktop, container_id=1}]
+1767921334.253 10515 27481 27481 D WinHandler: XInput Disabled set to: false
+1767921334.253 10515 27481 27481 D XServerDisplayActivity: XInput Disabled from Shortcut: false
+1767921334.257 10515 27481 27481 W HWUI    : Image decoding logging dropped!
+1767921334.259 10515 27481 27481 W HWUI    : Image decoding logging dropped!
+1767921334.263 10515 27481 27481 D InsetsController: Setting requestedVisibleTypes to -10 (was -9)
+1767921334.280 10515 27481 27481 D nativeloader: Load /data/app/~~0sH29ymGMf8ptV9K-Gtcew==/com.gowlauncher-nyMhbc5fUBZOhr-nbNkPow==/lib/arm64/libwinlator.so using class loader ns clns-7 (caller=/data/app/~~0sH29ymGMf8ptV9K-Gtcew==/com.gowlauncher-nyMhbc5fUBZOhr-nbNkPow==/base.apk!classes11.dex): ok
+1767921334.273 10515 27481 27481 W com.gowlauncher: type=1400 audit(0.0:224292): avc:  denied  { execstack } for  scontext=u:r:untrusted_app_27:s0:c3,c258,c512,c768 tcontext=u:r:untrusted_app_27:s0:c3,c258,c512,c768 tclass=process permissive=0 app=com.gowlauncher
+1767921334.301 10515 27481 27481 W HWUI    : Image decoding logging dropped!
+1767921334.301 10515 27481 27481 W com.gowlauncher: Accessing hidden field Landroid/graphics/Bitmap;->mNativePtr:J (unsupported, JNI, allowed)
+1767921334.303 10515 27481 27481 W HWUI    : Image decoding logging dropped!
+1767921334.305 10515 27481 27481 D XServerDisplayActivity: Timeout is disabled, controls will stay visible.
+1767921334.306 10515 27481 27481 D XServerDisplayActivity: Input controls simulated confirmation executed.
+1767921334.309 10515 27481 27481 W com.gowlauncher: type=1400 audit(0.0:224293): avc:  denied  { getattr } for  path="/proc/keys" dev="proc" ino=4026532114 scontext=u:r:untrusted_app_27:s0:c3,c258,c512,c768 tcontext=u:object_r:proc_keys:s0 tclass=file permissive=0 app=com.gowlauncher
+1767921334.309 10515 27481 27481 W com.gowlauncher: type=1400 audit(0.0:224294): avc:  denied  { getattr } for  path="/proc/kmsg" dev="proc" ino=4026532061 scontext=u:r:untrusted_app_27:s0:c3,c258,c512,c768 tcontext=u:object_r:proc_kmsg:s0 tclass=file permissive=0 app=com.gowlauncher
+1767921334.309 10515 27481 27481 W com.gowlauncher: type=1400 audit(0.0:224295): avc:  denied  { getattr } for  path="/proc/misc" dev="proc" ino=4026531950 scontext=u:r:untrusted_app_27:s0:c3,c258,c512,c768 tcontext=u:object_r:proc_misc:s0 tclass=file permissive=0 app=com.gowlauncher
+1767921334.309 10515 27481 27481 W com.gowlauncher: type=1400 audit(0.0:224296): avc:  denied  { getattr } for  path="/proc/stat" dev="proc" ino=4026532057 scontext=u:r:untrusted_app_27:s0:c3,c258,c512,c768 tcontext=u:object_r:proc_stat:s0 tclass=file permissive=0 app=com.gowlauncher
+1767921334.324 10515 27481 27481 D InsetsController: Setting requestedVisibleTypes to -12 (was -9)
+1767921334.382 10515 27481 27481 W HWUI    : Image decoding logging dropped!
+1767921334.390 10515 27481 27481 W HWUI    : Image decoding logging dropped!
+1767921334.394 10515 27481 27481 W HWUI    : Image decoding logging dropped!
+1767921334.398 10515 27481 27481 W HWUI    : Image decoding logging dropped!
+1767921334.421 10515 27481 27520 D nativeloader: Load /data/app/~~0sH29ymGMf8ptV9K-Gtcew==/com.gowlauncher-nyMhbc5fUBZOhr-nbNkPow==/lib/arm64/libzstd-jni-1.5.2-3.so using class loader ns clns-7 (caller=/data/app/~~0sH29ymGMf8ptV9K-Gtcew==/com.gowlauncher-nyMhbc5fUBZOhr-nbNkPow==/base.apk): ok
+1767921334.469 10515 27481 27520 D GraphicsDriverExtraction: Adrenotools DriverID: turnip25.1.0
+1767921334.470 10515 27481 27520 D System.out: Failed to create instance
+1767921334.472 10515 27481 27520 E AndroidRuntime: FATAL EXCEPTION: pool-5-thread-1
+1767921334.472 10515 27481 27520 E AndroidRuntime: Process: com.gowlauncher, PID: 27481
+1767921334.472 10515 27481 27520 E AndroidRuntime: java.lang.ArrayIndexOutOfBoundsException: length=1; index=2
+1767921334.472 10515 27481 27520 E AndroidRuntime: 	at com.winlator.cmod.XServerDisplayActivity.extractGraphicsDriverFiles(XServerDisplayActivity.java:1502)
+1767921334.472 10515 27481 27520 E AndroidRuntime: 	at com.winlator.cmod.XServerDisplayActivity.lambda$onCreate$4(XServerDisplayActivity.java:582)
+1767921334.472 10515 27481 27520 E AndroidRuntime: 	at com.winlator.cmod.XServerDisplayActivity.$r8$lambda$IevWqobs0nqwc0bHXKtqXkNLz9o(Unknown Source:0)
+1767921334.472 10515 27481 27520 E AndroidRuntime: 	at com.winlator.cmod.XServerDisplayActivity$$ExternalSyntheticLambda4.run(D8$$SyntheticClass:0)
+1767921334.472 10515 27481 27520 E AndroidRuntime: 	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1156)
+1767921334.472 10515 27481 27520 E AndroidRuntime: 	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:651)
+1767921334.472 10515 27481 27520 E AndroidRuntime: 	at java.lang.Thread.run(Thread.java:1119)
+1767921334.488 10515 27481 27520 I Process : Sending signal. PID: 27481 SIG: 9
