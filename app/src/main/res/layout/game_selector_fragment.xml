@@ -2,29 +2,36 @@
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="?attr/colorSurface">
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:fitsSystemWindows="true"
+        android:background="?attr/colorSurface"
         app:elevation="0dp">
 
         <com.google.android.material.appbar.CollapsingToolbarLayout
-            style="?attr/collapsingToolbarLayoutMediumStyle"
+            style="?attr/collapsingToolbarLayoutLargeStyle"
             android:layout_width="match_parent"
-            android:layout_height="?attr/collapsingToolbarLayoutMediumSize"
+            android:layout_height="?attr/collapsingToolbarLayoutLargeSize"
             app:layout_scrollFlags="scroll|exitUntilCollapsed|snap"
             app:expandedTitleMarginStart="24dp"
-            app:expandedTitleMarginBottom="16dp"
-            app:title="Selecionar Jogo">
+            app:expandedTitleMarginBottom="28dp"
+            app:title="Selecionar Executável"
+            app:expandedTitleTextAppearance="@style/TextAppearance.Material3.DisplaySmall"
+            app:collapsedTitleTextAppearance="@style/TextAppearance.Material3.TitleLarge"
+            app:expandedTitleTextColor="?attr/colorOnSurface"
+            app:collapsedTitleTextColor="?attr/colorOnSurface">
 
             <com.google.android.material.appbar.MaterialToolbar
                 android:id="@+id/Toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 app:layout_collapseMode="pin"
-                app:navigationIcon="@drawable/icon_back" />
+                app:navigationIcon="@drawable/icon_back"
+                app:navigationIconTint="?attr/colorOnSurface" />
 
         </com.google.android.material.appbar.CollapsingToolbarLayout>
 
@@ -41,17 +48,19 @@
             android:orientation="vertical">
 
             <com.google.android.material.card.MaterialCardView
-                style="@style/Widget.Material3.CardView.Elevated"
+                style="@style/Widget.Material3.CardView.Filled"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="16dp"
+                android:layout_margin="20dp"
+                app:cardElevation="0dp"
+                app:cardCornerRadius="20dp"
                 app:cardBackgroundColor="?attr/colorSurfaceContainerHigh">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:padding="20dp">
+                    android:padding="24dp">
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -70,7 +79,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="Localização Atual"
-                                android:textAppearance="?attr/textAppearanceLabelMedium"
+                                android:textAppearance="?attr/textAppearanceLabelLarge"
                                 android:textColor="?attr/colorPrimary" />
 
                             <TextView
@@ -78,22 +87,24 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:text="/storage/emulated/0"
-                                android:textAppearance="?attr/textAppearanceBodyLarge"
+                                android:textAppearance="?attr/textAppearanceTitleMedium"
                                 android:textColor="?attr/colorOnSurface"
                                 android:fontFamily="monospace"
                                 android:ellipsize="start"
                                 android:singleLine="true"
-                                android:layout_marginTop="4dp" />
+                                android:layout_marginTop="8dp" />
                         </LinearLayout>
 
                         <com.google.android.material.button.MaterialButton
                             android:id="@+id/BTUpDir"
                             style="@style/Widget.Material3.Button.TonalButton.Icon"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_height="56dp"
                             android:text="Voltar"
+                            android:textAppearance="?attr/textAppearanceLabelLarge"
                             app:icon="@android:drawable/ic_menu_revert"
-                            android:layout_marginStart="12dp" />
+                            app:cornerRadius="16dp"
+                            android:layout_marginStart="16dp" />
                     </LinearLayout>
 
                 </LinearLayout>
@@ -104,10 +115,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:nestedScrollingEnabled="false"
-                android:paddingStart="16dp"
-                android:paddingEnd="16dp"
-                android:paddingBottom="160dp"
-                android:clipToPadding="false" />
+                android:paddingStart="20dp"
+                android:paddingEnd="20dp"
+                android:paddingBottom="200dp"
+                android:clipToPadding="false"
+                android:clipChildren="false" />
 
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
@@ -117,33 +129,59 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
-        app:cardElevation="12dp"
+        app:cardElevation="8dp"
         app:cardCornerRadius="28dp"
-        android:layout_margin="16dp"
-        app:cardBackgroundColor="?attr/colorSurfaceContainerHigh">
+        android:layout_margin="20dp"
+        app:cardBackgroundColor="?attr/colorSurfaceContainerHighest">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:padding="24dp">
+            android:padding="28dp">
 
-            <TextView
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Arquivo Selecionado"
-                android:textAppearance="?attr/textAppearanceLabelLarge"
-                android:textColor="?attr/colorPrimary"
-                android:layout_marginBottom="12dp" />
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginBottom="16dp">
+
+                <com.google.android.material.card.MaterialCardView
+                    style="@style/Widget.Material3.CardView.Filled"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    app:cardElevation="0dp"
+                    app:cardCornerRadius="12dp"
+                    app:cardBackgroundColor="?attr/colorPrimaryContainer"
+                    android:layout_marginEnd="12dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="📁"
+                        android:textSize="20sp"
+                        android:layout_gravity="center" />
+
+                </com.google.android.material.card.MaterialCardView>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Arquivo Selecionado"
+                    android:textAppearance="?attr/textAppearanceTitleMedium"
+                    android:textColor="?attr/colorOnSurface" />
+
+            </LinearLayout>
 
             <TextView
                 android:id="@+id/TVSelectedFile"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Nenhum arquivo selecionado"
-                android:textAppearance="?attr/textAppearanceTitleMedium"
-                android:textColor="?attr/colorOnSurface"
-                android:layout_marginBottom="20dp"
+                android:textAppearance="?attr/textAppearanceBodyLarge"
+                android:textColor="?attr/colorOnSurfaceVariant"
+                android:layout_marginBottom="24dp"
                 android:ellipsize="middle"
                 android:maxLines="2" />
 
@@ -151,14 +189,16 @@
                 android:id="@+id/BTStartGame"
                 style="@style/Widget.Material3.Button.TonalButton"
                 android:layout_width="match_parent"
-                android:layout_height="60dp"
+                android:layout_height="64dp"
                 android:text="Adicionar Jogo"
-                android:textSize="17sp"
+                android:textAppearance="?attr/textAppearanceLabelLarge"
+                android:textSize="18sp"
                 android:enabled="false"
                 app:icon="@android:drawable/ic_input_add"
                 app:iconGravity="textStart"
-                app:iconSize="26dp"
-                app:cornerRadius="16dp" />
+                app:iconSize="28dp"
+                app:cornerRadius="18dp"
+                app:elevation="4dp" />
 
         </LinearLayout>
     </com.google.android.material.card.MaterialCardView>
@@ -167,46 +207,53 @@
         android:id="@+id/LoadingOverlay"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#CC000000"
+        android:background="#DD000000"
         android:visibility="gone"
         android:clickable="true"
-        android:focusable="true">
+        android:focusable="true"
+        android:elevation="16dp">
 
         <com.google.android.material.card.MaterialCardView
             style="@style/Widget.Material3.CardView.Elevated"
-            android:layout_width="wrap_content"
+            android:layout_width="320dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            app:cardElevation="12dp">
+            app:cardElevation="16dp"
+            app:cardCornerRadius="28dp"
+            app:cardBackgroundColor="?attr/colorSurfaceContainerHighest">
 
             <LinearLayout
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:padding="32dp"
+                android:padding="40dp"
                 android:gravity="center">
 
                 <com.google.android.material.progressindicator.CircularProgressIndicator
-                    android:layout_width="64dp"
-                    android:layout_height="64dp"
+                    android:layout_width="72dp"
+                    android:layout_height="72dp"
                     android:indeterminate="true"
-                    app:trackThickness="6dp" />
+                    app:trackThickness="8dp"
+                    app:indicatorColor="?attr/colorPrimary"
+                    app:trackColor="?attr/colorSurfaceContainerHigh" />
 
                 <TextView
                     android:id="@+id/TVLoadingMessage"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Instalando Sistema..."
-                    android:textAppearance="?attr/textAppearanceTitleMedium"
-                    android:layout_marginTop="20dp" />
+                    android:textAppearance="?attr/textAppearanceTitleLarge"
+                    android:textColor="?attr/colorOnSurface"
+                    android:layout_marginTop="24dp" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Aguarde enquanto configuramos o ambiente"
-                    android:textAppearance="?attr/textAppearanceBodyMedium"
+                    android:textAppearance="?attr/textAppearanceBodyLarge"
                     android:textColor="?attr/colorOnSurfaceVariant"
-                    android:layout_marginTop="8dp" />
+                    android:gravity="center"
+                    android:layout_marginTop="12dp" />
 
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>

@@ -2,22 +2,28 @@
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="?attr/colorSurface">
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:fitsSystemWindows="true"
+        android:background="?attr/colorSurface"
         app:elevation="0dp">
 
         <com.google.android.material.appbar.CollapsingToolbarLayout
-            style="?attr/collapsingToolbarLayoutMediumStyle"
+            style="?attr/collapsingToolbarLayoutLargeStyle"
             android:layout_width="match_parent"
-            android:layout_height="?attr/collapsingToolbarLayoutMediumSize"
+            android:layout_height="?attr/collapsingToolbarLayoutLargeSize"
             app:layout_scrollFlags="scroll|exitUntilCollapsed|snap"
             app:title="Meus Jogos"
             app:expandedTitleMarginStart="24dp"
-            app:expandedTitleMarginBottom="16dp">
+            app:expandedTitleMarginBottom="28dp"
+            app:expandedTitleTextAppearance="@style/TextAppearance.Material3.DisplaySmall"
+            app:collapsedTitleTextAppearance="@style/TextAppearance.Material3.TitleLarge"
+            app:expandedTitleTextColor="?attr/colorOnSurface"
+            app:collapsedTitleTextColor="?attr/colorOnSurface">
 
             <com.google.android.material.appbar.MaterialToolbar
                 android:id="@+id/Toolbar"
@@ -40,46 +46,60 @@
             android:orientation="vertical">
 
             <com.google.android.material.card.MaterialCardView
-                style="@style/Widget.Material3.CardView.Elevated"
+                style="@style/Widget.Material3.CardView.Filled"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="24dp"
+                android:layout_margin="20dp"
                 android:id="@+id/EmptyCard"
                 android:visibility="gone"
                 app:cardElevation="0dp"
-                app:cardBackgroundColor="?attr/colorSurfaceContainerHighest">
+                app:cardBackgroundColor="?attr/colorSurfaceContainerHigh"
+                app:cardCornerRadius="24dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:padding="32dp"
+                    android:padding="40dp"
                     android:gravity="center">
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="🎮"
-                        android:textSize="64sp"
-                        android:layout_marginBottom="16dp" />
+                    <com.google.android.material.card.MaterialCardView
+                        style="@style/Widget.Material3.CardView.Elevated"
+                        android:layout_width="96dp"
+                        android:layout_height="96dp"
+                        app:cardElevation="0dp"
+                        app:cardBackgroundColor="?attr/colorPrimaryContainer"
+                        app:cardCornerRadius="28dp"
+                        android:layout_marginBottom="24dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="🎮"
+                            android:textSize="48sp"
+                            android:layout_gravity="center" />
+
+                    </com.google.android.material.card.MaterialCardView>
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Nenhum jogo adicionado"
-                        android:textAppearance="?attr/textAppearanceTitleLarge"
+                        android:textAppearance="?attr/textAppearanceHeadlineSmall"
                         android:textColor="?attr/colorOnSurface"
                         android:gravity="center"
-                        android:layout_marginBottom="8dp" />
+                        android:layout_marginBottom="12dp" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Toque no botão + para adicionar seu primeiro jogo"
-                        android:textAppearance="?attr/textAppearanceBodyMedium"
+                        android:text="Toque no botão abaixo para adicionar seu primeiro jogo e começar a jogar"
+                        android:textAppearance="?attr/textAppearanceBodyLarge"
                         android:textColor="?attr/colorOnSurfaceVariant"
                         android:gravity="center"
-                        android:lineSpacingExtra="4dp" />
+                        android:lineSpacingExtra="4dp"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginEnd="16dp" />
 
                 </LinearLayout>
 
@@ -89,9 +109,10 @@
                 android:id="@+id/RecyclerViewGames"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="16dp"
-                android:paddingBottom="24dp"
-                android:clipToPadding="false" />
+                android:padding="20dp"
+                android:paddingBottom="100dp"
+                android:clipToPadding="false"
+                android:clipChildren="false" />
 
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
@@ -103,7 +124,13 @@
         android:layout_gravity="bottom|end"
         android:layout_margin="24dp"
         android:text="Adicionar Jogo"
+        android:textAppearance="?attr/textAppearanceLabelLarge"
         app:icon="@android:drawable/ic_input_add"
-        app:iconGravity="start" />
+        app:iconGravity="start"
+        app:elevation="8dp"
+        app:cornerRadius="20dp"
+        app:backgroundTint="?attr/colorPrimaryContainer"
+        app:iconTint="?attr/colorOnPrimaryContainer"
+        android:textColor="?attr/colorOnPrimaryContainer" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
