@@ -1,6 +1,7 @@
 package com.winlator.cmod.xenvironment;
 
 import android.content.Context;
+import android.util.Log;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -21,7 +22,11 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.concurrent.Executors;
 import java.util.concurrent.atomic.AtomicLong;
@@ -174,5 +179,212 @@ public abstract class ImageFsInstaller {
             }
         }
         else rootDir.mkdirs();
+    }
+
+    public static void installFromRootFs(final AppCompatActivity activity, final File orfsFile, 
+                                        final Runnable onComplete, final Callback<String> onError) {
+        if (orfsFile == null || !orfsFile.exists()) {
+            if (onError != null) onError.call("Arquivo RootFS não encontrado");
+            return;
+        }
+
+        AppUtils.keepScreenOn(activity);
+        ImageFs imageFs = ImageFs.find(activity);
+        File rootDir = imageFs.getRootDir();
+        File tempDir = new File(activity.getCacheDir(), "rootfs_temp");
+
+        SettingsFragment.resetEmulatorsVersion(activity);
+
+        final DownloadProgressDialog dialog = new DownloadProgressDialog(activity);
+        dialog.show(R.string.installing_system_files);
+
+        Executors.newSingleThreadExecutor().execute(() -> {
+            try {
+                FileUtils.delete(tempDir);
+                tempDir.mkdirs();
+
+                activity.runOnUiThread(() -> dialog.setProgress(5));
+                Log.d("ImageFsInstaller", "Extracting RootFS package...");
+
+                boolean extractSuccess = TarCompressorUtils.extract(
+                    TarCompressorUtils.Type.ZSTD,
+                    new FileInputStream(orfsFile),
+                    tempDir,
+                    null
+                );
+
+                if (!extractSuccess) {
+                    throw new Exception("Failed to extract RootFS package");
+                }
+
+                activity.runOnUiThread(() -> dialog.setProgress(15));
+
+                File rootfsDir = new File(tempDir, "rootfs");
+                if (!rootfsDir.exists()) {
+                    throw new Exception("Invalid RootFS package structure");
+                }
+
+                File metadataFile = new File(rootfsDir, "metadata.json");
+                if (!metadataFile.exists()) {
+                    Log.w("ImageFsInstaller", "No metadata.json found, proceeding anyway");
+                }
+
+                activity.runOnUiThread(() -> dialog.setProgress(20));
+
+                clearRootDir(rootDir);
+
+                File imagefsArchive = new File(rootfsDir, "imagefs/imagefs.txz");
+                if (!imagefsArchive.exists()) {
+                    throw new Exception("ImageFS archive not found in package");
+                }
+
+                Log.d("ImageFsInstaller", "Extracting ImageFS...");
+                final byte compressionRatio = 22;
+                final long contentLength = imagefsArchive.length() * compressionRatio;
+                AtomicLong totalSizeRef = new AtomicLong();
+
+                boolean imageFsSuccess = TarCompressorUtils.extract(
+                    TarCompressorUtils.Type.XZ,
+                    new FileInputStream(imagefsArchive),
+                    rootDir,
+                    (file, size) -> {
+                        if (size > 0) {
+                            long totalSize = totalSizeRef.addAndGet(size);
+                            final int progress = 20 + (int)((((float)totalSize / contentLength) * 100) * 0.5f);
+                            activity.runOnUiThread(() -> dialog.setProgress(Math.min(progress, 70)));
+                        }
+                        return file;
+                    }
+                );
+
+                if (!imageFsSuccess) {
+                    throw new Exception("Failed to extract ImageFS");
+                }
+
+                activity.runOnUiThread(() -> dialog.setProgress(75));
+                Log.d("ImageFsInstaller", "Installing Wine...");
+                installWineFromRootFs(activity, rootfsDir, rootDir);
+
+                activity.runOnUiThread(() -> dialog.setProgress(85));
+                Log.d("ImageFsInstaller", "Installing graphics drivers...");
+                installDriversFromRootFs(activity, rootfsDir);
+
+                activity.runOnUiThread(() -> dialog.setProgress(95));
+                Log.d("ImageFsInstaller", "Installing additional components...");
+                installAdditionalComponentsFromRootFs(activity, rootfsDir, rootDir);
+
+                imageFs.createImgVersionFile(LATEST_VERSION);
+                resetContainerImgVersions(activity);
+
+                activity.runOnUiThread(() -> dialog.setProgress(100));
+
+                FileUtils.delete(tempDir);
+
+                dialog.closeOnUiThread();
+                if (onComplete != null) activity.runOnUiThread(onComplete);
+
+                Log.d("ImageFsInstaller", "RootFS installation completed successfully");
+
+            } catch (Exception e) {
+                Log.e("ImageFsInstaller", "Error installing from RootFS", e);
+                FileUtils.delete(tempDir);
+                dialog.closeOnUiThread();
+                if (onError != null) {
+                    activity.runOnUiThread(() -> onError.call("Erro ao instalar RootFS: " + e.getMessage()));
+                }
+            }
+        });
+    }
+
+    private static void installWineFromRootFs(Context context, File rootfsDir, File destRootDir) {
+        File protonDir = new File(rootfsDir, "proton");
+        File protonArchive = new File(protonDir, "proton-9.0-arm64ec.txz");
+        
+        if (protonArchive.exists()) {
+            File outFile = new File(destRootDir, "/opt/proton-9.0-arm64ec");
+            outFile.mkdirs();
+            
+            try {
+                TarCompressorUtils.extract(
+                    TarCompressorUtils.Type.XZ,
+                    new FileInputStream(protonArchive),
+                    outFile,
+                    null
+                );
+                Log.d("ImageFsInstaller", "Proton installed successfully");
+            } catch (Exception e) {
+                Log.e("ImageFsInstaller", "Failed to install Proton", e);
+            }
+        }
+    }
+
+    private static void installDriversFromRootFs(Context context, File rootfsDir) {
+        AdrenotoolsManager adrenotoolsManager = new AdrenotoolsManager(context);
+        File driversDir = new File(rootfsDir, "graphics_driver");
+        
+        if (!driversDir.exists()) {
+            Log.w("ImageFsInstaller", "No graphics_driver directory in RootFS");
+            return;
+        }
+
+        String[] drivers = {"System", "v819", "turnip25.1.0"};
+        for (String driver : drivers) {
+            File driverArchive = new File(driversDir, "adrenotools-" + driver + ".tzst");
+            if (driverArchive.exists()) {
+                File dst = new File(adrenotoolsManager.getAdrenotoolsContentDir(), driver);
+                dst.mkdirs();
+                
+                try {
+                    TarCompressorUtils.extract(
+                        TarCompressorUtils.Type.ZSTD,
+                        new FileInputStream(driverArchive),
+                        dst,
+                        null
+                    );
+                    Log.d("ImageFsInstaller", "Driver " + driver + " installed");
+                } catch (Exception e) {
+                    Log.e("ImageFsInstaller", "Failed to install driver " + driver, e);
+                }
+            }
+        }
+    }
+
+    private static void installAdditionalComponentsFromRootFs(Context context, File rootfsDir, File destRootDir) {
+        File othersDir = new File(rootfsDir, "others");
+        if (!othersDir.exists()) {
+            Log.w("ImageFsInstaller", "No others directory in RootFS");
+            return;
+        }
+
+        copyRootFsDirectory(new File(rootfsDir, "dxwrapper"), new File(context.getFilesDir(), "contents/dxwrapper"));
+        copyRootFsDirectory(new File(rootfsDir, "wincomponents"), new File(context.getFilesDir(), "contents/wincomponents"));
+        copyRootFsDirectory(new File(rootfsDir, "box64"), new File(context.getFilesDir(), "contents/box64"));
+        copyRootFsDirectory(new File(rootfsDir, "fexcore"), new File(context.getFilesDir(), "contents/fexcore"));
+        copyRootFsDirectory(othersDir, new File(context.getFilesDir(), "contents/others"));
+
+        Log.d("ImageFsInstaller", "Additional components installed");
+    }
+
+    private static void copyRootFsDirectory(File sourceDir, File destDir) {
+        if (!sourceDir.exists() || !sourceDir.isDirectory()) {
+            return;
+        }
+
+        destDir.mkdirs();
+        File[] files = sourceDir.listFiles();
+        if (files != null) {
+            for (File file : files) {
+                File destFile = new File(destDir, file.getName());
+                if (file.isDirectory()) {
+                    copyRootFsDirectory(file, destFile);
+                } else {
+                    FileUtils.copy(file, destFile);
+                }
+            }
+        }
+    }
+
+    public interface Callback<T> {
+        void call(T value);
     }
 }

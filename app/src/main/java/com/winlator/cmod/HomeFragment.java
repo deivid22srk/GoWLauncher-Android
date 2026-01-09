@@ -43,6 +43,7 @@ public class HomeFragment extends Fragment {
     private PreloaderDialog preloaderDialog;
 
     public static final int REQUEST_ADD_GAME = 1001;
+    public static final int REQUEST_IMPORT_ROOTFS = 1002;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -79,18 +80,47 @@ public class HomeFragment extends Fragment {
         super.onResume();
         loadGames();
     }
+    
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == REQUEST_IMPORT_ROOTFS && resultCode == AppCompatActivity.RESULT_OK) {
+            checkInstallation();
+            loadGames();
+        }
+    }
 
     private void checkInstallation() {
         if (!ImageFs.find(requireContext()).isValid()) {
-            preloaderDialog.show(R.string.installing_system_files);
-            if (getActivity() instanceof AppCompatActivity) {
-                ImageFsInstaller.installIfNeeded((AppCompatActivity) getActivity(), () -> {
-                    preloaderDialog.close();
-                    if (isAdded()) {
-                        loadGames();
-                    }
-                });
-            }
+            showRootFsImportOptions();
+        }
+    }
+    
+    private void showRootFsImportOptions() {
+        new androidx.appcompat.app.AlertDialog.Builder(requireContext())
+            .setTitle("Sistema Não Instalado")
+            .setMessage("O GoWLauncher precisa do Orion RootFS para funcionar.\\n\\n" +
+                       "Escolha uma opção:\\n" +
+                       "• Importar: Se você já baixou o arquivo .orfs\\n" +
+                       "• Baixar: Para obter o RootFS do GitHub")
+            .setPositiveButton("Importar RootFS", (dialog, which) -> {
+                Intent intent = new Intent(requireContext(), RootFsImportActivity.class);
+                startActivityForResult(intent, REQUEST_IMPORT_ROOTFS);
+            })
+            .setNegativeButton("Baixar RootFS", (dialog, which) -> {
+                openRootFsDownloadPage();
+            })
+            .setCancelable(false)
+            .show();
+    }
+    
+    private void openRootFsDownloadPage() {
+        String url = "https://github.com/deivid22srk/Orion-RootFs/releases/latest";
+        try {
+            Intent browserIntent = new Intent(Intent.ACTION_VIEW, android.net.Uri.parse(url));
+            startActivity(browserIntent);
+        } catch (Exception e) {
+            Toast.makeText(requireContext(), "Não foi possível abrir o navegador", Toast.LENGTH_SHORT).show();
         }
     }
 

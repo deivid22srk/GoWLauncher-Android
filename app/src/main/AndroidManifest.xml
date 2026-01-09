@@ -107,6 +107,13 @@
             android:configChanges="keyboard|keyboardHidden|orientation|screenSize|screenLayout|smallestScreenSize|density|navigation" />
 
         <activity
+            android:name="com.winlator.cmod.RootFsImportActivity"
+            android:theme="@style/Theme.GoW.MaterialYou"
+            android:screenOrientation="sensor"
+            android:exported="false"
+            android:configChanges="keyboard|keyboardHidden|orientation|screenSize|screenLayout|smallestScreenSize|density|navigation" />
+
+        <activity
             android:name="com.winlator.cmod.XServerDisplayActivity"
             android:theme="@style/AppThemeFullscreen"
             android:launchMode="singleTask"

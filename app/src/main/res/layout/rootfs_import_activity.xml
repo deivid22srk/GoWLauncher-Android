@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/background">
+
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/Toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/colorPrimary"
+        android:elevation="4dp"
+        app:titleTextColor="@color/white"
+        app:navigationIcon="@drawable/icon_arrow_back" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="24dp">
+
+            <!-- Header -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Importar Orion RootFS"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                android:textColor="@color/textPrimary"
+                android:layout_marginBottom="8dp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="O RootFS contém todos os arquivos de sistema necessários para executar jogos Windows no Android."
+                android:textSize="14sp"
+                android:textColor="@color/textSecondary"
+                android:layout_marginBottom="24dp" />
+
+            <!-- Info Card -->
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                app:cardElevation="2dp"
+                app:cardCornerRadius="12dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="ℹ️ Informações"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/textPrimary"
+                        android:layout_marginBottom="8dp" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="• Tamanho do arquivo: ~500MB\n• Espaço necessário: ~3GB\n• Tempo de instalação: 3-5 minutos\n• Requer conexão estável"
+                        android:textSize="14sp"
+                        android:textColor="@color/textSecondary"
+                        android:lineSpacingMultiplier="1.3" />
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- Status Card -->
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="24dp"
+                app:cardElevation="2dp"
+                app:cardCornerRadius="12dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <TextView
+                        android:id="@+id/TVStatus"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Nenhum arquivo selecionado"
+                        android:textSize="14sp"
+                        android:textColor="@color/textPrimary"
+                        android:textAlignment="center"
+                        android:layout_marginBottom="8dp" />
+
+                    <TextView
+                        android:id="@+id/TVFilePath"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text=""
+                        android:textSize="12sp"
+                        android:textColor="@color/textSecondary"
+                        android:textAlignment="center"
+                        android:visibility="gone" />
+
+                    <ProgressBar
+                        android:id="@+id/ProgressBar"
+                        style="?android:attr/progressBarStyleHorizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:max="100"
+                        android:progress="0"
+                        android:visibility="gone" />
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- Buttons -->
+            <Button
+                android:id="@+id/BTSelectFile"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:text="📁 Selecionar Arquivo .orfs"
+                android:textSize="16sp"
+                android:textAllCaps="false"
+                android:layout_marginBottom="12dp"
+                style="@style/Widget.Material3.Button.ElevatedButton" />
+
+            <Button
+                android:id="@+id/BTImport"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:text="⬇️ Importar RootFS"
+                android:textSize="16sp"
+                android:textAllCaps="false"
+                android:enabled="false"
+                android:layout_marginBottom="12dp"
+                style="@style/Widget.Material3.Button.FilledButton" />
+
+            <Button
+                android:id="@+id/BTDownload"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:text="🌐 Baixar RootFS (GitHub)"
+                android:textSize="16sp"
+                android:textAllCaps="false"
+                style="@style/Widget.Material3.Button.OutlinedButton" />
+
+            <!-- Help Text -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="💡 Dica: Primeiro baixe o arquivo .orfs do GitHub, depois selecione-o aqui para importar."
+                android:textSize="12sp"
+                android:textColor="@color/textSecondary"
+                android:textStyle="italic"
+                android:layout_marginTop="16dp"
+                android:padding="12dp"
+                android:background="@drawable/rounded_background"
+                android:alpha="0.7" />
+
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>
