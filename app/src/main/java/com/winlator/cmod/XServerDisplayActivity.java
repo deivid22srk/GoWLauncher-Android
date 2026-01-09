@@ -163,6 +163,8 @@ public class XServerDisplayActivity extends AppCompatActivity implements Navigat
     private OnExtractFileListener onExtractFileListener;
     private WinHandler winHandler;
     private WineRequestHandler wineRequestHandler;
+    private String globalBox64Preset;
+    private String globalFexcorePreset;
     private float globalCursorSpeed = 1.0f;
     private MagnifierView magnifierView;
     private DebugDialog debugDialog;
@@ -482,8 +484,8 @@ public class XServerDisplayActivity extends AppCompatActivity implements Navigat
 
         // Apply global Box64 and FEXCore presets from SettingsFragment (SharedPreferences)
         SharedPreferences globalPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-        String globalBox64Preset = globalPreferences.getString("box64_preset", null);
-        String globalFexcorePreset = globalPreferences.getString("fexcore_preset", null);
+        globalBox64Preset = globalPreferences.getString("box64_preset", null);
+        globalFexcorePreset = globalPreferences.getString("fexcore_preset", null);
         Log.d("XServerDisplayActivity", "Global Box64 Preset from Settings: " + globalBox64Preset);
         Log.d("XServerDisplayActivity", "Global FEXCore Preset from Settings: " + globalFexcorePreset);
 
