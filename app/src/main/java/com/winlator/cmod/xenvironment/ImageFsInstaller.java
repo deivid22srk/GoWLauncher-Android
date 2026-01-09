@@ -321,6 +321,7 @@ public abstract class ImageFsInstaller {
     private static void installDriversFromRootFs(Context context, File rootfsDir) {
         AdrenotoolsManager adrenotoolsManager = new AdrenotoolsManager(context);
         File driversDir = new File(rootfsDir, "graphics_driver");
+        File adrenotoolsDir = new File(context.getFilesDir(), "contents/adrenotools");
         
         if (!driversDir.exists()) {
             Log.w("ImageFsInstaller", "No graphics_driver directory in RootFS");
@@ -331,7 +332,7 @@ public abstract class ImageFsInstaller {
         for (String driver : drivers) {
             File driverArchive = new File(driversDir, "adrenotools-" + driver + ".tzst");
             if (driverArchive.exists()) {
-                File dst = new File(adrenotoolsManager.getAdrenotoolsContentDir(), driver);
+                File dst = new File(adrenotoolsDir, driver);
                 dst.mkdirs();
                 
                 try {
