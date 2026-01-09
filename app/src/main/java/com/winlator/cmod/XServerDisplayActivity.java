@@ -480,7 +480,7 @@ public class XServerDisplayActivity extends AppCompatActivity implements Navigat
         this.graphicsDriverConfig = GraphicsDriverConfigDialog.parseGraphicsDriverConfig(graphicsDriverConfig);
         this.dxwrapperConfig = DXVKConfigDialog.parseConfig(dxwrapperConfig);
 
-        // Apply global settings from SettingsFragment (SharedPreferences)
+        // Apply global Box64 and FEXCore presets from SettingsFragment (SharedPreferences)
         SharedPreferences globalPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         String globalBox64Preset = globalPreferences.getString("box64_preset", null);
         String globalFexcorePreset = globalPreferences.getString("fexcore_preset", null);
