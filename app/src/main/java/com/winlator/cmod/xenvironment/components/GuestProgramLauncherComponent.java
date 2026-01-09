@@ -79,11 +79,6 @@ public class GuestProgramLauncherComponent extends EnvironmentComponent {
 
         Log.d("GuestProgramLauncherComponent", "box64Version: " + box64Version);
 
-        if (box64Version == null || box64Version.isEmpty()) {
-            Log.d("GuestProgramLauncherComponent", "box64Version is null or empty, skipping box64 extraction (FEXCore mode)");
-            return;
-        }
-
         File rootDir = imageFs.getRootDir();
 
         if (!box64Version.equals(container.getExtra("box64Version"))) {
@@ -120,20 +115,32 @@ public class GuestProgramLauncherComponent extends EnvironmentComponent {
 
         if (!wowbox64Version.equals(container.getExtra("box64Version"))) {
             ContentProfile profile = contentsManager.getProfileByEntryName("wowbox64-" + wowbox64Version);
-            if (profile != null)
+            if (profile != null) {
                 contentsManager.applyContent(profile);
-            else
-                TarCompressorUtils.extract(TarCompressorUtils.Type.ZSTD, environment.getContext(), "wowbox64/wowbox64-" + wowbox64Version + ".tzst", system32dir);
+            } else {
+                File contentsFile = new File(environment.getContext().getFilesDir(), "contents/others/wowbox64/wowbox64-" + wowbox64Version + ".tzst");
+                if (contentsFile.exists()) {
+                    TarCompressorUtils.extract(TarCompressorUtils.Type.ZSTD, contentsFile, system32dir);
+                } else {
+                    TarCompressorUtils.extract(TarCompressorUtils.Type.ZSTD, environment.getContext(), "wowbox64/wowbox64-" + wowbox64Version + ".tzst", system32dir);
+                }
+            }
             container.putExtra("box64Version", wowbox64Version);
             containerDataChanged = true;
         }
 
         if (!fexcoreVersion.equals(container.getExtra("fexcoreVersion"))) {
             ContentProfile profile = contentsManager.getProfileByEntryName("fexcore-" + fexcoreVersion);
-            if (profile != null)
+            if (profile != null) {
                 contentsManager.applyContent(profile);
-            else
-                TarCompressorUtils.extract(TarCompressorUtils.Type.ZSTD, environment.getContext(), "fexcore/fexcore-" + fexcoreVersion + ".tzst", system32dir);
+            } else {
+                File contentsFile = new File(environment.getContext().getFilesDir(), "contents/fexcore/fexcore-" + fexcoreVersion + ".tzst");
+                if (contentsFile.exists()) {
+                    TarCompressorUtils.extract(TarCompressorUtils.Type.ZSTD, contentsFile, system32dir);
+                } else {
+                    TarCompressorUtils.extract(TarCompressorUtils.Type.ZSTD, environment.getContext(), "fexcore/fexcore-" + fexcoreVersion + ".tzst", system32dir);
+                }
+            }
             container.putExtra("fexcoreVersion", fexcoreVersion);
             containerDataChanged = true;
         }

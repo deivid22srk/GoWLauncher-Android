@@ -158,9 +158,9 @@ public class GowLauncherActivity extends AppCompatActivity {
                 containerData.put("wineVersion", WineInfo.MAIN_WINE_VERSION.identifier());
                 containerData.put("cpuList", "");
                 containerData.put("cpuListWoW64", "");
-                containerData.put("box64Version", "");
+                containerData.put("box64Version", DefaultVersion.WOWBOX64);
                 containerData.put("box64Preset", Box64Preset.COMPATIBILITY);
-                containerData.put("fexcoreVersion", "2601");
+                containerData.put("fexcoreVersion", DefaultVersion.FEXCORE);
                 containerData.put("fexcorePreset", FEXCorePreset.GOW_OPTIMIZED);
                 containerData.put("desktopTheme", WineThemeManager.DEFAULT_DESKTOP_THEME);
                 containerData.put("midiSoundFont", "");

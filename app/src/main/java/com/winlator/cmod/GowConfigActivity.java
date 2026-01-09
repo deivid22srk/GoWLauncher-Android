@@ -157,6 +157,9 @@ public class GowConfigActivity extends AppCompatActivity {
         gowContainer.setDXWrapperConfig(dxwrapperConfig);
 
         gowContainer.setFEXCoreVersion(fexVersion);
+        if (gowContainer.getBox64Version() == null || gowContainer.getBox64Version().isEmpty()) {
+            gowContainer.setBox64Version(DefaultVersion.WOWBOX64);
+        }
         gowContainer.setFEXCorePreset(FEXCorePreset.GOW_OPTIMIZED);
         gowContainer.saveData();
 

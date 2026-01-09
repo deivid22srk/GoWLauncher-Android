@@ -137,6 +137,9 @@ public class GlobalConfigActivity extends AppCompatActivity {
             container.setDXWrapperConfig(dxwrapperConfig);
 
             container.setFEXCoreVersion(fexVersion);
+            if (container.getBox64Version() == null || container.getBox64Version().isEmpty()) {
+                container.setBox64Version(DefaultVersion.WOWBOX64);
+            }
             container.saveData();
         }
 
