@@ -11,11 +11,13 @@
         app:elevation="0dp">
 
         <com.google.android.material.appbar.CollapsingToolbarLayout
-            style="?attr/collapsingToolbarLayoutLargeStyle"
+            style="?attr/collapsingToolbarLayoutMediumStyle"
             android:layout_width="match_parent"
-            android:layout_height="?attr/collapsingToolbarLayoutLargeSize"
+            android:layout_height="?attr/collapsingToolbarLayoutMediumSize"
             app:layout_scrollFlags="scroll|exitUntilCollapsed|snap"
-            app:title="Meus Jogos">
+            app:title="Meus Jogos"
+            app:expandedTitleMarginStart="24dp"
+            app:expandedTitleMarginBottom="16dp">
 
             <com.google.android.material.appbar.MaterialToolbar
                 android:id="@+id/Toolbar"
