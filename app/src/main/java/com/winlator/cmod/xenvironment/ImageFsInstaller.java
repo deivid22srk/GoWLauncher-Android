@@ -208,7 +208,7 @@ public abstract class ImageFsInstaller {
 
                 boolean extractSuccess = TarCompressorUtils.extract(
                     TarCompressorUtils.Type.ZSTD,
-                    new FileInputStream(orfsFile),
+                    orfsFile,
                     tempDir,
                     null
                 );
@@ -245,7 +245,7 @@ public abstract class ImageFsInstaller {
 
                 boolean imageFsSuccess = TarCompressorUtils.extract(
                     TarCompressorUtils.Type.XZ,
-                    new FileInputStream(imagefsArchive),
+                    imagefsArchive,
                     rootDir,
                     (file, size) -> {
                         if (size > 0) {
@@ -307,7 +307,7 @@ public abstract class ImageFsInstaller {
             try {
                 TarCompressorUtils.extract(
                     TarCompressorUtils.Type.XZ,
-                    new FileInputStream(protonArchive),
+                    protonArchive,
                     outFile,
                     null
                 );
@@ -337,7 +337,7 @@ public abstract class ImageFsInstaller {
                 try {
                     TarCompressorUtils.extract(
                         TarCompressorUtils.Type.ZSTD,
-                        new FileInputStream(driverArchive),
+                        driverArchive,
                         dst,
                         null
                     );
