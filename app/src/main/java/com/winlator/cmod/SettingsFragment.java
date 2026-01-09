@@ -113,7 +113,7 @@ public class SettingsFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         // Apply dynamic styles to all labels
         applyDynamicStylesRecursively(view);
-        ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle(R.string.settings);
+        // Toolbar is now managed by the fragment's own layout
     }
 
 

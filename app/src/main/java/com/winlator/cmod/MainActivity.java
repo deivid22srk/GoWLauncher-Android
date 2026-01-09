@@ -99,12 +99,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         NavigationView navigationView = findViewById(R.id.NavigationView);
         navigationView.setNavigationItemSelectedListener(this);
 
-        setSupportActionBar(findViewById(R.id.Toolbar));
-        ActionBar actionBar = getSupportActionBar();
-        if (actionBar != null) {
-            actionBar.setDisplayHomeAsUpEnabled(true);
-            actionBar.setHomeAsUpIndicator(R.drawable.icon_action_bar_menu);
-        }
+        // Toolbar is now managed by individual fragments
+        // Each fragment has its own AppBarLayout and Toolbar
 
         // Determine text color based on dark mode
         int textColor = isDarkMode ? Color.WHITE : Color.BLACK;

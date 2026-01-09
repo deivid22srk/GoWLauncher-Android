@@ -7,27 +7,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <LinearLayout
+    <FrameLayout
+        android:id="@+id/FLFragmentContainer"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
-
-        <androidx.appcompat.widget.Toolbar
-            android:layout_width="match_parent"
-            android:layout_height="?actionBarSize"
-            android:id="@+id/Toolbar"
-            android:background="@color/colorPrimary"
-            app:layout_scrollFlags="enterAlways|scroll"
-            app:title="@string/app_name"
-            app:titleTextColor="#ffffff"
-            app:titleTextAppearance="@style/TextAppearance.AppCompat.Medium" />
-
-        <FrameLayout
-            android:id="@+id/FLFragmentContainer"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
-    </LinearLayout>
+        android:layout_height="match_parent"/>
 
     <com.google.android.material.navigation.NavigationView
         android:layout_width="wrap_content"

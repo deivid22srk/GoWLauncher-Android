@@ -72,7 +72,9 @@ public class ContainersFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         manager = new ContainerManager(getContext());
         loadContainersList();
-        ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle(R.string.containers);
+        if (getActivity() != null && ((AppCompatActivity) getActivity()).getSupportActionBar() != null) {
+            ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle(R.string.containers);
+        }
     }
 
     @Nullable
