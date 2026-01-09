@@ -43,19 +43,19 @@ public abstract class ImageFsInstaller {
         }
     }
 
-    public static void installWineFromAssets(final MainActivity activity) {
-        String[] versions = activity.getResources().getStringArray(R.array.wine_entries);
-        File rootDir = ImageFs.find(activity).getRootDir();
+    public static void installWineFromAssets(final Context context) {
+        String[] versions = context.getResources().getStringArray(R.array.wine_entries);
+        File rootDir = ImageFs.find(context).getRootDir();
         for (String version : versions) {
             File outFile = new File(rootDir, "/opt/" + version);
             outFile.mkdirs();
-            TarCompressorUtils.extract(TarCompressorUtils.Type.XZ, activity, version + ".txz", outFile);
+            TarCompressorUtils.extract(TarCompressorUtils.Type.XZ, context, version + ".txz", outFile);
         }
     }
 
-    public static void installDriversFromAssets(final MainActivity activity) {
-        AdrenotoolsManager adrenotoolsManager = new AdrenotoolsManager(activity);
-        String[] adrenotoolsAssetDrivers = activity.getResources().getStringArray(R.array.wrapper_graphics_driver_version_entries);
+    private static void installDriversFromAssets(final Context context) {
+        AdrenotoolsManager adrenotoolsManager = new AdrenotoolsManager(context);
+        String[] adrenotoolsAssetDrivers = context.getResources().getStringArray(R.array.wrapper_graphics_driver_version_entries);
 
         for (String driver : adrenotoolsAssetDrivers)
             adrenotoolsManager.extractDriverFromResources(driver);
@@ -136,10 +136,8 @@ public abstract class ImageFsInstaller {
             });
 
             if (success) {
-                if (activity instanceof MainActivity) {
-                    installWineFromAssets((MainActivity) activity);
-                    installDriversFromAssets((MainActivity) activity);
-                }
+                installWineFromAssets(activity);
+                installDriversFromAssets(activity);
                 imageFs.createImgVersionFile(LATEST_VERSION);
                 resetContainerImgVersions(activity);
             }
