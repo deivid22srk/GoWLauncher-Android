@@ -135,6 +135,11 @@
     <color name="tooltip_background_dark">#e6616161</color>
     <color name="tooltip_background_light">#e6ffffff</color>
 
+    <!-- RootFS Import Activity Colors -->
+    <color name="background">#fafafa</color>
+    <color name="textPrimary">#000000</color>
+    <color name="textSecondary">#757575</color>
+
     <!-- Material You GoW Theme - Dynamic Colors -->
     <color name="md_theme_gow_primary">#D4AF37</color>
     <color name="md_theme_gow_on_primary">#1A1816</color>
