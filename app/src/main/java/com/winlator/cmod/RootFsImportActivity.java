@@ -19,6 +19,7 @@ import com.winlator.cmod.xenvironment.ImageFs;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.security.MessageDigest;
 import java.util.concurrent.Executors;
