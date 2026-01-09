@@ -222,7 +222,10 @@ public class ScreenEffectDialog extends ContentDialog {
 
     private void removeProfile(String targetName, Spinner sProfile) {
         Set<String> profiles = new LinkedHashSet<>(preferences.getStringSet("screen_effect_profiles", new LinkedHashSet<>()));
-        profiles.removeIf(profile -> profile.split(":")[0].equals(targetName));
+        profiles.removeIf(profile -> {
+            String[] parts = profile.split(":");
+            return parts.length > 0 && parts[0].equals(targetName);
+        });
         preferences.edit().putStringSet("screen_effect_profiles", profiles).apply();
         loadProfileSpinner(sProfile, null);
         resetSettings();

@@ -480,6 +480,13 @@ public class XServerDisplayActivity extends AppCompatActivity implements Navigat
         this.graphicsDriverConfig = GraphicsDriverConfigDialog.parseGraphicsDriverConfig(graphicsDriverConfig);
         this.dxwrapperConfig = DXVKConfigDialog.parseConfig(dxwrapperConfig);
 
+        // Apply global settings from SettingsFragment (SharedPreferences)
+        SharedPreferences globalPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        String globalBox64Preset = globalPreferences.getString("box64_preset", null);
+        String globalFexcorePreset = globalPreferences.getString("fexcore_preset", null);
+        Log.d("XServerDisplayActivity", "Global Box64 Preset from Settings: " + globalBox64Preset);
+        Log.d("XServerDisplayActivity", "Global FEXCore Preset from Settings: " + globalFexcorePreset);
+
         if (!wineInfo.isWin64()) {
             onExtractFileListener = (file, size) -> {
                 String path = file.getPath();
@@ -604,11 +611,14 @@ public class XServerDisplayActivity extends AppCompatActivity implements Navigat
                 String line;
                 while ((line = reader.readLine()) != null) {
                     if (line.startsWith("container_id:")) {
-                        containerId = Integer.parseInt(line.split(":")[1].trim());
+                        String[] parts = line.split(":");
+                        if (parts.length >= 2) {
+                            containerId = Integer.parseInt(parts[1].trim());
+                        }
                         break;
                     }
                 }
-            } catch (IOException | NumberFormatException e) {
+            } catch (IOException | NumberFormatException | ArrayIndexOutOfBoundsException e) {
                 Log.e("XServerDisplayActivity", "Error parsing container_id from .desktop file", e);
             }
         }
@@ -1076,17 +1086,22 @@ public class XServerDisplayActivity extends AppCompatActivity implements Navigat
 
             guestProgramLauncherComponent.setBindingPaths(bindingPaths.toArray(new String[0]));
 
-            guestProgramLauncherComponent.setBox64Preset(
-                    shortcut != null
+            // Use global settings from SettingsFragment if available, otherwise fall back to container/shortcut
+            String box64PresetToUse = globalBox64Preset != null && !globalBox64Preset.isEmpty() 
+                    ? globalBox64Preset 
+                    : (shortcut != null 
                             ? shortcut.getExtra("box64Preset", container.getBox64Preset())
-                            : container.getBox64Preset()
-            );
+                            : container.getBox64Preset());
+            Log.d("XServerDisplayActivity", "Using Box64 Preset: " + box64PresetToUse);
+            guestProgramLauncherComponent.setBox64Preset(box64PresetToUse);
 
-            guestProgramLauncherComponent.setFEXCorePreset(
-                    shortcut != null
+            String fexcorePresetToUse = globalFexcorePreset != null && !globalFexcorePreset.isEmpty()
+                    ? globalFexcorePreset
+                    : (shortcut != null
                             ? shortcut.getExtra("fexcorePreset", container.getFEXCorePreset())
-                            : container.getFEXCorePreset()
-            );
+                            : container.getFEXCorePreset());
+            Log.d("XServerDisplayActivity", "Using FEXCore Preset: " + fexcorePresetToUse);
+            guestProgramLauncherComponent.setFEXCorePreset(fexcorePresetToUse);
         }
 
         // Merge overrideEnvVars if present
@@ -1250,11 +1265,14 @@ public class XServerDisplayActivity extends AppCompatActivity implements Navigat
                 String line;
                 while ((line = reader.readLine()) != null) {
                     if (line.startsWith("Name=")) {
-                        shortcutName = line.split("=")[1].trim();
+                        String[] parts = line.split("=");
+                        if (parts.length >= 2) {
+                            shortcutName = parts[1].trim();
+                        }
                         break;
                     }
                 }
-            } catch (IOException e) {
+            } catch (IOException | ArrayIndexOutOfBoundsException e) {
                 Log.e("XServerDisplayActivity", "Error reading shortcut name from .desktop file", e);
             }
         }
@@ -1499,8 +1517,14 @@ public class XServerDisplayActivity extends AppCompatActivity implements Navigat
         }
 
         String vulkanVersion = graphicsDriverConfig.get("vulkanVersion");
-        String vulkanVersionPatch = GPUInformation.getVulkanVersion(adrenoToolsDriverId, this).split("\\.")[2];
-        vulkanVersion = vulkanVersion + "." + vulkanVersionPatch;
+        String[] vulkanParts = GPUInformation.getVulkanVersion(adrenoToolsDriverId, this).split("\\.");
+        if (vulkanParts.length >= 3) {
+            String vulkanVersionPatch = vulkanParts[2];
+            vulkanVersion = vulkanVersion + "." + vulkanVersionPatch;
+        } else {
+            Log.w("XServerDisplayActivity", "Vulkan version format unexpected: " + GPUInformation.getVulkanVersion(adrenoToolsDriverId, this) + ", using default patch version 0");
+            vulkanVersion = vulkanVersion + ".0";
+        }
         envVars.put("WRAPPER_VK_VERSION", vulkanVersion);
 
         String blacklistedExtensions = graphicsDriverConfig.get("blacklistedExtensions");
@@ -1607,9 +1631,14 @@ public class XServerDisplayActivity extends AppCompatActivity implements Navigat
 
         if (dxwrapper.contains("dxvk")) {
             Log.d(TAG, "Extracting DXVK wrapper files, version: " + dxwrapper);
-            String dxvkWrapper = dxwrapper.split(";")[0];
-            String vkd3dWrapper = dxwrapper.split(";")[1];
-            String ddrawrapper = dxwrapper.split(";")[2];
+            String[] dxwrapperParts = dxwrapper.split(";");
+            if (dxwrapperParts.length < 3) {
+                Log.e(TAG, "Invalid dxwrapper format: " + dxwrapper + ", expected format: dxvk;vkd3d;ddraw");
+                return;
+            }
+            String dxvkWrapper = dxwrapperParts[0];
+            String vkd3dWrapper = dxwrapperParts[1];
+            String ddrawrapper = dxwrapperParts[2];
             ContentProfile dxvkProfile = contentsManager.getProfileByEntryName(dxvkWrapper);
             if (dxvkProfile != null) {
                 Log.d(TAG, "Applying user-defined DXVK content profile: " + dxvkWrapper);

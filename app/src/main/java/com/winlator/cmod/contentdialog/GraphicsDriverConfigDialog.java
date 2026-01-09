@@ -65,7 +65,7 @@ public class GraphicsDriverConfigDialog extends ContentDialog {
             String[] splittedElement = element.split("=");
             key = splittedElement[0];
             if (splittedElement.length > 1)
-                value = element.split("=")[1];
+                value = splittedElement[1];
             else
                 value = "";
             mappedConfig.put(key, value);
