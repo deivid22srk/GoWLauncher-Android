@@ -132,7 +132,7 @@
                 android:textSize="16sp"
                 android:textAllCaps="false"
                 android:layout_marginBottom="12dp"
-                style="@style/Widget.Material3.Button.ElevatedButton" />
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton" />
 
             <Button
                 android:id="@+id/BTImport"
@@ -143,7 +143,7 @@
                 android:textAllCaps="false"
                 android:enabled="false"
                 android:layout_marginBottom="12dp"
-                style="@style/Widget.Material3.Button.FilledButton" />
+                style="@style/Widget.MaterialComponents.Button" />
 
             <Button
                 android:id="@+id/BTDownload"
@@ -152,7 +152,7 @@
                 android:text="🌐 Baixar RootFS (GitHub)"
                 android:textSize="16sp"
                 android:textAllCaps="false"
-                style="@style/Widget.Material3.Button.OutlinedButton" />
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton" />
 
             <!-- Help Text -->
             <TextView
