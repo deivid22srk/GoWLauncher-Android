@@ -268,28 +268,55 @@ public class ContainerManager {
     public boolean extractContainerPatternFile(Container container, String wineVersion, ContentsManager contentsManager, File containerDir, OnExtractFileListener onExtractFileListener) {
         WineInfo wineInfo = WineInfo.fromIdentifier(context, contentsManager, wineVersion);
         String containerPattern = wineVersion + "_container_pattern.tzst";
-        boolean result = TarCompressorUtils.extract(TarCompressorUtils.Type.ZSTD, context, containerPattern, containerDir, onExtractFileListener);
+        boolean result = false;
+        
+        Log.d("ContainerManager", "Looking for container pattern: " + containerPattern);
+        
+        result = TarCompressorUtils.extract(TarCompressorUtils.Type.ZSTD, context, containerPattern, containerDir, onExtractFileListener);
+        Log.d("ContainerManager", "Extract from APK assets: " + result);
+
+        if (!result) {
+            File contentsPattern = new File(context.getFilesDir(), "contents/others/" + containerPattern);
+            Log.d("ContainerManager", "Trying contents/others: " + contentsPattern.getAbsolutePath());
+            Log.d("ContainerManager", "File exists: " + contentsPattern.exists());
+            
+            if (contentsPattern.exists()) {
+                result = TarCompressorUtils.extract(TarCompressorUtils.Type.ZSTD, contentsPattern, containerDir, onExtractFileListener);
+                Log.d("ContainerManager", "Extract from contents/others: " + result);
+            }
+        }
 
         if (!result) {
             File containerPatternFile = new File(wineInfo.path + "/prefixPack.txz");
-            result = TarCompressorUtils.extract(TarCompressorUtils.Type.XZ, containerPatternFile, containerDir);
+            Log.d("ContainerManager", "Trying prefixPack.txz: " + containerPatternFile.getAbsolutePath());
+            Log.d("ContainerManager", "File exists: " + containerPatternFile.exists());
+            
+            if (containerPatternFile.exists()) {
+                result = TarCompressorUtils.extract(TarCompressorUtils.Type.XZ, containerPatternFile, containerDir);
+                Log.d("ContainerManager", "Extract from prefixPack.txz: " + result);
+            }
         }
 
-        if (result) {
-            try {
-                if (wineInfo.isArm64EC())
-                    extractCommonDlls(wineInfo, "aarch64-windows", "system32", containerDir, onExtractFileListener); // arm64ec only
-                else
-                    extractCommonDlls(wineInfo, "x86_64-windows", "system32", containerDir, onExtractFileListener);
+        if (!result) {
+            Log.e("ContainerManager", "Failed to extract container pattern from all sources");
+            return false;
+        }
 
-                extractCommonDlls(wineInfo, "i386-windows", "syswow64", containerDir, onExtractFileListener);
-            }
-            catch (JSONException e) {
-                return false;
-            }
+        try {
+            if (wineInfo.isArm64EC())
+                extractCommonDlls(wineInfo, "aarch64-windows", "system32", containerDir, onExtractFileListener);
+            else
+                extractCommonDlls(wineInfo, "x86_64-windows", "system32", containerDir, onExtractFileListener);
+
+            extractCommonDlls(wineInfo, "i386-windows", "syswow64", containerDir, onExtractFileListener);
+        }
+        catch (JSONException e) {
+            Log.e("ContainerManager", "Failed to extract common DLLs", e);
+            return false;
         }
    
-        return result;
+        Log.d("ContainerManager", "Container pattern extracted successfully");
+        return true;
     }
 
     public Container getContainerForShortcut(Shortcut shortcut) {

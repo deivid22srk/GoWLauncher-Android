@@ -300,21 +300,35 @@ public abstract class ImageFsInstaller {
         File protonDir = new File(rootfsDir, "proton");
         File protonArchive = new File(protonDir, "proton-9.0-arm64ec.txz");
         
-        if (protonArchive.exists()) {
-            File outFile = new File(destRootDir, "/opt/proton-9.0-arm64ec");
-            outFile.mkdirs();
+        Log.d("ImageFsInstaller", "Looking for Proton at: " + protonArchive.getAbsolutePath());
+        
+        if (!protonArchive.exists()) {
+            Log.w("ImageFsInstaller", "Proton archive not found in RootFS package");
+            Log.w("ImageFsInstaller", "This is expected if using a lightweight RootFS");
+            return;
+        }
+        
+        File outFile = new File(destRootDir, "/opt/proton-9.0-arm64ec");
+        outFile.mkdirs();
+        
+        try {
+            Log.d("ImageFsInstaller", "Extracting Proton to: " + outFile.getAbsolutePath());
+            boolean success = TarCompressorUtils.extract(
+                TarCompressorUtils.Type.XZ,
+                protonArchive,
+                outFile,
+                null
+            );
             
-            try {
-                TarCompressorUtils.extract(
-                    TarCompressorUtils.Type.XZ,
-                    protonArchive,
-                    outFile,
-                    null
-                );
+            if (success) {
+                File prefixPack = new File(outFile, "prefixPack.txz");
                 Log.d("ImageFsInstaller", "Proton installed successfully");
-            } catch (Exception e) {
-                Log.e("ImageFsInstaller", "Failed to install Proton", e);
+                Log.d("ImageFsInstaller", "Checking prefixPack.txz: " + prefixPack.exists());
+            } else {
+                Log.e("ImageFsInstaller", "Failed to extract Proton archive");
             }
+        } catch (Exception e) {
+            Log.e("ImageFsInstaller", "Failed to install Proton", e);
         }
     }
 
@@ -354,14 +368,22 @@ public abstract class ImageFsInstaller {
         File othersDir = new File(rootfsDir, "others");
         if (!othersDir.exists()) {
             Log.w("ImageFsInstaller", "No others directory in RootFS");
-            return;
         }
 
+        Log.d("ImageFsInstaller", "Installing additional components...");
+        
         copyRootFsDirectory(new File(rootfsDir, "dxwrapper"), new File(context.getFilesDir(), "contents/dxwrapper"));
         copyRootFsDirectory(new File(rootfsDir, "wincomponents"), new File(context.getFilesDir(), "contents/wincomponents"));
         copyRootFsDirectory(new File(rootfsDir, "box64"), new File(context.getFilesDir(), "contents/box64"));
         copyRootFsDirectory(new File(rootfsDir, "fexcore"), new File(context.getFilesDir(), "contents/fexcore"));
-        copyRootFsDirectory(othersDir, new File(context.getFilesDir(), "contents/others"));
+        
+        if (othersDir.exists()) {
+            File contentsOthers = new File(context.getFilesDir(), "contents/others");
+            copyRootFsDirectory(othersDir, contentsOthers);
+            
+            File containerPattern = new File(contentsOthers, "proton-9.0-arm64ec_container_pattern.tzst");
+            Log.d("ImageFsInstaller", "Container pattern in contents/others: " + containerPattern.exists());
+        }
 
         Log.d("ImageFsInstaller", "Additional components installed");
     }
