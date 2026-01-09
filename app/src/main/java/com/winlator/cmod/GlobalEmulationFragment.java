@@ -54,12 +54,11 @@ public class GlobalEmulationFragment extends Fragment {
     }
 
     private void setupSpinners() {
-        Box64PresetManager box64Manager = new Box64PresetManager(requireContext());
-        ArrayList<Box64Preset> box64Presets = box64Manager.getPresets();
+        ArrayList<Box64Preset> box64Presets = Box64PresetManager.getPresets("box64", requireContext());
         
         String[] box64Names = new String[box64Presets.size()];
         for (int i = 0; i < box64Presets.size(); i++) {
-            box64Names[i] = box64Presets.get(i).getName();
+            box64Names[i] = box64Presets.get(i).name;
         }
         
         ArrayAdapter<String> box64Adapter = new ArrayAdapter<>(requireContext(), android.R.layout.simple_spinner_item, box64Names);
@@ -74,12 +73,11 @@ public class GlobalEmulationFragment extends Fragment {
             }
         }
 
-        FEXCorePresetManager fexManager = new FEXCorePresetManager(requireContext());
-        ArrayList<FEXCorePreset> fexPresets = fexManager.getPresets();
+        ArrayList<FEXCorePreset> fexPresets = FEXCorePresetManager.getPresets(requireContext());
         
         String[] fexNames = new String[fexPresets.size()];
         for (int i = 0; i < fexPresets.size(); i++) {
-            fexNames[i] = fexPresets.get(i).getName();
+            fexNames[i] = fexPresets.get(i).name;
         }
         
         ArrayAdapter<String> fexAdapter = new ArrayAdapter<>(requireContext(), android.R.layout.simple_spinner_item, fexNames);
