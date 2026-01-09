@@ -116,26 +116,44 @@ public class RootFsImportActivity extends AppCompatActivity {
     
     private void handleSelectedFile(Uri uri) {
         try {
-            String path = FileUtils.getFilePathFromUri(this, uri);
-            selectedOrfsFile = new File(path);
-            
-            if (!selectedOrfsFile.exists()) {
-                showError("Arquivo não encontrado");
+            InputStream inputStream = getContentResolver().openInputStream(uri);
+            if (inputStream == null) {
+                showError("Não foi possível abrir o arquivo");
                 return;
             }
-            
-            if (!selectedOrfsFile.getName().endsWith(".orfs")) {
+
+            String fileName = FileUtils.getFileName(this, uri);
+            if (fileName == null || !fileName.endsWith(".orfs")) {
+                inputStream.close();
                 showError("Arquivo inválido. Selecione um arquivo .orfs");
                 return;
             }
-            
+
+            File cacheDir = new File(getCacheDir(), "orfs_temp");
+            if (!cacheDir.exists()) cacheDir.mkdirs();
+            selectedOrfsFile = new File(cacheDir, fileName);
+
+            FileOutputStream outputStream = new FileOutputStream(selectedOrfsFile);
+            byte[] buffer = new byte[8192];
+            int bytesRead;
+            long totalBytes = 0;
+
+            while ((bytesRead = inputStream.read(buffer)) != -1) {
+                outputStream.write(buffer, 0, bytesRead);
+                totalBytes += bytesRead;
+            }
+
+            inputStream.close();
+            outputStream.close();
+
             long sizeBytes = selectedOrfsFile.length();
             String sizeStr = formatFileSize(sizeBytes);
-            
+
             tvFilePath.setText("Arquivo: " + selectedOrfsFile.getName() + " (" + sizeStr + ")");
+            tvFilePath.setVisibility(View.VISIBLE);
             tvStatus.setText("Pronto para importar\\nTamanho: " + sizeStr);
             btnImport.setEnabled(true);
-            
+
         } catch (Exception e) {
             Log.e(TAG, "Error handling file", e);
             showError("Erro ao processar arquivo: " + e.getMessage());
