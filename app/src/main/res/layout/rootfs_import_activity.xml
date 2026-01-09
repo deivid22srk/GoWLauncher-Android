@@ -13,17 +13,17 @@
         app:elevation="0dp">
 
         <com.google.android.material.appbar.CollapsingToolbarLayout
-            style="?attr/collapsingToolbarLayoutLargeStyle"
             android:layout_width="match_parent"
-            android:layout_height="?attr/collapsingToolbarLayoutLargeSize"
+            android:layout_height="180dp"
             app:layout_scrollFlags="scroll|exitUntilCollapsed|snap"
             app:title="Importar RootFS"
             app:expandedTitleMarginStart="24dp"
             app:expandedTitleMarginBottom="28dp"
-            app:expandedTitleTextAppearance="@style/TextAppearance.Material3.DisplaySmall"
-            app:collapsedTitleTextAppearance="@style/TextAppearance.Material3.TitleLarge"
+            app:expandedTitleTextAppearance="@style/TextAppearance.AppCompat.Display1"
+            app:collapsedTitleTextAppearance="@style/TextAppearance.AppCompat.Title"
             app:expandedTitleTextColor="?attr/colorOnSurface"
-            app:collapsedTitleTextColor="?attr/colorOnSurface">
+            app:collapsedTitleTextColor="?attr/colorOnSurface"
+            app:contentScrim="?attr/colorSurface">
 
             <com.google.android.material.appbar.MaterialToolbar
                 android:id="@+id/Toolbar"
@@ -46,23 +46,23 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:padding="20dp">
+            android:padding="20dp"
+            android:paddingBottom="32dp">
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="O RootFS contém todos os arquivos de sistema necessários para executar jogos Windows no Android."
-                android:textAppearance="?attr/textAppearanceBodyLarge"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
                 android:textColor="?attr/colorOnSurfaceVariant"
                 android:lineSpacingExtra="4dp"
                 android:layout_marginBottom="24dp" />
 
             <com.google.android.material.card.MaterialCardView
-                style="@style/Widget.Material3.CardView.Filled"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="16dp"
-                app:cardElevation="0dp"
+                app:cardElevation="2dp"
                 app:cardCornerRadius="24dp"
                 app:cardBackgroundColor="?attr/colorPrimaryContainer">
 
@@ -80,7 +80,6 @@
                         android:layout_marginBottom="16dp">
 
                         <com.google.android.material.card.MaterialCardView
-                            style="@style/Widget.Material3.CardView.Elevated"
                             android:layout_width="48dp"
                             android:layout_height="48dp"
                             app:cardElevation="0dp"
@@ -100,7 +99,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Informações"
-                            android:textAppearance="?attr/textAppearanceTitleLarge"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Headline"
                             android:textColor="?attr/colorOnPrimaryContainer"
                             android:layout_marginStart="16dp" />
 
@@ -123,7 +122,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Tamanho do arquivo: ~500MB"
-                            android:textAppearance="?attr/textAppearanceBodyLarge"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
                             android:textColor="?attr/colorOnPrimaryContainer" />
 
                     </LinearLayout>
@@ -145,7 +144,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Espaço necessário: ~3GB"
-                            android:textAppearance="?attr/textAppearanceBodyLarge"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
                             android:textColor="?attr/colorOnPrimaryContainer" />
 
                     </LinearLayout>
@@ -167,7 +166,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Tempo de instalação: 3-5 minutos"
-                            android:textAppearance="?attr/textAppearanceBodyLarge"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
                             android:textColor="?attr/colorOnPrimaryContainer" />
 
                     </LinearLayout>
@@ -188,7 +187,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Requer conexão estável"
-                            android:textAppearance="?attr/textAppearanceBodyLarge"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
                             android:textColor="?attr/colorOnPrimaryContainer" />
 
                     </LinearLayout>
@@ -198,13 +197,12 @@
             </com.google.android.material.card.MaterialCardView>
 
             <com.google.android.material.card.MaterialCardView
-                style="@style/Widget.Material3.CardView.Filled"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="32dp"
-                app:cardElevation="0dp"
+                app:cardElevation="2dp"
                 app:cardCornerRadius="24dp"
-                app:cardBackgroundColor="?attr/colorSurfaceContainerHigh">
+                app:cardBackgroundColor="?attr/colorSurfaceVariant">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -220,7 +218,6 @@
                         android:layout_marginBottom="16dp">
 
                         <com.google.android.material.card.MaterialCardView
-                            style="@style/Widget.Material3.CardView.Filled"
                             android:layout_width="40dp"
                             android:layout_height="40dp"
                             app:cardElevation="0dp"
@@ -240,7 +237,8 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Status"
-                            android:textAppearance="?attr/textAppearanceTitleMedium"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+                            android:textStyle="bold"
                             android:textColor="?attr/colorOnSurface"
                             android:layout_marginStart="12dp" />
 
@@ -251,7 +249,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="Nenhum arquivo selecionado"
-                        android:textAppearance="?attr/textAppearanceBodyLarge"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
                         android:textColor="?attr/colorOnSurface"
                         android:textAlignment="center"
                         android:layout_marginBottom="8dp" />
@@ -261,21 +259,22 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text=""
-                        android:textAppearance="?attr/textAppearanceBodyMedium"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Body2"
                         android:textColor="?attr/colorOnSurfaceVariant"
                         android:textAlignment="center"
                         android:fontFamily="monospace"
                         android:visibility="gone" />
 
-                    <com.google.android.material.progressindicator.LinearProgressIndicator
+                    <ProgressBar
                         android:id="@+id/ProgressBar"
+                        style="?android:attr/progressBarStyleHorizontal"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="8dp"
                         android:layout_marginTop="16dp"
-                        app:trackThickness="8dp"
-                        app:trackCornerRadius="4dp"
-                        app:indicatorColor="?attr/colorPrimary"
-                        app:trackColor="?attr/colorSurfaceContainerHighest"
+                        android:max="100"
+                        android:progress="0"
+                        android:progressTint="?attr/colorPrimary"
+                        android:progressBackgroundTint="?attr/colorSurfaceVariant"
                         android:visibility="gone" />
 
                 </LinearLayout>
@@ -284,11 +283,10 @@
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/BTSelectFile"
-                style="@style/Widget.Material3.Button.OutlinedButton.Icon"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton.Icon"
                 android:layout_width="match_parent"
                 android:layout_height="64dp"
                 android:text="Selecionar Arquivo .orfs"
-                android:textAppearance="?attr/textAppearanceLabelLarge"
                 android:textSize="16sp"
                 app:icon="@android:drawable/ic_menu_search"
                 app:iconGravity="start"
@@ -298,25 +296,25 @@
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/BTImport"
-                style="@style/Widget.Material3.Button.TonalButton.Icon"
+                style="@style/Widget.MaterialComponents.Button"
                 android:layout_width="match_parent"
                 android:layout_height="64dp"
                 android:text="Importar RootFS"
-                android:textAppearance="?attr/textAppearanceLabelLarge"
                 android:textSize="16sp"
                 android:enabled="false"
                 app:icon="@android:drawable/stat_sys_download"
                 app:iconGravity="start"
                 app:cornerRadius="18dp"
+                app:backgroundTint="?attr/colorPrimaryContainer"
+                android:textColor="?attr/colorOnPrimaryContainer"
                 android:layout_marginBottom="12dp" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/BTDownload"
-                style="@style/Widget.Material3.Button.OutlinedButton.Icon"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton.Icon"
                 android:layout_width="match_parent"
                 android:layout_height="64dp"
                 android:text="Baixar RootFS (GitHub)"
-                android:textAppearance="?attr/textAppearanceLabelLarge"
                 android:textSize="16sp"
                 app:icon="@android:drawable/stat_sys_download"
                 app:iconGravity="start"
@@ -325,7 +323,6 @@
                 android:layout_marginBottom="16dp" />
 
             <com.google.android.material.card.MaterialCardView
-                style="@style/Widget.Material3.CardView.Filled"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:cardElevation="0dp"
@@ -350,7 +347,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text="Primeiro baixe o arquivo .orfs do GitHub, depois selecione-o aqui para importar."
-                        android:textAppearance="?attr/textAppearanceBodyMedium"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Body2"
                         android:textColor="?attr/colorOnTertiaryContainer"
                         android:lineSpacingExtra="4dp" />
 

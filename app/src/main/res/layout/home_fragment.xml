@@ -13,17 +13,17 @@
         app:elevation="0dp">
 
         <com.google.android.material.appbar.CollapsingToolbarLayout
-            style="?attr/collapsingToolbarLayoutLargeStyle"
             android:layout_width="match_parent"
-            android:layout_height="?attr/collapsingToolbarLayoutLargeSize"
+            android:layout_height="180dp"
             app:layout_scrollFlags="scroll|exitUntilCollapsed|snap"
             app:title="Meus Jogos"
             app:expandedTitleMarginStart="24dp"
             app:expandedTitleMarginBottom="28dp"
-            app:expandedTitleTextAppearance="@style/TextAppearance.Material3.DisplaySmall"
-            app:collapsedTitleTextAppearance="@style/TextAppearance.Material3.TitleLarge"
+            app:expandedTitleTextAppearance="@style/TextAppearance.AppCompat.Display1"
+            app:collapsedTitleTextAppearance="@style/TextAppearance.AppCompat.Title"
             app:expandedTitleTextColor="?attr/colorOnSurface"
-            app:collapsedTitleTextColor="?attr/colorOnSurface">
+            app:collapsedTitleTextColor="?attr/colorOnSurface"
+            app:contentScrim="?attr/colorSurface">
 
             <com.google.android.material.appbar.MaterialToolbar
                 android:id="@+id/Toolbar"
@@ -46,14 +46,13 @@
             android:orientation="vertical">
 
             <com.google.android.material.card.MaterialCardView
-                style="@style/Widget.Material3.CardView.Filled"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="20dp"
                 android:id="@+id/EmptyCard"
                 android:visibility="gone"
-                app:cardElevation="0dp"
-                app:cardBackgroundColor="?attr/colorSurfaceContainerHigh"
+                app:cardElevation="2dp"
+                app:cardBackgroundColor="?attr/colorSurfaceVariant"
                 app:cardCornerRadius="24dp">
 
                 <LinearLayout
@@ -64,10 +63,9 @@
                     android:gravity="center">
 
                     <com.google.android.material.card.MaterialCardView
-                        style="@style/Widget.Material3.CardView.Elevated"
                         android:layout_width="96dp"
                         android:layout_height="96dp"
-                        app:cardElevation="0dp"
+                        app:cardElevation="4dp"
                         app:cardBackgroundColor="?attr/colorPrimaryContainer"
                         app:cardCornerRadius="28dp"
                         android:layout_marginBottom="24dp">
@@ -85,7 +83,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Nenhum jogo adicionado"
-                        android:textAppearance="?attr/textAppearanceHeadlineSmall"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Headline"
                         android:textColor="?attr/colorOnSurface"
                         android:gravity="center"
                         android:layout_marginBottom="12dp" />
@@ -94,7 +92,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Toque no botão abaixo para adicionar seu primeiro jogo e começar a jogar"
-                        android:textAppearance="?attr/textAppearanceBodyLarge"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
                         android:textColor="?attr/colorOnSurfaceVariant"
                         android:gravity="center"
                         android:lineSpacingExtra="4dp"
@@ -124,11 +122,8 @@
         android:layout_gravity="bottom|end"
         android:layout_margin="24dp"
         android:text="Adicionar Jogo"
-        android:textAppearance="?attr/textAppearanceLabelLarge"
         app:icon="@android:drawable/ic_input_add"
         app:iconGravity="start"
-        app:elevation="8dp"
-        app:cornerRadius="20dp"
         app:backgroundTint="?attr/colorPrimaryContainer"
         app:iconTint="?attr/colorOnPrimaryContainer"
         android:textColor="?attr/colorOnPrimaryContainer" />

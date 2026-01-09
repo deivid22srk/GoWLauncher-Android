@@ -13,17 +13,17 @@
         app:elevation="0dp">
 
         <com.google.android.material.appbar.CollapsingToolbarLayout
-            style="?attr/collapsingToolbarLayoutLargeStyle"
             android:layout_width="match_parent"
-            android:layout_height="?attr/collapsingToolbarLayoutLargeSize"
+            android:layout_height="180dp"
             app:layout_scrollFlags="scroll|exitUntilCollapsed|snap"
             app:expandedTitleMarginStart="24dp"
             app:expandedTitleMarginBottom="28dp"
             app:title="Selecionar Executável"
-            app:expandedTitleTextAppearance="@style/TextAppearance.Material3.DisplaySmall"
-            app:collapsedTitleTextAppearance="@style/TextAppearance.Material3.TitleLarge"
+            app:expandedTitleTextAppearance="@style/TextAppearance.AppCompat.Display1"
+            app:collapsedTitleTextAppearance="@style/TextAppearance.AppCompat.Title"
             app:expandedTitleTextColor="?attr/colorOnSurface"
-            app:collapsedTitleTextColor="?attr/colorOnSurface">
+            app:collapsedTitleTextColor="?attr/colorOnSurface"
+            app:contentScrim="?attr/colorSurface">
 
             <com.google.android.material.appbar.MaterialToolbar
                 android:id="@+id/Toolbar"
@@ -48,13 +48,12 @@
             android:orientation="vertical">
 
             <com.google.android.material.card.MaterialCardView
-                style="@style/Widget.Material3.CardView.Filled"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="20dp"
-                app:cardElevation="0dp"
+                app:cardElevation="2dp"
                 app:cardCornerRadius="20dp"
-                app:cardBackgroundColor="?attr/colorSurfaceContainerHigh">
+                app:cardBackgroundColor="?attr/colorSurfaceVariant">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -79,7 +78,8 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="Localização Atual"
-                                android:textAppearance="?attr/textAppearanceLabelLarge"
+                                android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+                                android:textStyle="bold"
                                 android:textColor="?attr/colorPrimary" />
 
                             <TextView
@@ -87,7 +87,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:text="/storage/emulated/0"
-                                android:textAppearance="?attr/textAppearanceTitleMedium"
+                                android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
                                 android:textColor="?attr/colorOnSurface"
                                 android:fontFamily="monospace"
                                 android:ellipsize="start"
@@ -97,11 +97,10 @@
 
                         <com.google.android.material.button.MaterialButton
                             android:id="@+id/BTUpDir"
-                            style="@style/Widget.Material3.Button.TonalButton.Icon"
+                            style="@style/Widget.MaterialComponents.Button.OutlinedButton.Icon"
                             android:layout_width="wrap_content"
                             android:layout_height="56dp"
                             android:text="Voltar"
-                            android:textAppearance="?attr/textAppearanceLabelLarge"
                             app:icon="@android:drawable/ic_menu_revert"
                             app:cornerRadius="16dp"
                             android:layout_marginStart="16dp" />
@@ -125,14 +124,13 @@
     </androidx.core.widget.NestedScrollView>
 
     <com.google.android.material.card.MaterialCardView
-        style="@style/Widget.Material3.CardView.Elevated"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
         app:cardElevation="8dp"
         app:cardCornerRadius="28dp"
         android:layout_margin="20dp"
-        app:cardBackgroundColor="?attr/colorSurfaceContainerHighest">
+        app:cardBackgroundColor="?attr/colorSurface">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -148,10 +146,9 @@
                 android:layout_marginBottom="16dp">
 
                 <com.google.android.material.card.MaterialCardView
-                    style="@style/Widget.Material3.CardView.Filled"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
-                    app:cardElevation="0dp"
+                    app:cardElevation="2dp"
                     app:cardCornerRadius="12dp"
                     app:cardBackgroundColor="?attr/colorPrimaryContainer"
                     android:layout_marginEnd="12dp">
@@ -169,7 +166,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Arquivo Selecionado"
-                    android:textAppearance="?attr/textAppearanceTitleMedium"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+                    android:textStyle="bold"
                     android:textColor="?attr/colorOnSurface" />
 
             </LinearLayout>
@@ -179,7 +177,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Nenhum arquivo selecionado"
-                android:textAppearance="?attr/textAppearanceBodyLarge"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
                 android:textColor="?attr/colorOnSurfaceVariant"
                 android:layout_marginBottom="24dp"
                 android:ellipsize="middle"
@@ -187,18 +185,18 @@
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/BTStartGame"
-                style="@style/Widget.Material3.Button.TonalButton"
+                style="@style/Widget.MaterialComponents.Button"
                 android:layout_width="match_parent"
                 android:layout_height="64dp"
                 android:text="Adicionar Jogo"
-                android:textAppearance="?attr/textAppearanceLabelLarge"
                 android:textSize="18sp"
                 android:enabled="false"
                 app:icon="@android:drawable/ic_input_add"
                 app:iconGravity="textStart"
                 app:iconSize="28dp"
                 app:cornerRadius="18dp"
-                app:elevation="4dp" />
+                app:backgroundTint="?attr/colorPrimaryContainer"
+                android:textColor="?attr/colorOnPrimaryContainer" />
 
         </LinearLayout>
     </com.google.android.material.card.MaterialCardView>
@@ -214,13 +212,12 @@
         android:elevation="16dp">
 
         <com.google.android.material.card.MaterialCardView
-            style="@style/Widget.Material3.CardView.Elevated"
             android:layout_width="320dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             app:cardElevation="16dp"
             app:cardCornerRadius="28dp"
-            app:cardBackgroundColor="?attr/colorSurfaceContainerHighest">
+            app:cardBackgroundColor="?attr/colorSurface">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -242,7 +239,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Instalando Sistema..."
-                    android:textAppearance="?attr/textAppearanceTitleLarge"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Headline"
                     android:textColor="?attr/colorOnSurface"
                     android:layout_marginTop="24dp" />
 
@@ -250,7 +247,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Aguarde enquanto configuramos o ambiente"
-                    android:textAppearance="?attr/textAppearanceBodyLarge"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body1"
                     android:textColor="?attr/colorOnSurfaceVariant"
                     android:gravity="center"
                     android:layout_marginTop="12dp" />
