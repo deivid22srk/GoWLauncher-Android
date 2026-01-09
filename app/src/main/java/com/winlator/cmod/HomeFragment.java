@@ -36,7 +36,7 @@ import java.util.ArrayList;
 public class HomeFragment extends Fragment {
 
     private RecyclerView recyclerView;
-    private TextView emptyTextView;
+    private View emptyCard;
     private GameManager gameManager;
     private GamesAdapter adapter;
     private ContainerManager containerManager;
@@ -58,7 +58,7 @@ public class HomeFragment extends Fragment {
         View view = inflater.inflate(R.layout.home_fragment, container, false);
 
         recyclerView = view.findViewById(R.id.RecyclerViewGames);
-        emptyTextView = view.findViewById(R.id.TVEmptyText);
+        emptyCard = view.findViewById(R.id.EmptyCard);
         FloatingActionButton fabAddGame = view.findViewById(R.id.FABAddGame);
 
         recyclerView.setLayoutManager(new GridLayoutManager(requireContext(), 2));
@@ -101,10 +101,10 @@ public class HomeFragment extends Fragment {
         ArrayList<Game> games = gameManager.loadGames();
         
         if (games.isEmpty()) {
-            emptyTextView.setVisibility(View.VISIBLE);
+            emptyCard.setVisibility(View.VISIBLE);
             recyclerView.setVisibility(View.GONE);
         } else {
-            emptyTextView.setVisibility(View.GONE);
+            emptyCard.setVisibility(View.GONE);
             recyclerView.setVisibility(View.VISIBLE);
             adapter = new GamesAdapter(games);
             recyclerView.setAdapter(adapter);
