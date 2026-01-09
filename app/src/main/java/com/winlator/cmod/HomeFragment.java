@@ -19,7 +19,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 import com.winlator.cmod.container.Container;
 import com.winlator.cmod.container.ContainerManager;
 import com.winlator.cmod.core.PreloaderDialog;
@@ -59,7 +59,7 @@ public class HomeFragment extends Fragment {
 
         recyclerView = view.findViewById(R.id.RecyclerViewGames);
         emptyCard = view.findViewById(R.id.EmptyCard);
-        FloatingActionButton fabAddGame = view.findViewById(R.id.FABAddGame);
+        ExtendedFloatingActionButton fabAddGame = view.findViewById(R.id.FABAddGame);
 
         recyclerView.setLayoutManager(new GridLayoutManager(requireContext(), 2));
 
